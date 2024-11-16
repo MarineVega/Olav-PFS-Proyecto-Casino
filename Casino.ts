@@ -46,3 +46,5 @@ export class Casino {
         return `${} gracias por elegir ${this.getNombre()}, volve pronto!!!`;// Agregar el nombre del Usuario
     }
 }
+
+console.log("Prueba");
