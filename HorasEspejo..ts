@@ -96,7 +96,7 @@ export class HorasEspejo {
     }
 
     // Determinar el ganador si nadie obtuvo "00:00"
-    public puntajeTotal(): void {
+    public mostrarPuntajeTotal(): void {
         console.log(`Puntaje total jugador: ${this.puntosAcumulados}`);
         console.log(`Puntaje total máquina: ${this.puntosAcumuladosMaquina}`);
      
