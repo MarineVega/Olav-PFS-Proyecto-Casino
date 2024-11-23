@@ -1,0 +1,16 @@
+apostar(costo: number): void; --> Verifica si tiene crédito. 
+	|
+	-->  verificarDinero(dineroDisponible: number) 
+	|--> usarDinero(monto: number) 
+
+
+verificarDinero(dineroDisponible: number) --> Verifica si dispone dinero para realizar 							      la apuesta. Si no dispone dinero, 								preguntar opcion de 
+								cargar mas dinero
+
+gastarDinero(monto: number) --> hace el decremento de dinero
+
+pagarApuesta(dinero: number): void; --> suma el dinero disponible al juego
+
+duplicarApuesta(monto: number): void; --> duplica el dinero ganado
+
+

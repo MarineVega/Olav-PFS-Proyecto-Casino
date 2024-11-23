@@ -1,39 +1,51 @@
-export abstract class Juego {
+import { Apuesta } from "./Apuesta";
+
+export abstract class Juego implements Apuesta{
     protected nombre: string;
     protected reglamento: string;
     protected apuestaMinima: number;
     protected apuestaMaxima: number;
-    protected creditos: number;
-    protected equivalenciaCredito: number;
+    protected dinero: number;
 
-    constructor(nombre: string, reglamento: string){
+    constructor(nombre: string, reglamento: string, apuMin: number, apuMax: number){
         this.nombre = nombre;
         this.reglamento = reglamento;
-        this.apuestaMinima = 0;
-        this.apuestaMaxima = 0;
-        this.creditos = 0;
-        this.equivalenciaCredito = 0;
-    }
-
-    protected iniciarJuego(apuMin: number, apuMax: number, equivCred: number): void{
+        this.dinero = 0;
         this.setApuestaMinima(apuMin);    
         this.setApuestaMaxima(apuMax);
-        this.setEquivalenciaCredito(equivCred);
     }
 
+    //Interface Apuesta
+
+    abstract apostar(costo: number): void;
+    abstract verificarDinero(dineroDisponible: number): void;
+    abstract gastarDinero(monto: number): void;
+    abstract pagarApuesta(dinero: number): void;
+    abstract duplicarApuesta(monto: number): void;
+
+    protected iniciarJuego(dinero: number): void{
+        this.cargarDinero(dinero);
+    }
+
+    //Metodos abstractos para implementar en cada Juego
+    
     protected abstract finalizarJuego(): void;
+
+    protected abstract determinarGanador(): void; 
 
     protected mostrarJuego(): string {
         return `Juego: ${this.getNombre()}\nReglamento: ${this.getReglamento()}`
     }
 
-    protected cargarCredito(cantCreditos: number): void {
-        this.creditos += cantCreditos;
+    protected cargarDinero(cantDinero: number): void {
+        this.dinero += cantDinero;
     }
 
-    protected usarCredito(): void {
-        this.creditos--;
+    protected usarDinero(cantDinero: number): void {
+        this.dinero =- cantDinero;
     }
+
+    //protected retirarDinero() envia el dinero a la billetera del usuario
 
     //Getter and setters
 
@@ -69,20 +81,12 @@ export abstract class Juego {
         this.apuestaMaxima = apuestaMaxima;
     }
 
-    public getCreditos(): number {
-        return this.creditos;
+    public getDinero(): number {
+        return this.dinero;
     }
 
-    public setCreditos(creditos: number): void {
-        this.creditos = creditos;
-    }
-
-    public getEquivalenciaCredito(): number {
-        return this.equivalenciaCredito;
-    }
-
-    public setEquivalenciaCredito(equivalenciaCredito: number): void {
-        this.equivalenciaCredito = equivalenciaCredito;
+    public setDinero(creditos: number): void {
+        this.dinero = creditos;
     }
 
 }
