@@ -21,12 +21,13 @@ export class Tragamoneda {
         this.intentosMaximos = intentosMaximos;
     }
 
-    private generarBarra(numPosiciones: number): string[] {
+    protected generarBarra(numPosiciones: number): string[] {
         const barra: string[] = [];
         for (let i = 0; i < numPosiciones; i++) {
             const valorAleatorio = this.valores[Math.floor(Math.random() * this.valores.length)];
             barra.push(valorAleatorio);
         }
+        console.log(barra)
         return barra;
     }
 
