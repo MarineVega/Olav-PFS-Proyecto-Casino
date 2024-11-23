@@ -30,7 +30,7 @@ export class Tragamoneda {
         return barra;
     }
 
-    private tirar(): string[] {
+    protected tirar(): string[] {
         if (this.intentosMaximos <= 0) {
             console.log("Upss❗ No quedan más intentos 🥺.");
             return [];  
@@ -44,7 +44,7 @@ export class Tragamoneda {
         }
 
         this.intentosMaximos--;
-        console.log("Acaba de tirar! Buena suerte 🍀");
+        console.log("Acaba de tirar! Buena suerte 🤞");
         return resultado;
     }
 

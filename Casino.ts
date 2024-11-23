@@ -1,5 +1,6 @@
 import { Juego } from "./Juego"
 import { Tragamoneda } from "./Tragamoneda";
+import { TragamonedaPremium } from "./TragamonedaPremiun";
 import { Usuario } from "./Usuario";
 
 export class Casino {
@@ -52,8 +53,20 @@ export class Casino {
 let tragamonedaSports1 : Tragamoneda = new Tragamoneda(6, 3, 5);
 let tragamonedaSports2 : Tragamoneda = new Tragamoneda(4, 3, 4);
 
-tragamonedaSports1.mostrarResultado();
+/*tragamonedaSports1.mostrarResultado();
 tragamonedaSports2.mostrarResultado();
-console.log(tragamonedaSports2);
+console.log(tragamonedaSports2);*/
+
+let tragamonedaPremium: TragamonedaPremium = new TragamonedaPremium(3, 3, 4);
+
+//HABRIA QUE TRATAR DE AUMENTAR LA POSIBILIDAD DE QUE SALGA EL COMODIN, NO SOLO PARA PROBAR EL METODO SINO TAMNIEN PARA QUE TENGA SENTIDO EL TRAGAMONEDA PREMIUM
+tragamonedaPremium.mostrarResultado();
+tragamonedaPremium.mostrarResultado();
+tragamonedaPremium.mostrarResultado();
+//Ya no quedan mas intnetos
+tragamonedaPremium.mostrarResultado();
+
+
+
 
 
