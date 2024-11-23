@@ -1,3 +1,7 @@
+import { Juego } from "./Juego"
+import { Tragamoneda } from "./Tragamoneda";
+import { Usuario } from "./Usuario";
+
 export class Casino {
 
     private nombre: string;
@@ -30,11 +34,9 @@ export class Casino {
         return `Casino: ${this.getNombre()} \n Usuarios del Casino: ${this.getUsuarios()} \n Juegos del Casino: ${this.getJuegos()}`;
     }
 
-    public listarNombres(arreglo: Usuario | Juego): String {
+    public listarNombres(arreglo: Usuario[] | Juego[]): String {
         let cadena: string = ' ';
-        arreglo.forEach(a => {
-            cadena += `\n ${a.getNombre()}`
-        });
+        arreglo.forEach(a => cadena += `\n ${a.getNombre()}`)
         return cadena;
     }
 
@@ -43,8 +45,15 @@ export class Casino {
     }
 
     public despedir(): string {
-        return `${} gracias por elegir ${this.getNombre()}, volve pronto!!!`;// Agregar el nombre del Usuario
+        return `Gracias por elegir ${this.getNombre()}, volve pronto!!!`;
     }
 }
 
-console.log("Prueba Ramas GitHub");
+let tragamonedaSports1 : Tragamoneda = new Tragamoneda(6, 3, 5);
+let tragamonedaSports2 : Tragamoneda = new Tragamoneda(4, 3, 4);
+
+tragamonedaSports1.mostrarResultado();
+tragamonedaSports2.mostrarResultado();
+console.log(tragamonedaSports2);
+
+
