@@ -28,6 +28,7 @@ export class Tragamoneda {
             barra.push(valorAleatorio);
         }
         console.log(barra)
+        
         return barra;
     }
 
