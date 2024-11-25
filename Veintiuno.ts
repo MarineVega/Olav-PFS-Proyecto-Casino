@@ -1,7 +1,6 @@
 import { Juego } from "./Juego";
 import { Apuesta } from "./Apuesta";
 import { Usuario } from "./Usuario";
-import { log } from "console";
 
 //export class Veintiuno extends Juego {
 export class Veintiuno extends Juego implements Apuesta {
@@ -51,7 +50,7 @@ export class Veintiuno extends Juego implements Apuesta {
 
     // Chequeo que el dinero disponible del jugador le alcance para realizar la apuesta
     public verificarDinero (costo: number): boolean {
-        if (this.usuario.getDineroDisponible() >= costo) {
+        if (this.usuario.getBilletera() >= costo) {
             return true;
         } else {
             return false;
@@ -60,9 +59,9 @@ export class Veintiuno extends Juego implements Apuesta {
 
     public gastarDinero(monto: number): boolean {
         let disponible: number;
-        disponible = this.usuario.getDineroDisponible() - monto;   
+        disponible = this.usuario.getBilletera() - monto;   
         if (disponible >= 0) {
-            this.usuario.setDineroDisponible(disponible);
+            this.usuario.setBilletera(disponible);
             this.apuesta = monto;
             return true;
         } else {
@@ -75,18 +74,15 @@ export class Veintiuno extends Juego implements Apuesta {
         ranking += ranking;
         this.usuario.setRanking(ranking);
 
-        let disponible = this.usuario.getDineroDisponible();
+        let disponible = this.usuario.getBilletera();
         disponible += dinero;
-        this.usuario.setDineroDisponible(disponible);
+        this.usuario.setBilletera(disponible);
         
         console.log("");
         console.log("💸💸💸💸💸💸");
         
         console.log(`Felicitaciones!!! ganó $ ${dinero} 💰`);
-        console.log(`Tiene $ ${this.usuario.getDineroDisponible()} disponibles para seguir jugando!!!`);
-    };
-
-    public duplicarApuesta(monto: number): void {
+        console.log(`Tiene $ ${this.usuario.getBilletera()} disponibles para seguir jugando!!!`);
     };
 
     public finalizarJuego(): void {

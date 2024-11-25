@@ -21,7 +21,6 @@ export abstract class Juego implements Apuesta{
     abstract verificarDinero(dineroDisponible: number): void;
     abstract gastarDinero(monto: number): void;
     abstract pagarApuesta(dinero: number): void;
-    abstract duplicarApuesta(monto: number): void;
 
     protected iniciarJuego(dinero: number): void{
         this.cargarDinero(dinero);

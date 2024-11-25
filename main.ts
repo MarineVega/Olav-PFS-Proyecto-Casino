@@ -14,7 +14,7 @@ let continuar: string = "S";
 let apuesta: number;
 let apuestaValida: boolean;
 
-console.log("Dinero disponible del usuario: " + usuario.getDineroDisponible());
+console.log("Dinero disponible del usuario: " + usuario.getBilletera());
 
 
 do {
@@ -22,7 +22,7 @@ do {
     apuestaValida = partida1.apostar(apuesta);
 } while (!apuestaValida)
 
-console.log("Dinero disponible del usuario: " + usuario.getDineroDisponible());
+console.log("Dinero disponible del usuario: " + usuario.getBilletera());
 
 if (apuestaValida) {
 
@@ -36,17 +36,17 @@ if (apuestaValida) {
             do {
                 continuar = rs.question("Desea tirar nuevamente: S/N? ");
                 // chequeo que ingrese una opción válida
-            } while (!["S", "s", "N", "n"].includes(continuar))        
+            } while (!["s", "n"].includes(continuar.toLowerCase()))        
         }  
-    } while ((continuar == "S" || continuar == "s") && !partida1.getFinalizoPartida())
+    } while ((continuar.toLowerCase() == "s") && !partida1.getFinalizoPartida())
         
         
     // chequeo si salió porque el usuario no quiso continuar
-    if (continuar == "N" || continuar == "n") {    
+    if (continuar.toLowerCase() == "n") {    
         partida1.detenerPartida(1);
     }
     
-    console.log("Dinero disponible del usuario: " + usuario.getDineroDisponible());
+    console.log("Dinero disponible del usuario: " + usuario.getBilletera());
 }
 
 /*

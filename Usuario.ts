@@ -3,20 +3,13 @@ export  class Usuario {
     public alias: string;
     public nombre: string;
     public aliasCuenta: string;
-    protected rankin: number = 0;
-    protected dineroInicio: number;
-    protected dineroDisponible: number = 0;
-   // protected juegoSelecionado: Juego;  // se compone de clase juego??? 
+    protected ranking: number = 0;
+    protected billetera: number;
 
-    constructor(alias: string, nombre: string, dineroInicio: number) {
-
+    constructor(alias: string, nombre: string, billetera: number) {
         this.alias = alias;
         this.nombre = nombre;
-        this.dineroInicio = dineroInicio;
-
-        //OJO!!! AGREGADO
-        this.dineroDisponible = dineroInicio;
-
+        this.billetera = billetera;
     }
 
     public crearAliascuenta(alias: string, Nombre: string): void {
@@ -56,19 +49,19 @@ export  class Usuario {
 
 
     /* agregado! */
-    public getDineroDisponible(): number {
-        return this.dineroDisponible;
+    public getBilletera(): number {
+        return this.billetera;
     }
 
-    public setDineroDisponible(dineroDisponible: number): void {
-        this.dineroDisponible = dineroDisponible;
+    public setBilletera(billetera: number): void {
+        this.billetera = billetera;
     }
 
     public getRanking(): number {
-        return this.rankin;
+        return this.ranking;
     }
 
     public setRanking (ranking: number): void {
-        this.rankin = ranking;
+        this.ranking = ranking;
     }
 }
