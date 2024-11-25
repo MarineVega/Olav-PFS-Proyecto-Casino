@@ -1,3 +1,6 @@
+import * as readlineSync from "readline-sync";
+import { Casino } from "./Casino";
+
 export  class Usuario {
 
     public alias: string;
@@ -13,19 +16,22 @@ export  class Usuario {
         this.alias = alias;
         this.nombre = nombre;
         this.dineroInicio = dineroInicio;
+    }
+    public SetAliascuenta(alias: string, nombre: string): void {
+        if (alias!=""&& nombre!=""){
+          this.aliasCuenta = this.nombre +" Alias " + this.alias
+  
+        }else if (nombre!=""){
+            this.aliasCuenta = this.nombre +" Alias  Jugador Anonimo" 
+        } console.log("Ingrese su Nombre para jugar..!")
 
+        
     }
 
-    public crearAliascuenta(alias: string, Nombre: string): void {
-
-        this.aliasCuenta = this.nombre +" Alias " + this.alias
-
-    }
-
-    protected getalias(): String {
+    public getAlias(): String {
         return this.alias;
     }
-    protected setalias(alias: string) {
+    protected setAlias(alias: string) {
         if (alias!=""){
            this.alias = alias;  
         }else{
@@ -33,10 +39,10 @@ export  class Usuario {
         }
        
     }
-    protected getnombre(): string {
+    public getNombre(): string {
         return this.nombre;
     }
-    protected setnombre(nombre: string) {
+    protected setNombre(nombre: string):void{
         if (nombre!=""){
           this.nombre = nombre;   
         }else {
@@ -44,9 +50,36 @@ export  class Usuario {
         }
 
     }
-
-
-    protected getaliasCuenta(): string {
+    protected getAliasCuenta(): string {
         return this.aliasCuenta;
     }
+
+    
+    public getDineroInicio(): number {
+        return this.dineroInicio;
+    }
+
+    public RegistrarUsuario(): void {
+        console.log("Ingrese su nombre completo ");
+        const readlineSync = require('readline-sync');
+        const nombre: string = readlineSync.question("Ingrese aqui su nombre: ");
+        console.log("Escriba su Alias si lo tiene(opcional)");
+        let alias: string = readlineSync.question("Descripcion u alias: ");
+        console.log("Billetera para jugar "); 
+        let dineroInicio = readlineSync.questionInt('Ingrese dinero a jugar: ');
+        
+        if ((nombre != "") && (dineroInicio >= 0)) {
+            if (alias === "") {
+                               alias = "Jugador Anonimo"
+                              }
+            console.log("Cargando datos....");
+            console.log(` jugador : ${nombre} \n alias : ${alias} \n Billetera  : ${dineroInicio} \n`);
+            this.nombre=nombre
+            this.alias=alias
+            this.dineroInicio=dineroInicio
+                 
+        }
+    
+    }
+
 }

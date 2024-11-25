@@ -1,4 +1,4 @@
-import { Usuario } from "./Usuario";
+import { Usuario } from "../Usuario";
 
 const jugador:Usuario=new Usuario("ganador", "juan", 100000);
 
