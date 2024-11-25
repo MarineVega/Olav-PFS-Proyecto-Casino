@@ -1,6 +1,7 @@
 import { Juego } from "./Juego";
 import { Apuesta } from "./Apuesta";
 import { Usuario } from "./Usuario";
+import { log } from "console";
 
 //export class Veintiuno extends Juego {
 export class Veintiuno extends Juego implements Apuesta {
@@ -11,8 +12,10 @@ export class Veintiuno extends Juego implements Apuesta {
     private ultimaCarta: number;
     private mano: boolean;
     private finalizoPartida: boolean;
+    private usuario: Usuario;
+    private apuesta: number;
     
-    constructor (nombre: string, reglamento: string, apuestaMinima: number, apuestaMaxima: number) {
+    constructor (nombre: string, reglamento: string, apuestaMinima: number, apuestaMaxima: number, usuario: any) {
         super (nombre, reglamento, apuestaMinima, apuestaMaxima);
         this.sumatoriaValoresJugador = 0;
         this.cantidadCartasJugador = 0;
@@ -21,18 +24,66 @@ export class Veintiuno extends Juego implements Apuesta {
         this.ultimaCarta = 0;
         this.mano = true;
         this.finalizoPartida = false;
+        this.usuario = usuario;
+
     }
 
-    public apostar(costo: number): void {
+    public apostar(costo: number): boolean {
+        
+        if (this.validarMinimosMaximos(costo)) {        
+            if (this.verificarDinero(costo)) {
+                if(this.gastarDinero(costo)) {
+                    console.log(`La apuesta de ${costo} se realizó exitosamente`)
+                    return true;
+                } else {
+                    console.log("El dinero disponible no es suficiente para realizar la apuesta.")
+                    return false;
+                }
+            } else {
+                console.log("El dinero disponible no es suficiente para realizar la apuesta.")
+                return false;
+            }
+        } else {
+            console.log(`El dinero apostado $ ${costo} excede los rangos admitidos de apuesta mínima ($ ${this.apuestaMinima}) y/o apuesta máxima ($ ${this.apuestaMaxima}).\nVuelva a realizar la apuesta`);
+            return false
+        }
     };
 
-    public verificarDinero(dineroDisponible: number): void {
+    // Chequeo que el dinero disponible del jugador le alcance para realizar la apuesta
+    public verificarDinero (costo: number): boolean {
+        if (this.usuario.getDineroDisponible() >= costo) {
+            return true;
+        } else {
+            return false;
+        }
     };
 
-    public gastarDinero(monto: number): void {
-    };
+    public gastarDinero(monto: number): boolean {
+        let disponible: number;
+        disponible = this.usuario.getDineroDisponible() - monto;   
+        if (disponible >= 0) {
+            this.usuario.setDineroDisponible(disponible);
+            this.apuesta = monto;
+            return true;
+        } else {
+            return false;            
+        }
+    };  
 
     public pagarApuesta(dinero: number): void {
+        let ranking = this.usuario.getRanking();
+        ranking += ranking;
+        this.usuario.setRanking(ranking);
+
+        let disponible = this.usuario.getDineroDisponible();
+        disponible += dinero;
+        this.usuario.setDineroDisponible(disponible);
+        
+        console.log("");
+        console.log("💸💸💸💸💸💸");
+        
+        console.log(`Felicitaciones!!! ganó $ ${dinero} 💰`);
+        console.log(`Tiene $ ${this.usuario.getDineroDisponible()} disponibles para seguir jugando!!!`);
     };
 
     public duplicarApuesta(monto: number): void {
@@ -41,6 +92,14 @@ export class Veintiuno extends Juego implements Apuesta {
     public finalizarJuego(): void {
 
     };
+
+    private validarMinimosMaximos(costo: number): boolean {
+        if (costo >= this.apuestaMinima && costo <= this.apuestaMaxima) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     private setManoJugador(): void {
         this.mano = true;
@@ -131,9 +190,9 @@ export class Veintiuno extends Juego implements Apuesta {
             
         }
         if (ganador == "Jugador") {
-            // seteo el ranking
+            this.pagarApuesta(this.apuesta * 2);
         }
-
+        
         return ganador
     }
     
@@ -168,5 +227,7 @@ export class Veintiuno extends Juego implements Apuesta {
         } else {
             return `🤷 Hubo un empate entre el jugador y la máquina, ambos obtuvieron un total de ${this.sumatoriaValoresJugador}, en ${this.cantidadCartasJugador} tiradas.`
         }
+
+
     }
 }
