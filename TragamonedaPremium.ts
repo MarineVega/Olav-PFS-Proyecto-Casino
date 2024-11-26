@@ -9,6 +9,7 @@ export class TragamonedaPremium extends Tragamoneda {
     constructor(nombre: string, reglamento: string, apuMin: number, apuMax: number, jugador: Usuario, intentosMaximos: number) {
         super(nombre, reglamento, apuMin, apuMax, jugador, intentosMaximos);
         this.valores = ["🍎", "🍐", "🍇", "🍍", "🍉", "🍏", "🍒", "🍊", "🫐", "🍌"];
+        //this.valores = ["🍎", "🍐"]; // Nos permite probar el método en caso de que salgan dos valores iguales.
         this.comodin = "🃏";  
         this.agregarComodin();  
         this.barras = Array.from({ length: this.numBarras }, () => this.generarBarra(this.numElementos));
@@ -18,10 +19,9 @@ export class TragamonedaPremium extends Tragamoneda {
         return this.comodin;
     }
 
-    public agregarComodin(): void {
-        const comodinesADistribuir = Math.floor(this.FACTOR_SUERTE); 
-        for (let i = 0; i < comodinesADistribuir; i++) {
-            this.valores.push(this.comodin);
+    public agregarComodin(): void { 
+        for (let index = 0; index < this.FACTOR_SUERTE; index++) {   
+            this.valores.push(this.comodin);    
         }
     }
 
@@ -36,9 +36,13 @@ export class TragamonedaPremium extends Tragamoneda {
 
     public bonificacionDeTirada(resultado: string[]): void {
         if (resultado[0] === resultado[1] && resultado[1] === resultado[2]) {
-            console.log(`Winner 🏆‼️ 🎉 Has sacado tres ${resultado[0]} iguales 🎉 Se suma dinero a tu billetera 💲💰`);
+            console.log(`Ganaste🏆‼️ 🎉 Sacaste tres ${resultado[0]} iguales 🎉 Se suma dinero a tu billetera💲💰`);
 
-            this.jugador.agregarDinero(1500);
+            this.jugador.agregarDinero(5000);
+        }
+        else if (resultado[0] === resultado[1] || resultado[1] === resultado[2] || resultado[0] === resultado[2]) {
+            console.log(`¡Bonificación! 🎉 Has sacado dos frutas iguales 🎉 Se suma dinero a tu billetera💲💰`);
+            this.jugador.agregarDinero(2500);
         }
     }
 
@@ -77,7 +81,7 @@ export class TragamonedaPremium extends Tragamoneda {
 
     public duplicarIntentos(): void {
         this.intentosMaximos *= 2; 
-        console.log("🎊Has obtenido el comodin🎊 ¡Duplicaste tus intentos! 🎁 Ahora tienes", this.intentosMaximos, "intentos.");
+        console.log("🎊 Has obtenido el comodin 🎊 ¡Duplicaste tus intentos! 🎁 Ahora tienes", this.intentosMaximos, "intentos 👍.");
     }
 }
 

@@ -3,19 +3,10 @@ import { Usuario } from "./Usuario";
 
 export class TragamonedaSports extends Tragamoneda {
 
-    constructor(
-        nombre: string, 
-        reglamento: string, 
-        apuMin: number, 
-        apuMax: number, 
-        jugador: Usuario, 
-        intentosMaximos: number
-    ) {
+    constructor(nombre: string, reglamento: string, apuMin: number, apuMax: number, jugador: Usuario, intentosMaximos: number) {
         super(nombre, reglamento, apuMin, apuMax, jugador, intentosMaximos);
-        
-        //this.valores = ["🏀", "🎱", "🏐", "⚽", "🏈", "🏉", "🏓", "🥊", "🏑", "🎾", "⛸️", "⛳"];
-       //this.valores = ["🏀"]; Nos permite probar el método en caso de que salgan tres valores iguales.
-        
+        this.valores = ["🏀", "🎱", "🏐", "⚽", "🏈", "🏉", "🏓", "🥊", "🏑", "🎾", "⛸️", "⛳"];
+       //this.valores = ["🏀"];// Nos permite probar el método en caso de que salgan tres valores iguales.
         this.inicializarBarras();
     }
 
@@ -30,9 +21,13 @@ export class TragamonedaSports extends Tragamoneda {
 
     public bonificacionDeTirada(resultado: string[]): void {
         if (resultado[0] === resultado[1] && resultado[1] === resultado[2]) {
-            console.log(`Winner 🏆‼️ 🎉 Has sacado tres ${resultado[0]} iguales 🎉 Se suma dinero a tu billetera 💲💰`);
+            console.log(`Ganaste🏆‼️ 🎉 Sacaste tres ${resultado[0]} iguales 🎉 Se suma dinero a tu billetera💲💰`);
 
-            this.jugador.agregarDinero(1000); 
+            this.jugador.agregarDinero(3000); 
+        }
+        else if (resultado[0] === resultado[1] || resultado[1] === resultado[2] || resultado[0] === resultado[2]) {
+            console.log(`¡Bonificación! 🎉 Has sacado dos deportes iguales 🎉 Se suma dinero a tu billetera💲💰`);
+            this.jugador.agregarDinero(1500);
         }
     }
 
