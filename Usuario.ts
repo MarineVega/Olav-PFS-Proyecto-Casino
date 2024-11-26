@@ -6,16 +6,16 @@ export  class Usuario {
     public alias: string;
     public nombre: string;
     public aliasCuenta: string;
-    protected rankin: number = 0;
-    protected dineroInicio: number;
-    protected dineroDisponible: number = 0;
+    protected juegosGanados: number = 0;
+    protected billetera: number;
+    
    // protected juegoSelecionado: Juego;  // se compone de clase juego??? 
 
     constructor(alias: string, nombre: string, dineroInicio: number) {
 
         this.alias = alias;
         this.nombre = nombre;
-        this.dineroInicio = dineroInicio;
+        this.billetera = dineroInicio;
     }
     public SetAliascuenta(alias: string, nombre: string): void {
         if (alias!=""&& nombre!=""){
@@ -26,6 +26,10 @@ export  class Usuario {
         } console.log("Ingrese su Nombre para jugar..!")
 
         
+    }
+
+    public getjuegosGanados(): number {
+        return this.juegosGanados;
     }
 
     public getAlias(): String {
@@ -55,8 +59,8 @@ export  class Usuario {
     }
 
     
-    public getDineroInicio(): number {
-        return this.dineroInicio;
+    public getBilletera(): number {
+        return this.billetera;
     }
 
     public RegistrarUsuario(): void {
@@ -76,8 +80,9 @@ export  class Usuario {
             console.log(` jugador : ${nombre} \n alias : ${alias} \n Billetera  : ${dineroInicio} \n`);
             this.nombre=nombre
             this.alias=alias
-            this.dineroInicio=dineroInicio
-                 
+            this.billetera=dineroInicio
+            //const usuarioActual=new Usuario(this.alias,this.nombre,this.billetera);
+             
         }
     
     }

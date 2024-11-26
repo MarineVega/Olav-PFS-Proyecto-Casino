@@ -16,6 +16,8 @@ console.log("Bienvenido al casino .Por favor registrese para seguir... ");
 // Crear un nuevo objeto de Usuario vacio
 const usuario = new Usuario('', '', 0);
 usuario.RegistrarUsuario();
+console.log(`Juegos ganados : ${usuario.getjuegosGanados()}`)
+console.log(`Billetera para jugar : ${usuario.getBilletera()}`)
 casino1.darBienvenida(usuario.getNombre());
 menuCasino();
 
@@ -23,7 +25,7 @@ menuCasino();
 //____________________ Menu principal de juegos _____________________________
 
 function menuCasino(): void {
-   
+
     console.log(`Seleccione el juego que desee \n `);
     console.log("1. Opcion 1: Tragamonedas");
     console.log("2. Opcion 2: Tragamonedas Premiun ");
@@ -69,72 +71,76 @@ function returnToMenu(): void {
 
 // ___________________ jugar Tragamonedas ________________________
 
-function juegoTragamonedas(){
-console.log("Estas jugando en version base de tragamonedas \n");
-console.log(`"🏀", "🎱", "🏐"`);
-console.log(`"🏈", "🏉", "🏓"`);
-console.log(`"🥊", "🏑", "🎾"`);
-console.log("\n");
+function juegoTragamonedas() {
+    console.log("Estas jugando en version base de tragamonedas \n");
+    /*
+    console.log(`"🏀", "🎱", "🏐"`);
+    console.log(`"🏈", "🏉", "🏓"`);
+    console.log(`"🥊", "🏑", "🎾"`);
+    console.log("\n");
+    */
+    const readlineSync = require('readline-sync');
 
-const readlineSync = require('readline-sync');
+    // Solicitamos al usuario un número entero
+    const nombre: string = "Tragamoneda"
+    let numeroJugadas = readlineSync.questionInt("¿Cual es la cantidad de intentos 1 , 2 o mas que deceas hacer ...? ");
+    const reglamento: string = "Basico"
 
-// Solicitamos al usuario un número entero
-const nombre:string= "Tragamonedas Base "
-let numeroJugadas = readlineSync.questionInt("¿Cual es la cantidad de intentos 1 , 2 o mas que deceas hacer ...? " );
+    let tragamonedaPremium: TragamonedaPremium = new TragamonedaPremium(nombre, reglamento, numeroJugadas, 3, 3);
+    let maximoTiradas: number = tragamonedaPremium.getIntentosMaximos();
 
-let intentosMaximos = numeroJugadas;
-const reglamento:string="Basico"
-
-    let tragamonedaSports1: Tragamoneda = new Tragamoneda( numeroJugadas, 3, 3);// 3 rodillos 3 posiciones
-    while (intentosMaximos > 0) {
-        console.log("nueva tirada...");
-        tragamonedaSports1.mostrarResultado();
-
-        intentosMaximos--;
+    while (maximoTiradas > 0) {
+        tragamonedaPremium.mostrarResultado();
+        //maximoTiradas = tragamonedaPremium.getIntentosMaximos();
+        maximoTiradas--;
     }
 
-returnToMenu();
+    console.log(tragamonedaPremium.getValores());
+
+    returnToMenu();
+
 }
 
 //__________________ jugar Tragamonedas Premiun ______________________
 
 function juegoTragamonedasPremiun(): void {
-    
 
-    console.log("Estas jugando en version base de tragamonedas \n");
-    console.log(`"🏀", "🃏", "🏐"`);
-    console.log(`"🏈", "🃏", "🏓"`);
-    console.log(`"🥊", "🃏", "🎾"`);
+    /*
+        console.log("Estas jugando en version base de tragamonedas \n");
+        console.log(`"🏀", "🃏", "🏐"`);
+        console.log(`"🏈", "🃏", "🏓"`);
+        console.log(`"🥊", "🃏", "🎾"`);
+        */
     console.log("\n");
     // Solicitamos al usuario un número entero
     const readlineSync = require('readline-sync');
-    let nombre:string="TragamonedaPremium."
-    let numeroJugadas = readlineSync.questionInt("¿Cual es la cantidad de intentos 1 , 2 o mas que deceas hacer ...? " );
-    let reglamento:string="Comodin";
-    let tragamonedaPremium: TragamonedaPremium = new TragamonedaPremium(nombre,reglamento,numeroJugadas, 3, 3);
+    let nombre: string = "TragamonedaPremium."
+    let numeroJugadas = readlineSync.questionInt("¿Cual es la cantidad de intentos 1 , 2 o mas que deceas hacer ...? ");
+    let reglamento: string = "Comodin";
+    let tragamonedaPremium: TragamonedaPremium = new TragamonedaPremium(nombre, reglamento, numeroJugadas, 3, 3);
     let maximoTiradas: number = tragamonedaPremium.getIntentosMaximos();
 
-while (maximoTiradas > 0){
-    tragamonedaPremium.mostrarResultado();
-    maximoTiradas = tragamonedaPremium.getIntentosMaximos();
+    while (maximoTiradas > 0) {
+        tragamonedaPremium.mostrarResultado();
+        //maximoTiradas = tragamonedaPremium.getIntentosMaximos();
+        maximoTiradas--;
+    }
 
-}
+    console.log(tragamonedaPremium.getValores());
 
-console.log(tragamonedaPremium.getValores());
-
-/*
+    /*
+        
     
-
-    let intentosMaximos = numeroJugadas;
-    const reglamento:string="Basico"
+        let intentosMaximos = numeroJugadas;
+        const reglamento:string="Basico"
+        
+            let tragamonedaSports1: Tragamoneda = new Tragamoneda( numeroJugadas, 3, 3);// 3 rodillos 3 posiciones
+            while (intentosMaximos > 0) {
+                console.log("nueva tirada...");
+                tragamonedaSports1.mostrarResultado();
     
-        let tragamonedaSports1: Tragamoneda = new Tragamoneda( numeroJugadas, 3, 3);// 3 rodillos 3 posiciones
-        while (intentosMaximos > 0) {
-            console.log("nueva tirada...");
-            tragamonedaSports1.mostrarResultado();
-
-            intentosMaximos--;
-        }*/
+                intentosMaximos--;
+            }*/
 
     returnToMenu();
 }
@@ -146,9 +152,54 @@ console.log(tragamonedaPremium.getValores());
 
 
 function juegoVeintiuno(): void {
-    const name = readlineSync.question("¿Cual es su figura para jugar? ");
 
-    console.log(`¡Eligio el numero  ${name}!`);
+
+    console.log(" ");
+    console.log(" ******************************************** JUEGO 21 *********************************************");
+
+    const usuario = new Usuario("Mary", "Mariné", 10000);
+    // const partida1: Veintiuno = new Veintiuno ("Veintiuno Partida 1", "Reglamento", 100,500, usuario);
+
+    let continuar: string = "S";
+    let apuesta: number;
+    let apuestaValida: boolean;
+
+    console.log("Dinero disponible del usuario: " + usuario.getBilletera());
+
+    /* 
+     do {
+         apuesta = readlineSync.questionInt("Ingrese el dinero de la apuesta: ");
+         apuestaValida = partida1.apostar(apuesta);
+     } while (!apuestaValida)
+     
+     console.log("Dinero disponible del usuario: " + usuario.getBilletera());
+     
+     if (apuestaValida) {
+     
+         do {    
+             partida1.jugar();
+             if (!partida1.getFinalizoPartida()) {
+                 console.log(partida1.mostrarPartida());
+             }
+         
+             if (!partida1.getFinalizoPartida()) {
+                 do {
+                     continuar = readlineSync.question("Desea tirar nuevamente: S/N? ");
+                     // chequeo que ingrese una opción válida
+                 } while (!["s", "n"].includes(continuar.toLowerCase()))        
+             }  
+         } while ((continuar.toLowerCase() == "s") && !partida1.getFinalizoPartida())
+             
+             
+         // chequeo si salió porque el usuario no quiso continuar
+         if (continuar.toLowerCase() == "n") {    
+             partida1.detenerPartida(1);
+         }
+         
+         console.log("Dinero disponible del usuario: " + usuario.getBilletera());
+     }
+     
+ */
     returnToMenu();
 }
 
