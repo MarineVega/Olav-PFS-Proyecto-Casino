@@ -11,11 +11,11 @@ export class Veintiuno extends Juego implements Apuesta {
     private ultimaCarta: number;
     private mano: boolean;
     private finalizoPartida: boolean;
-    private usuario: Usuario;
+   // private usuario: Usuario;
     private apuesta: number;
     
-    constructor (nombre: string, reglamento: string, apuestaMinima: number, apuestaMaxima: number, usuario: any) {
-        super (nombre, reglamento, apuestaMinima, apuestaMaxima);
+    constructor (nombre: string, reglamento: string, apuestaMinima: number, apuestaMaxima: number, jugador: Usuario) {
+        super (nombre, reglamento, apuestaMinima, apuestaMaxima, jugador);
         this.sumatoriaValoresJugador = 0;
         this.cantidadCartasJugador = 0;
         this.sumatoriaValoresMaquina = 0;
@@ -23,8 +23,6 @@ export class Veintiuno extends Juego implements Apuesta {
         this.ultimaCarta = 0;
         this.mano = true;
         this.finalizoPartida = false;
-        this.usuario = usuario;
-
     }
 
     public apostar(costo: number): boolean {
@@ -50,7 +48,7 @@ export class Veintiuno extends Juego implements Apuesta {
 
     // Chequeo que el dinero disponible del jugador le alcance para realizar la apuesta
     public verificarDinero (costo: number): boolean {
-        if (this.usuario.getBilletera() >= costo) {
+        if (this.jugador.getBilletera() >= costo) {
             return true;
         } else {
             return false;
@@ -59,9 +57,9 @@ export class Veintiuno extends Juego implements Apuesta {
 
     public gastarDinero(monto: number): boolean {
         let disponible: number;
-        disponible = this.usuario.getBilletera() - monto;   
+        disponible = this.jugador.getBilletera() - monto;   
         if (disponible >= 0) {
-            this.usuario.setBilletera(disponible);
+            this.jugador.setBilletera(disponible);
             this.apuesta = monto;
             return true;
         } else {
@@ -70,19 +68,19 @@ export class Veintiuno extends Juego implements Apuesta {
     };  
 
     public pagarApuesta(dinero: number): void {
-        let ranking = this.usuario.getRanking();
+        let ranking = this.jugador.getJuegosGanados();
         ranking += ranking;
-        this.usuario.setRanking(ranking);
+        this.jugador.setJuegosGanados(ranking);
 
-        let disponible = this.usuario.getBilletera();
+        let disponible = this.jugador.getBilletera();
         disponible += dinero;
-        this.usuario.setBilletera(disponible);
+        this.jugador.setBilletera(disponible);
         
         console.log("");
         console.log("💸💸💸💸💸💸");
         
         console.log(`Felicitaciones!!! ganó $ ${dinero} 💰`);
-        console.log(`Tiene $ ${this.usuario.getBilletera()} disponibles para seguir jugando!!!`);
+        console.log(`Tiene $ ${this.jugador.getBilletera()} disponibles para seguir jugando!!!`);
     };
 
     public finalizarJuego(): void {
@@ -133,8 +131,6 @@ export class Veintiuno extends Juego implements Apuesta {
         const cartaMinima = 1;
 
         this.ultimaCarta = Math.floor(Math.random() * (cartaMaxima - cartaMinima + 1) + cartaMinima);
-        //console.log( "ultima carta " + this.ultimaCarta);
-        
         this.sumatoriaValores();
     }
     
@@ -174,9 +170,8 @@ export class Veintiuno extends Juego implements Apuesta {
             ganador = "Maquina"
         } else if (motivo == 2) {
             ganador = "Maquina"
-        } else if (motivo == 1) {
-            // para que el jugador pueda irse y ganar, debe tener más de 16 puntos ?????
-            if ((this.sumatoriaValoresJugador > this.sumatoriaValoresMaquina) /*&& (this.sumatoriaValoresJugador > 16)*/) {
+        } else if (motivo == 1) {            
+            if ((this.sumatoriaValoresJugador > this.sumatoriaValoresMaquina)) {
                 ganador = "Jugador";
             } else if (this.sumatoriaValoresJugador === this.sumatoriaValoresMaquina) {
                 ganador = "Empate";

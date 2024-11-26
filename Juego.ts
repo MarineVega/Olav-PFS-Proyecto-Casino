@@ -1,18 +1,20 @@
 import { Apuesta } from "./Apuesta";
-
+import { Usuario } from "./Usuario";
 export abstract class Juego implements Apuesta{
     protected nombre: string;
     protected reglamento: string;
     protected apuestaMinima: number;
     protected apuestaMaxima: number;
     protected dinero: number;
+    protected jugador: Usuario;
 
-    constructor(nombre: string, reglamento: string, apuMin: number, apuMax: number){
+    constructor(nombre: string, reglamento: string, apuMin: number, apuMax: number, jugador: Usuario){
         this.nombre = nombre;
         this.reglamento = reglamento;
         this.dinero = 0;
         this.setApuestaMinima(apuMin);    
         this.setApuestaMaxima(apuMax);
+        this.jugador = jugador;
     }
 
     //Interface Apuesta

@@ -3,7 +3,8 @@ export  class Usuario {
     public alias: string;
     public nombre: string;
     public aliasCuenta: string;
-    protected ranking: number = 0;
+    //protected ranking: number = 0;
+    protected juegosGanados: number = 0;
     protected billetera: number;
 
     constructor(alias: string, nombre: string, billetera: number) {
@@ -57,11 +58,11 @@ export  class Usuario {
         this.billetera = billetera;
     }
 
-    public getRanking(): number {
-        return this.ranking;
+    public getJuegosGanados(): number {
+        return this.juegosGanados;
     }
 
-    public setRanking (ranking: number): void {
-        this.ranking = ranking;
+    public setJuegosGanados (juegosGanados: number): void {
+        this.juegosGanados = juegosGanados;
     }
 }
