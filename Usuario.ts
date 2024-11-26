@@ -3,7 +3,6 @@ export  class Usuario {
     public alias: string;
     public nombre: string;
     public aliasCuenta: string;
-    //protected ranking: number = 0;
     protected juegosGanados: number = 0;
     protected billetera: number;
 
@@ -48,8 +47,6 @@ export  class Usuario {
     }
 
 
-
-    /* agregado! */
     public getBilletera(): number {
         return this.billetera;
     }

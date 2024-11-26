@@ -1,99 +1,26 @@
 import { Juego } from "./Juego";
-import { Apuesta } from "./Apuesta";
+//import { Apuesta } from "./Apuesta";
 import { Usuario } from "./Usuario";
 
 //export class Veintiuno extends Juego {
-export class Veintiuno extends Juego implements Apuesta {
+export class Veintiuno extends Juego {
     private sumatoriaValoresJugador: number;
-    private cantidadCartasJugador: number;
     private sumatoriaValoresMaquina: number;
-    private cantidadCartasMaquina: number;
+    private cantidadCartas: number;
     private ultimaCarta: number;
     private mano: boolean;
     private finalizoPartida: boolean;
-   // private usuario: Usuario;
-    private apuesta: number;
     
     constructor (nombre: string, reglamento: string, apuestaMinima: number, apuestaMaxima: number, jugador: Usuario) {
         super (nombre, reglamento, apuestaMinima, apuestaMaxima, jugador);
-        this.sumatoriaValoresJugador = 0;
-        this.cantidadCartasJugador = 0;
+        this.sumatoriaValoresJugador = 0;       
         this.sumatoriaValoresMaquina = 0;
-        this.cantidadCartasMaquina = 0;
+        this.cantidadCartas = 0;
         this.ultimaCarta = 0;
         this.mano = true;
         this.finalizoPartida = false;
     }
 
-    public apostar(costo: number): boolean {
-        
-        if (this.validarMinimosMaximos(costo)) {        
-            if (this.verificarDinero(costo)) {
-                if(this.gastarDinero(costo)) {
-                    console.log(`La apuesta de ${costo} se realizó exitosamente`)
-                    return true;
-                } else {
-                    console.log("El dinero disponible no es suficiente para realizar la apuesta.")
-                    return false;
-                }
-            } else {
-                console.log("El dinero disponible no es suficiente para realizar la apuesta.")
-                return false;
-            }
-        } else {
-            console.log(`El dinero apostado $ ${costo} excede los rangos admitidos de apuesta mínima ($ ${this.apuestaMinima}) y/o apuesta máxima ($ ${this.apuestaMaxima}).\nVuelva a realizar la apuesta`);
-            return false
-        }
-    };
-
-    // Chequeo que el dinero disponible del jugador le alcance para realizar la apuesta
-    public verificarDinero (costo: number): boolean {
-        if (this.jugador.getBilletera() >= costo) {
-            return true;
-        } else {
-            return false;
-        }
-    };
-
-    public gastarDinero(monto: number): boolean {
-        let disponible: number;
-        disponible = this.jugador.getBilletera() - monto;   
-        if (disponible >= 0) {
-            this.jugador.setBilletera(disponible);
-            this.apuesta = monto;
-            return true;
-        } else {
-            return false;            
-        }
-    };  
-
-    public pagarApuesta(dinero: number): void {
-        let ranking = this.jugador.getJuegosGanados();
-        ranking += ranking;
-        this.jugador.setJuegosGanados(ranking);
-
-        let disponible = this.jugador.getBilletera();
-        disponible += dinero;
-        this.jugador.setBilletera(disponible);
-        
-        console.log("");
-        console.log("💸💸💸💸💸💸");
-        
-        console.log(`Felicitaciones!!! ganó $ ${dinero} 💰`);
-        console.log(`Tiene $ ${this.jugador.getBilletera()} disponibles para seguir jugando!!!`);
-    };
-
-    public finalizarJuego(): void {
-
-    };
-
-    private validarMinimosMaximos(costo: number): boolean {
-        if (costo >= this.apuestaMinima && costo <= this.apuestaMaxima) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 
     private setManoJugador(): void {
         this.mano = true;
@@ -180,10 +107,11 @@ export class Veintiuno extends Juego implements Apuesta {
             }
             
         }
+        /*
         if (ganador == "Jugador") {
             this.pagarApuesta(this.apuesta * 2);
         }
-        
+        */
         return ganador
     }
     
@@ -199,24 +127,24 @@ export class Veintiuno extends Juego implements Apuesta {
     private sumatoriaValores (): void {
         if (this.mano === true) {               // si la mano la tiene el jugador, sumo la última carga que salió a la sumatoria de sus cartas, incremento en 1 la cantidad de cartas utilizadas por el jugador            
             this.sumatoriaValoresJugador += this.ultimaCarta;
-            this.cantidadCartasJugador += 1; 
         } else {            
             this.sumatoriaValoresMaquina += this.ultimaCarta;
-            this.cantidadCartasMaquina += 1;
-        }   
+        }  
+
+        this.cantidadCartas += 1;
     }
 
     public mostrarPartida(): string {
-        return `Valor obtenido por el jugador: ${this.sumatoriaValoresJugador}, en ${this.cantidadCartasJugador} tiradas.`         
+        return `Valor obtenido por el jugador: ${this.sumatoriaValoresJugador}, en ${this.cantidadCartas} tiradas.`         
     }
 
     public mostrarResultadoFinal(ganador: string): string {
         if (ganador == "Maquina") {
-            return `Resultado de la partida: PERDIÓ 😒👎 \n  Valor obtenido por el jugador: ${this.sumatoriaValoresJugador}. \n  Valor obtenido por la máquina: ${this.sumatoriaValoresMaquina}, en ${this.cantidadCartasMaquina} tiradas. `
+            return `Resultado de la partida: PERDIÓ 😒👎 \n  Valor obtenido por el jugador: ${this.sumatoriaValoresJugador}. \n  Valor obtenido por la máquina: ${this.sumatoriaValoresMaquina}, en ${this.cantidadCartas} tiradas. `
         } else if (ganador == "Jugador") {
-            return `Resultado de la partida: 🏆 GANADOR!!! 🏆🥇🎉🥳 \n  Valor obtenido por el jugador: ${this.sumatoriaValoresJugador}. \n  Valor obtenido por la máquina: ${this.sumatoriaValoresMaquina}, en ${this.cantidadCartasMaquina} tiradas. `
+            return `Resultado de la partida: 🏆 GANADOR!!! 🏆🥇🎉🥳 \n  Valor obtenido por el jugador: ${this.sumatoriaValoresJugador}. \n  Valor obtenido por la máquina: ${this.sumatoriaValoresMaquina}, en ${this.cantidadCartas} tiradas. `
         } else {
-            return `🤷 Hubo un empate entre el jugador y la máquina, ambos obtuvieron un total de ${this.sumatoriaValoresJugador}, en ${this.cantidadCartasJugador} tiradas.`
+            return `🤷 Hubo un empate entre el jugador y la máquina, ambos obtuvieron un total de ${this.sumatoriaValoresJugador}, en ${this.cantidadCartas} tiradas.`
         }
 
 

@@ -7,6 +7,7 @@ export abstract class Juego implements Apuesta{
     protected apuestaMaxima: number;
     protected dinero: number;
     protected jugador: Usuario;
+    protected apuesta: number;
 
     constructor(nombre: string, reglamento: string, apuMin: number, apuMax: number, jugador: Usuario){
         this.nombre = nombre;
@@ -15,25 +16,16 @@ export abstract class Juego implements Apuesta{
         this.setApuestaMinima(apuMin);    
         this.setApuestaMaxima(apuMax);
         this.jugador = jugador;
+        this.apuesta = 0;
     }
 
     //Interface Apuesta
-
-    abstract apostar(costo: number): void;
-    abstract verificarDinero(dineroDisponible: number): void;
-    abstract gastarDinero(monto: number): void;
-    abstract pagarApuesta(dinero: number): void;
 
     protected iniciarJuego(dinero: number): void{
         this.cargarDinero(dinero);
     }
 
-    //Metodos abstractos para implementar en cada Juego
     
-    protected abstract finalizarJuego(): void;
-
-    protected abstract determinarGanador(motivo: number): void; 
-
     protected mostrarJuego(): string {
         return `Juego: ${this.getNombre()}\nReglamento: ${this.getReglamento()}`
     }
@@ -46,10 +38,7 @@ export abstract class Juego implements Apuesta{
         this.dinero =- cantDinero;
     }
 
-    //protected retirarDinero() envia el dinero a la billetera del usuario
-
     //Getter and setters
-
     public getNombre(): string {
         return this.nombre;
     }
@@ -90,4 +79,72 @@ export abstract class Juego implements Apuesta{
         this.dinero = creditos;
     }
 
+    
+    public apostar(costo: number): boolean {
+        
+        if (this.validarMinimosMaximos(costo)) {        
+            if (this.verificarDinero(costo)) {
+                if(this.gastarDinero(costo)) {
+                    console.log(`La apuesta de ${costo} se realizó exitosamente`)
+                    return true;
+                } else {
+                    console.log("El dinero disponible no es suficiente para realizar la apuesta.")
+                    return false;
+                }
+            } else {
+                console.log("El dinero disponible no es suficiente para realizar la apuesta.")
+                return false;
+            }
+        } else {
+            console.log(`El dinero apostado $ ${costo} excede los rangos admitidos de apuesta mínima ($ ${this.apuestaMinima}) y/o apuesta máxima ($ ${this.apuestaMaxima}).\nVuelva a realizar la apuesta`);
+            return false
+        }
+    };
+
+    // Chequeo que el dinero disponible del jugador le alcance para realizar la apuesta
+    public verificarDinero (costo: number): boolean {
+        if (this.jugador.getBilletera() >= costo) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    public gastarDinero(monto: number): boolean {
+        let disponible: number;
+        disponible = this.jugador.getBilletera() - monto;   
+        if (disponible >= 0) {
+            this.jugador.setBilletera(disponible);
+            this.apuesta = monto;
+            return true;
+        } else {
+            return false;            
+        }
+    };  
+
+    public pagarApuesta(dinero: number): void {
+        let juegosGanados = this.jugador.getJuegosGanados();
+        juegosGanados += juegosGanados;
+        this.jugador.setJuegosGanados(juegosGanados);
+
+        let disponible = this.jugador.getBilletera();
+        disponible += dinero;
+        this.jugador.setBilletera(disponible);
+        
+        console.log("");
+        console.log("💸💸💸💸💸💸");
+        
+        console.log(`Felicitaciones!!! ganó $ ${dinero} 💰`);
+        console.log(`Tiene $ ${this.jugador.getBilletera()} disponibles para seguir jugando!!!`);
+    };
+    
+
+    private validarMinimosMaximos(costo: number): boolean {
+        if (costo >= this.apuestaMinima && costo <= this.apuestaMaxima) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
 }

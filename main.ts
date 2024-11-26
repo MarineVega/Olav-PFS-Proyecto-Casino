@@ -2,7 +2,7 @@
 import { Veintiuno } from "./Veintiuno";
 import { Usuario } from "./Usuario";
 import * as rs from "readline-sync";
-import { log } from "console";
+
 
 console.log(" ");
 console.log(" ******************************************** JUEGO 21 *********************************************");
