@@ -1,3 +1,8 @@
+import { Juego } from "./Juego"
+import { TragamonedaSports } from "./TragamonedaSports";
+import { TragamonedaPremium } from "./TragamonedaPremium";
+import { Usuario } from "./Usuario";
+
 export class Casino {
 
     private nombre: string;
@@ -30,11 +35,9 @@ export class Casino {
         return `Casino: ${this.getNombre()} \n Usuarios del Casino: ${this.getUsuarios()} \n Juegos del Casino: ${this.getJuegos()}`;
     }
 
-    public listarNombres(arreglo: Usuario | Juego): String {
+    public listarNombres(arreglo: Usuario[] | Juego[]): String {
         let cadena: string = ' ';
-        arreglo.forEach(a => {
-            cadena += `\n ${a.getNombre()}`
-        });
+        arreglo.forEach(a => cadena += `\n ${a.getNombre()}`)
         return cadena;
     }
 
@@ -43,8 +46,6 @@ export class Casino {
     }
 
     public despedir(): string {
-        return `${} gracias por elegir ${this.getNombre()}, volve pronto!!!`;// Agregar el nombre del Usuario
+        return `Gracias por elegir ${this.getNombre()}, volve pronto!!!`;
     }
 }
-
-console.log("Prueba");

@@ -1,10 +1,8 @@
 export interface Apuesta {
 
-    apostar(): void;
-    pagarApuesta(): void;
-    duplicarApuesta(): void;
-    determinarGanador(): void;
-    verificarJugada(): void;
-    verificarCredito(): void;
+    apostar(costo: number): void;
+    verificarDinero(dineroDisponible: number): void;
+    gastarDinero(monto: number): void;
+    pagarApuesta(dinero: number): void;
     
 }
