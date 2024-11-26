@@ -1,12 +1,15 @@
+import { Apuesta } from "./Apuesta";
+import { Usuario } from "./Usuario";
 
-
-export abstract class Juego {
+export abstract class Juego implements Apuesta{
     protected nombre: string;
     protected reglamento: string;
     protected apuestaMinima: number;
     protected apuestaMaxima: number;
     protected creditos: number;
     protected equivalenciaCredito: number;
+    protected usuario: Usuario;
+    //protected apuesta: number;
 
     constructor(nombre: string, reglamento: string){
         this.nombre = nombre;
@@ -23,8 +26,6 @@ export abstract class Juego {
         this.setEquivalenciaCredito(equivCred);
     }
 
-    protected abstract finalizarJuego(): void;
-
     protected mostrarJuego(): string {
         return `Juego: ${this.getNombre()}\nReglamento: ${this.getReglamento()}`
     }
@@ -37,8 +38,7 @@ export abstract class Juego {
         this.creditos--;
     }
 
-    //Getter and setters
-
+  
     public getNombre(): string {
         return this.nombre;
     }
@@ -87,4 +87,70 @@ export abstract class Juego {
         this.equivalenciaCredito = equivalenciaCredito;
     }
 
+    //Interfaz Apuesta
+
+    public apostar(costo: number): boolean {
+        
+        if (this.validarMinimosMaximos(costo)) {        
+            if (this.verificarDinero(costo)) {
+                if(this.gastarDinero(costo)) {
+                    console.log(`La apuesta de ${costo} se realizó exitosamente`)
+                    return true;
+                } else {
+                    console.log("El dinero disponible no es suficiente para realizar la apuesta.")
+                    return false;
+                }
+            } else {
+                console.log("El dinero disponible no es suficiente para realizar la apuesta.")
+                return false;
+            }
+        } else {
+            console.log(`El dinero apostado $ ${costo} excede los rangos admitidos de apuesta mínima ($ ${this.apuestaMinima}) y/o apuesta máxima ($ ${this.apuestaMaxima}).\nVuelva a realizar la apuesta`);
+            return false
+        }
+    };
+
+    public verificarDinero (costo: number): boolean {
+        if (this.usuario.getBilletera() >= costo) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    public gastarDinero(monto: number): boolean {
+        let disponible: number;
+        disponible = this.usuario.getBilletera() - monto;   
+        if (disponible >= 0) {
+            this.usuario.setBilletera(disponible);
+            //this.apuesta = monto;
+            return true;
+        } else {
+            return false;            
+        }
+    };  
+
+    public pagarApuesta(dinero: number): void {
+        let ranking = this.usuario.getRanking();
+        ranking += ranking;
+        this.usuario.setRanking(ranking);
+
+        let disponible = this.usuario.getBilletera();
+        disponible += dinero;
+        this.usuario.setBilletera(disponible);
+        
+        console.log("");
+        console.log("💸💸💸💸💸💸");
+        
+        console.log(`Felicitaciones!!! ganó $ ${dinero} 💰`);
+        console.log(`Tiene $ ${this.usuario.getBilletera()} disponibles para seguir jugando!!!`);
+    };
+
+    private validarMinimosMaximos(costo: number): boolean {
+        if (costo >= this.apuestaMinima && costo <= this.apuestaMaxima) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

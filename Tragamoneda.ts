@@ -1,9 +1,13 @@
-export class Tragamoneda {
+import { Juego } from "./Juego"
+import { Usuario } from "./Usuario"
+
+export class Tragamoneda extends Juego {
     protected intentosMaximos: number;
     protected barras: string[][];
     protected valores: string[];
 
-    constructor(intentosMaximos: number, numBarras: number, numPosiciones: number) {
+    constructor(nombre: string, reglamento: string, intentosMaximos: number, numBarras: number, numPosiciones: number) {
+        super(nombre, reglamento);
         this.intentosMaximos = intentosMaximos;
         this.valores = ["🏀", "🎱", "🏐", "⚽", "🏈", "🏉", "🏓", "🥊", "🏑", "🎾", "⛸️", "⛳"];  
         this.barras = Array.from({ length: numBarras }, () => this.generarBarra(numPosiciones));
@@ -57,4 +61,6 @@ export class Tragamoneda {
             console.log("Intentos Restantes:", this.intentosMaximos);
         }
     }
+
+
 }

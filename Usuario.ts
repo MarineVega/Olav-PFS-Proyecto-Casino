@@ -1,26 +1,20 @@
-
 export  class Usuario {
 
     public alias: string;
     public nombre: string;
     public aliasCuenta: string;
-    protected rankin: number = 0;
-    protected dineroInicio: number;
-    protected dineroDisponible: number = 0;
-   // protected juegoSelecionado: Juego;  // se compone de clase juego??? 
+    protected ranking: number = 0;
+    protected billetera: number;
 
-    constructor(alias: string, nombre: string, dineroInicio: number) {
-
+    constructor(alias: string, nombre: string, billetera: number) {
         this.alias = alias;
         this.nombre = nombre;
-        this.dineroInicio = dineroInicio;
-
+        this.billetera = billetera;
     }
 
     public crearAliascuenta(alias: string, Nombre: string): void {
 
         this.aliasCuenta = this.nombre +" Alias " + this.alias
-
     }
 
     protected getalias(): String {
@@ -31,9 +25,9 @@ export  class Usuario {
            this.alias = alias;  
         }else{
             this.alias="Anonimo"
-        }
-       
+        }   
     }
+
     protected getnombre(): string {
         return this.nombre;
     }
@@ -47,5 +41,21 @@ export  class Usuario {
 
     protected getaliasCuenta(): string {
         return this.aliasCuenta;
+    }
+
+    public getBilletera(): number {
+        return this.billetera;
+    }
+
+    public setBilletera(billetera: number): void {
+        this.billetera = billetera;
+    }
+
+    public getRanking(): number {
+        return this.ranking;
+    }
+
+    public setRanking (ranking: number): void {
+        this.ranking = ranking;
     }
 }
