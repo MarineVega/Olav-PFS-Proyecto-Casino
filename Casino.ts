@@ -1,12 +1,10 @@
-import { Juego } from "./Juego";
-import { TragamonedaPremium } from "./TragamonedasPremiun";
-import { Tragamoneda } from "./Tragamonedas";
+import { Juego } from "./Juego"
+import { Tragamoneda } from "./Tragamoneda";
 import { Usuario } from "./Usuario";
 
 export class Casino {
-    
 
-    public nombre: string;
+    private nombre: string;
     private usuarios: Usuario[];
     private juegos: Juego[];
 
@@ -42,11 +40,12 @@ export class Casino {
         return cadena;
     }
 
-    public darBienvenida(nombre:string): void {
-        console.log(`Bienvenido  !!!!   ${nombre}   al Casino  ${this.getNombre()} \n`);
+    public darBienvenida(usuario:Usuario): void {
+        console.log(`💰 💰 💰 💰 ...Bienvenidos.. 💰 💰 💰 💰 `);
+        console.log(`💰 💰 💰  Casino ${this.getNombre()}💰 💰 💰 💰  \n`);
     }
 
     public despedir(): string {
-        return `Gracias por elegir ${this.getNombre()}, volve pronto!!! \n`;
+        return `Gracias por elegir ${this.getNombre()}, volve pronto!!!`;
     }
 }

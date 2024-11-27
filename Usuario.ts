@@ -1,41 +1,27 @@
-import * as readlineSync from "readline-sync";
-import { Casino } from "./Casino";
-
-export  class Usuario {
+export class Usuario {
 
     public alias: string;
     public nombre: string;
     public aliasCuenta: string;
     protected juegosGanados: number = 0;
     protected billetera: number;
-    
-   // protected juegoSelecionado: Juego;  // se compone de clase juego??? 
 
-    constructor(alias: string, nombre: string, dineroInicio: number) {
-
+    constructor(alias: string, nombre: string, billetera: number) {
         this.alias = alias;
+        this.aliasCuenta = '';
         this.nombre = nombre;
-        this.billetera = dineroInicio;
-    }
-    public SetAliascuenta(alias: string, nombre: string): void {
-        if (alias!=""&& nombre!=""){
-          this.aliasCuenta = this.nombre +" Alias " + this.alias
-  
-        }else if (nombre!=""){
-            this.aliasCuenta = this.nombre +" Alias  Jugador Anonimo" 
-        } console.log("Ingrese su Nombre para jugar..!")
-
-        
+        this.billetera = billetera;
     }
 
-    public getjuegosGanados(): number {
-        return this.juegosGanados;
+    public crearAliascuenta(alias: string, nombre: string): void {
+
+        this.aliasCuenta = this.nombre +" Alias " + this.alias
     }
 
-    public getAlias(): String {
+    protected getalias(): String {
         return this.alias;
     }
-    protected setAlias(alias: string) {
+    protected setalias(alias: string) {
         if (alias!=""){
            this.alias = alias;  
         }else{
@@ -43,10 +29,10 @@ export  class Usuario {
         }
        
     }
-    public getNombre(): string {
+    protected getnombre(): string {
         return this.nombre;
     }
-    protected setNombre(nombre: string):void{
+    protected setnombre(nombre: string) {
         if (nombre!=""){
           this.nombre = nombre;   
         }else {
@@ -54,12 +40,34 @@ export  class Usuario {
         }
 
     }
-    protected getAliasCuenta(): string {
+
+    protected getaliasCuenta(): string {
         return this.aliasCuenta;
     }
 
-    
-    public getBilletera(): number {
+    /*public getBilletera(): number {
+        return this.billetera;
+    }*/ //Reemplacé este método por obtenerSaldo() porque me pareció más apropiado el nombre.
+
+    public setBilletera(billetera: number): void {
+        this.billetera = billetera;
+    }
+
+    public getJuegosGanados(): number {
+        return this.juegosGanados;
+    }
+
+    public setJuegosGanados (juegosGanados: number): void {
+        this.juegosGanados = juegosGanados;
+    }
+
+//Este método nos permite agregar dinero a la billetera del usuario en caso de que gane por ejemplo en el Tragamonedas
+     public agregarDinero(monto: number): void {
+        this.billetera += monto;
+        console.log(`Has recibido ${monto} pesos 💵. Tu saldo actual es:💲${this.billetera} pesos 🥳`);
+    }
+
+    public obtenerSaldo(): number {
         return this.billetera;
     }
 
@@ -78,13 +86,13 @@ export  class Usuario {
                               }
             console.log("Cargando datos....");
             console.log(` jugador : ${nombre} \n alias : ${alias} \n Billetera  : ${dineroInicio} \n`);
-            this.nombre=nombre
-            this.alias=alias
-            this.billetera=dineroInicio
-            //const usuarioActual=new Usuario(this.alias,this.nombre,this.billetera);
-             
-        }
+            this.nombre=nombre;
+            this.alias=alias;
+            this.billetera=dineroInicio;
+            
     
     }
 
-}
+
+
+}}

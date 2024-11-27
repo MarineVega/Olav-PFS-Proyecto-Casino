@@ -1,34 +1,71 @@
-import { Tragamoneda } from "./Tragamonedas";
-import { Apuesta } from "./Apuesta";
-import { Casino } from "./Casino";
+import { Juego } from "./Juego";
+import { Tragamoneda } from "./Tragamoneda";
+import { Usuario } from "./Usuario";
 
 export class TragamonedaPremium extends Tragamoneda {
     private comodin: string;
+    readonly FACTOR_SUERTE: number = 2; 
 
-    constructor(nombre:string,reglamento:string,intentosMaximos: number, numBarras: number, numPosiciones: number) {
-        super(intentosMaximos, numBarras, numPosiciones);
+    constructor(nombre: string, reglamento: string, apuMin: number, apuMax: number, jugador: Usuario, intentosMaximos: number) {
+        super(nombre, reglamento, apuMin, apuMax, jugador, intentosMaximos);
+        this.valores = ["🍎", "🍐", "🍇", "🍍", "🍉", "🍏", "🍒", "🍊", "🫐", "🍌"];
+        //this.valores = ["🍎", "🍐"]; // Nos permite probar el método en caso de que salgan dos valores iguales.
         this.comodin = "🃏";  
+        this.agregarComodin();  
+        this.barras = Array.from({ length: this.numBarras }, () => this.generarBarra(this.numElementos));
     }
 
-    //METODO TIRAR CON LA POSIBILIDAD DE QUE SALGA EL COMODIN (SE PUEDE MEJORAR UN MONTOOOOON)
-    public tirar(): string[] {
-        const resultado = super.tirar(); // DESCUBRI QUE SE PUEDE USAR UN METODO DE LA CLASE QUE HEREDA CON SUPER
+    public getComodin(): string {
+        return this.comodin;
+    }
 
-        if (resultado.length > 0 && resultado.includes(this.comodin)) {
-            // SE LE DA LA TIRADA ADICIONAL AL USUSARIO SI SALE EL COMODIN Y NO SE DESCUENTA EL INTENTO
-            console.log("¡Has sacado el Comodín 🎉! Tienes una tirada adicional GRATIS 🆓");
-            const tiradaAdicional = super.tirar();
-            resultado.push(...tiradaAdicional); //AGREGA LA TIRADA QUE GANO EL USUARIO A LOS INTENTOS RESTANTES QUE TIENE
+    public agregarComodin(): void { 
+        for (let index = 0; index < this.FACTOR_SUERTE; index++) {   
+            this.valores.push(this.comodin);    
         }
+    }
 
-        return resultado;
+    public bonificacionDeTirada(resultado: string[]): void {
+        if (resultado[0] === resultado[1] && resultado[1] === resultado[2]) {
+            console.log(`Ganaste🏆‼️ 🎉 Sacaste tres ${resultado[0]} iguales 🎉 Se suma dinero a tu billetera💲💰`);
+
+            this.jugador.agregarDinero(5000);
+        }
+        else if (resultado[0] === resultado[1] || resultado[1] === resultado[2] || resultado[0] === resultado[2]) {
+            console.log(`¡Bonificación! 🎉 Has sacado dos frutas iguales 🎉 Se suma dinero a tu billetera💲💰`);
+            this.jugador.agregarDinero(2500);
+        }
     }
 
     public mostrarResultado(): void {
-        const resultado = this.tirar();
-        if (resultado.length > 0) {
-            console.log("Resultado de la tirada:", resultado.join(" | "));
+        if (this.getIntentosMaximos() >= 0){
+            const resultado = this.tirar(); 
+
+            if (resultado.length > 0) {
+                console.log("Resultado de la tirada:", resultado.join(" | "));
+            }
+
+            if (resultado.includes(this.comodin)) {
+                this.duplicarIntentos();  
+            }
+
+            if (this.getIntentosMaximos() > 0){
+                this.bonificacionDeTirada(resultado);
+            }
+
             console.log("Intentos Restantes:", this.intentosMaximos);
+        } 
+    }
+
+    public duplicarIntentos(): void {
+        if(this.getIntentosMaximos() > 0){ //Si tiene 0 intentos, no duplica
+            let intentosAntes: number = this.getIntentosMaximos();
+            this.intentosMaximos *= 2;
+    
+            console.log("🎊 Has obtenido el comodin 🎊 ¡Duplicaste tus intentos! 🎁 Ahora tienes", this.intentosMaximos, "intentos! Antes tenias", intentosAntes,"👍");
+        } else {
+            console.log("Mala Suerte!🥺 Has obtenido el comodin 🎊 Pero no tenias intentos restantes 😭");
         }
     }
 }
+
