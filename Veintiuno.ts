@@ -20,6 +20,9 @@ export class Veintiuno extends Juego {
         this.finalizoPartida = false;
     }
 
+    public mostrarDatosVeintiuno(): string {
+        return `${this.nombre}\nReglamento: ${this.reglamento}\nApuesta mínima $${this.apuestaMinima} - Apuesta máxima $${this.apuestaMaxima}`;
+    }
 
     private setManoJugador(): void {
         this.mano = true;
@@ -118,9 +121,11 @@ export class Veintiuno extends Juego {
 
         if (ganador === "Jugador") {
             this.pagarApuesta(this.apuesta * 2);
+           /*
             let juegosGanados: number;
             juegosGanados += this.jugador.getJuegosGanados();
             this.jugador.setJuegosGanados (juegosGanados);
+            */
         }
 
         return ganador;

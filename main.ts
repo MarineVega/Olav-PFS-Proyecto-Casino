@@ -15,8 +15,11 @@ let continuar: string = "S";
 let apuesta: number;
 let apuestaValida: boolean;
 
+console.log(" ")
 console.warn("Dinero disponible del usuario: " + usuario.getBilletera());
-
+console.log(" ")
+console.error(partida1.mostrarDatosVeintiuno());
+console.log(" ")
 
 do {
     apuesta = rs.questionInt("Ingrese el dinero de la apuesta: ");
