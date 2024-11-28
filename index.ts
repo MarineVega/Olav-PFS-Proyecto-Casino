@@ -1,40 +1,25 @@
+import * as readline from "readline-sync";
 import { Usuario } from "./Usuario";
 import { HorasEspejo } from "./HorasEspejo";
+import { HorasEspejoSolitario } from "./HorasEspejoSolitario";
 
-function main() {
-    // Crear un usuario
-    const usuario = new Usuario("Jugador1", "Carlos", 500); // Alias: Jugador1, Nombre: Carlos, Billetera: 500
+// Crear al usuario
+const jugador = new Usuario("Naty","Natalia", 200); // Jugador con saldo inicial fijo
 
-    // Mostrar información inicial del usuario
-    console.log("=== Bienvenido al Juego Horas Espejo ===");
-    console.log(`Alias: ${usuario.alias}`);
-    console.log(`Nombre: ${usuario.nombre}`);
-    console.log(`Saldo inicial: ${usuario.obtenerSaldo()} pesos`);
+console.log("Selecciona un juego:");
+console.log("1. Horas Espejo (Jugador vs Máquina)");
+console.log("2. Horas Espejo Solitario");
+const opcion = readline.questionInt("Opcion: ");
 
-    // Verificar si el usuario tiene suficiente dinero para iniciar el juego
-    const apuestaMinima = 100;
-    if (usuario.obtenerSaldo() < apuestaMinima) {
-        console.log("No tienes suficiente saldo para jugar. Fin del programa.");
-        return;
-    }
-
-    // Crear el juego Horas Espejo
-    const juegoHorasEspejo = new HorasEspejo(
-        "Horas Espejo",
-        "Adivina la hora espejo y gana puntos.",
-        apuestaMinima,
-        500, // Apuesta máxima
-        usuario
-    );
-
-    // Iniciar el juego
-    console.log("\n--- Preparando el juego ---");
-    juegoHorasEspejo.iniciarPartida();
-
-    // Mostrar saldo final del usuario
-    console.log("\n--- Fin del Juego ---");
-    console.log(`Saldo final del jugador: ${usuario.obtenerSaldo()} pesos`);
+// Instanciar el juego correspondiente
+if (opcion === 1) {
+    const horasEspejo = new HorasEspejo("Horas Espejo", "Reglas.", 100, 1000, jugador);
+    horasEspejo.iniciarPartida();
+} else if (opcion === 2) {
+    const horasEspejoSolitario = new HorasEspejoSolitario("Horas Espejo Solitario", "Reglas.", 50, 500, jugador);
+    horasEspejoSolitario.iniciarPartida();
+} else {
+    console.log("Opción no válida.");
 }
 
-// Ejecutar el programa principal
-main();
+console.log(`Saldo final del jugador: $${jugador.obtenerSaldo()}`);
