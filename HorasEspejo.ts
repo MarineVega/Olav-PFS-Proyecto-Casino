@@ -1,5 +1,6 @@
 import { Juego } from "./Juego";
 import { Usuario } from "./Usuario";
+import * as readline from "readline-sync";
 
 export class HorasEspejo extends Juego {
     private hora: number;
@@ -116,7 +117,8 @@ export class HorasEspejo extends Juego {
             if (this.intentosJugador === 0 || this.intentosMaquina === 0) {
                 break;
             }
-    
+            console.log("Presione una tecla para continuar..., 🍀suerte!!");
+            readline.question();
             ronda++;
         }
     
