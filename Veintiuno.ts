@@ -1,5 +1,4 @@
 import { Juego } from "./Juego";
-//import { Apuesta } from "./Apuesta";
 import { Usuario } from "./Usuario";
 
 //export class Veintiuno extends Juego {
@@ -45,7 +44,6 @@ export class Veintiuno extends Juego {
         // Tiro carta del jugador        
         this.tirarCarta();
         this.cambiarMano();
-        //console.log("Juega la máquina");            
         // Tiro carta de la máquina
         this.tirarCarta();
         this.verificarJugada();        
@@ -61,8 +59,9 @@ export class Veintiuno extends Juego {
         this.sumatoriaValores();
     }
     
-    public verificarJugada (): void {        
-        if (this.sumatoriaValoresJugador > 21) {            
+    public verificarJugada (): void {   
+             
+        if (this.sumatoriaValoresJugador > 21) {
             this.detenerPartida(2);
         } else if (this.sumatoriaValoresMaquina == 21) {
             this.detenerPartida(3);
@@ -81,38 +80,50 @@ export class Veintiuno extends Juego {
         let ganador: string;
 
         this.setFinalizarPartida();
-        //console.log(`La partida terminó ${motivo}`);
         ganador = this.determinarGanador(motivo);
-        console.log("");
-        console.log(this.mostrarResultadoFinal(ganador));
-        console.log("");
+        console.log(" ");
+        if (ganador === "Jugador") {
+            console.warn(this.mostrarResultadoFinal(ganador));    
+        } else {
+            console.log(this.mostrarResultadoFinal(ganador));
+        }
+        console.log(" ");        
     }
-
-    // Desde acá se setea el Ranking?????
+    
     public determinarGanador(motivo: number): string {
         let ganador: string;
-        if (motivo == 4) {
-            ganador = "Jugador";
-        } else if (motivo == 3){
-            ganador = "Maquina"
-        } else if (motivo == 2) {
-            ganador = "Maquina"
-        } else if (motivo == 1) {            
-            if ((this.sumatoriaValoresJugador > this.sumatoriaValoresMaquina)) {
-                ganador = "Jugador";
-            } else if (this.sumatoriaValoresJugador === this.sumatoriaValoresMaquina) {
-                ganador = "Empate";
-            } else {
-                ganador = "Maquina";
+
+        if (this.sumatoriaValoresJugador === this.sumatoriaValoresMaquina) {
+            ganador = "Empate";
+        } else {
+            switch (motivo) {
+                case 4:
+                    ganador = "Jugador";
+                    break;
+                case 3:
+                    ganador = "Maquina";
+                    break;                
+                case 2:
+                    ganador = "Maquina";
+                    break;
+                case 1:
+                    if ((this.sumatoriaValoresJugador > this.sumatoriaValoresMaquina)) {
+                        ganador = "Jugador";
+                    } else {
+                        ganador = "Maquina";
+                    }                    
+                    break;
             }
-            
         }
-        /*
-        if (ganador == "Jugador") {
+
+        if (ganador === "Jugador") {
             this.pagarApuesta(this.apuesta * 2);
+            let juegosGanados: number;
+            juegosGanados += this.jugador.getJuegosGanados();
+            this.jugador.setJuegosGanados (juegosGanados);
         }
-        */
-        return ganador
+
+        return ganador;
     }
     
     private cambiarMano(): void {
@@ -127,11 +138,10 @@ export class Veintiuno extends Juego {
     private sumatoriaValores (): void {
         if (this.mano === true) {               // si la mano la tiene el jugador, sumo la última carga que salió a la sumatoria de sus cartas, incremento en 1 la cantidad de cartas utilizadas por el jugador            
             this.sumatoriaValoresJugador += this.ultimaCarta;
+            this.cantidadCartas += 1;
         } else {            
             this.sumatoriaValoresMaquina += this.ultimaCarta;
         }  
-
-        this.cantidadCartas += 1;
     }
 
     public mostrarPartida(): string {

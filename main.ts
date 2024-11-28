@@ -2,19 +2,20 @@
 import { Veintiuno } from "./Veintiuno";
 import { Usuario } from "./Usuario";
 import * as rs from "readline-sync";
+import { Console } from "console";
 
 
 console.log(" ");
 console.log(" ******************************************** JUEGO 21 *********************************************");
 
 const usuario = new Usuario("Mary", "Mariné", 10000);
-const partida1: Veintiuno = new Veintiuno ("Veintiuno Partida 1", "Reglamento", 100,500, usuario);
+const partida1: Veintiuno = new Veintiuno ("Veintiuno Partida 1", "Reglamento", 1000, 5000, usuario);
 
 let continuar: string = "S";
 let apuesta: number;
 let apuestaValida: boolean;
 
-console.log("Dinero disponible del usuario: " + usuario.getBilletera());
+console.warn("Dinero disponible del usuario: " + usuario.getBilletera());
 
 
 do {
@@ -22,14 +23,17 @@ do {
     apuestaValida = partida1.apostar(apuesta);
 } while (!apuestaValida)
 
-console.log("Dinero disponible del usuario: " + usuario.getBilletera());
+console.warn("Dinero disponible del usuario: " + usuario.getBilletera());
 
 if (apuestaValida) {
-
+    console.log("  ")
+    console.error("Presione cualquier tecla para comenzar: ");
+    rs.question();            
+    
     do {    
         partida1.jugar();
         if (!partida1.getFinalizoPartida()) {
-            console.log(partida1.mostrarPartida());
+            console.warn(partida1.mostrarPartida());
         }
     
         if (!partida1.getFinalizoPartida()) {
@@ -46,37 +50,6 @@ if (apuestaValida) {
         partida1.detenerPartida(1);
     }
     
-    console.log("Dinero disponible del usuario: " + usuario.getBilletera());
+    console.warn("Dinero disponible del usuario: " + usuario.getBilletera());
+    console.log(" ");
 }
-
-/*
-
-// Crear un usuario con un saldo inicial y disponible
-const usuario = new Usuario('master','Juan', 2000); // Nombre, dinero inicial, saldo disponible en billetera
-
-// Crear el juego con el usuario
-const juego = new HorasEspejo(usuario);
-
-// Mostrar estado inicial
-console.log(`--- Estado Inicial ---`);
-console.log(`Jugador: ${usuario.nombre}`);
-console.log(`Saldo inicial: ${usuario.dineroInicio} créditos.`);
-console.log(`Apuesta mínima: ${juego['apuestaMinima']} créditos.\n`);
-
-// Intentar apostar la cantidad mínima para iniciar el juego
-console.log(`Intentando iniciar la partida con la apuesta mínima (${juego['apuestaMinima']} créditos)...`);
-juego.apostar(juego['apuestaMinima']); // Usar directamente la propiedad apuestaMinima de la clase
-
-
-*/
-
-
-
-//console.log(partida1.mostrarResultadoFinal());
-
-// OJO!!!!!! al método protected abstract determinarGanador(motivo: number): void; de la clase Juego, tuve que agregarle un param -> motivo: number
-// método verificarDinero --> uso el param dinero disponible como costo, porque al dinero disponible puedo obtenerlo del usuario
-// agregué atributo -->  private finalizoPartida: boolean;
-// para que el jugador pueda irse y ganar, debe tener más de 16 puntos ?????
-// cómo vamos seteando el ranking cuando gana? será un método de la interfaz???
-// a usuario le agregué el método getDineroDisponible y setDineroDisponible
