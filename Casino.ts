@@ -1,9 +1,6 @@
 import { Juego } from "./Juego"
 import { Tragamoneda } from "./Tragamoneda";
-import { Usuario } from "./Usuario";
-
-//Imports lectura desde .txt
-import * as fs from 'fs';              
+import { Usuario } from "./Usuario";             
 
 export class Casino {
 
@@ -17,20 +14,28 @@ export class Casino {
         this.juegos = [];
     }
 
-    getNombre(): string {
+    public getNombre(): string {
         return this.nombre;
     }
 
-    getUsuarios(): Usuario[] {
+    public getUsuarios(): Usuario[] {
         return this.usuarios;
     }
 
-    getJuegos(): Juego[] {
+    public getJuegos(): Juego[] {
         return this.juegos;
     }
 
     public setNombre(nombre: string): void {
         this.nombre = nombre;
+    }
+
+    public agregarUsuario(usuario: Usuario){
+        this.usuarios.push(usuario);
+    }
+
+    public agregarJuego(juego: Juego){
+        this.usuarios.push(juego);
     }
 
     public mostrarCasino(): string {
@@ -54,15 +59,4 @@ export class Casino {
         return `Gracias por elegir ${this.getNombre()}, volve pronto!!!`;
     }
 
-    //Leer instrucciones desde txt
-    public leerArchivo(rutaArchivo: string): string {
-        try {
-              let contenido = fs.readFileSync(rutaArchivo, 'utf-8');
-          
-              return contenido;
-        } catch (error) {
-              console.error('No se ha podido leer el archivo solicitado. Verifica la ruta.');
-              return ''; 
-        }
-    }
 }

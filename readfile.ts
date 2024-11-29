@@ -1,8 +1,8 @@
 import * as fs from 'fs';              
 import * as path from 'path';  //-->esta linea importarla en el main junto al menu       
 
-// Función para leer el archivo --> agregada en Casino
-function leerArchivo(rutaArchivo: string): string {
+// Función para leer el archivo. podria ir en el maun junto al menu
+function leerIntruccionesArchivo(rutaArchivo: string): string {
   try {
         let contenido = fs.readFileSync(rutaArchivo, 'utf-8');
     
@@ -15,11 +15,11 @@ function leerArchivo(rutaArchivo: string): string {
 
 // Llama a la función con la ruta del archivo. Tambien van en el main junto al menu
 let ruta: string = path.join(__dirname, 'instrucciones/horas_espejo.txt');
-let instruccionJuego: string = leerArchivo(ruta);
+let instruccionJuego: string = leerIntruccionesArchivo(ruta);
 
 console.log(instruccionJuego);
 
 ruta = path.join(__dirname, 'instrucciones/veintiuno.txt');
-instruccionJuego = leerArchivo(ruta);
+instruccionJuego = leerIntruccionesArchivo(ruta);
 
 console.log(instruccionJuego);
