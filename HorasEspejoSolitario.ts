@@ -15,7 +15,7 @@ export class HorasEspejoSolitario extends Juego {
     }
 
     private generarHoraAleatoria(): string {
-        //SINO HARCODEO UN POCO HAY QUE HACER MILLONES DE PARTIDAS 
+        //SINO HARdCODEO UN POCO HAY QUE HACER MILLONES DE PARTIDAS 
         const horasEspejo = [
             "01:10", "02:20", "03:30", "04:40", "05:50",
             "10:01", "11:11", "12:21", "13:31", "14:41",
