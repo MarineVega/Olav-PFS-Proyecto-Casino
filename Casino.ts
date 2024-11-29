@@ -41,8 +41,10 @@ export class Casino {
     }
 
     public darBienvenida(usuario:Usuario): void {
-        console.log(`💰 💰 💰 💰 ...Bienvenidos.. 💰 💰 💰 💰 `);
-        console.log(`💰 💰 💰  Casino ${this.getNombre()}💰 💰 💰 💰  \n`);
+        console.log(`╔═════════════════════════════════════════╗`)
+        console.log(`║💰 💰 💰 💰 ...Bienvenidos... 💰 💰 💰 💰║`);
+        console.log(`║💰 💰 💰  Casino ${this.getNombre()}    💰 💰 💰║`);
+        console.log(`╚═════════════════════════════════════════╝\n`)
     }
 
     public despedir(): string {

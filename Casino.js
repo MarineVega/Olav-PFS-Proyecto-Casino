@@ -27,11 +27,14 @@ var Casino = /** @class */ (function () {
         arreglo.forEach(function (a) { return cadena += "\n ".concat(a.getNombre()); });
         return cadena;
     };
-    Casino.prototype.darBienvenida = function (nombre) {
-        console.log("Bienvenido  !!!!   ".concat(nombre, "   al Casino  ").concat(this.getNombre(), " \n"));
+    Casino.prototype.darBienvenida = function (usuario) {
+        console.log("\u2554\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2557");
+        console.log("\u2551\uD83D\uDCB0 \uD83D\uDCB0 \uD83D\uDCB0 \uD83D\uDCB0 ...Bienvenidos... \uD83D\uDCB0 \uD83D\uDCB0 \uD83D\uDCB0 \uD83D\uDCB0\u2551");
+        console.log("\u2551\uD83D\uDCB0 \uD83D\uDCB0 \uD83D\uDCB0  Casino ".concat(this.getNombre(), "    \uD83D\uDCB0 \uD83D\uDCB0 \uD83D\uDCB0\u2551"));
+        console.log("\u255A\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u255D\n");
     };
     Casino.prototype.despedir = function () {
-        return "Gracias por elegir ".concat(this.getNombre(), ", volve pronto!!! \n");
+        return "Gracias por elegir ".concat(this.getNombre(), ", volve pronto!!!");
     };
     return Casino;
 }());

@@ -30,9 +30,10 @@ export class TragamonedaSports extends Tragamoneda implements Apuesta {
         if (this.getIntentosMaximos() >= 0){
             const resultado = this.tirar();
             if (resultado.length > 0) {
-    
-                console.log(resultado.join(" | "));
+
+                console.log(`| ${resultado.join(`  |  `)}|`);
                 console.log("Intentos Restantes:", this.intentosMaximos);
+                console.log(`\n`);
     
                 this.bonificacionDeTirada(resultado);
             }

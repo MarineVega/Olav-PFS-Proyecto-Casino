@@ -1,6 +1,5 @@
 import { Apuesta } from "./Apuesta";
 import { Usuario } from "./Usuario";
-
 export abstract class Juego implements Apuesta{
     protected nombre: string;
     protected reglamento: string;
@@ -14,10 +13,10 @@ export abstract class Juego implements Apuesta{
         this.nombre = nombre;
         this.reglamento = reglamento;
         this.dinero = 0;
+        this.setApuestaMinima(apuMin);    
+        this.setApuestaMaxima(apuMax);
         this.jugador = jugador;
         this.apuesta = 0;
-        this.apuestaMinima = apuMin;
-        this.apuestaMaxima = apuMax;
     }
 
     //Interface Apuesta
@@ -146,5 +145,6 @@ export abstract class Juego implements Apuesta{
         } else {
             return false;
         }
-    }   
+    }
+    
 }
