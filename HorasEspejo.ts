@@ -56,31 +56,33 @@ export class HorasEspejo extends Juego {
     private jugarTurno(quienJuega: 'jugador' | 'maquina'): void {
         const horaFormateada = this.generarHoraEspejo();
         let puntos = 0;
-        let dinero=0;
-
+        let dinero = 0;
+    
+        // Condición de victoria especial
         if (horaFormateada === "00:00") {
-            console.log(`🎉 ¡${quienJuega === 'jugador' ? 'El jugador' : 'La máquina'}🎉 GANA con 🕛"00:00"🎉!`);
-            //DINERO QUE SE LE PAGA AL JUGADOR POR GANAR LA PARTIDA CON 00:00 $10000
             puntos = 50;
-            dinero= 10000;
+            dinero = 10000;
+            console.log(`🎉 ¡${quienJuega === 'jugador' ? 'El jugador' : 'La máquina'} GANA con 🕛"00:00"🎉!`);
+    
             if (quienJuega === 'jugador') {
                 this.puntosAcumulados += puntos;
                 this.pagarApuesta(dinero);
                 this.intentosJugador = 0;
-
             } else {
                 this.puntosAcumuladosMaquina += puntos;
                 this.intentosMaquina = 0;
             }
-            return;
+            return; // Termina la ejecución
         }
-
+    
+        // Asignación de puntos por coincidencias
         if (this.puntos10.indexOf(horaFormateada) !== -1) {
             puntos = 10;
         } else if (this.puntos25.indexOf(horaFormateada) !== -1) {
             puntos = 25;
         }
-
+    
+        // Actualización de puntajes e intentos
         if (quienJuega === 'jugador') {
             this.puntosAcumulados += puntos;
             this.intentosJugador--;
@@ -88,10 +90,11 @@ export class HorasEspejo extends Juego {
             this.puntosAcumuladosMaquina += puntos;
             this.intentosMaquina--;
         }
-
+    
+        // Mensaje de estado
         console.log(`${quienJuega === 'jugador' ? 'Jugador' : 'Máquina'}: ⏰  ${horaFormateada}, Puntos 👉:  ${puntos}`);
     }
-
+    //INICIA LA PARTIDA CONTROLANDO LAS RONDAS
     public iniciarPartida(): void {
         console.log("\n--- 🍀 INICIA LA PARTIDA 🍀---");
     
@@ -140,6 +143,6 @@ export class HorasEspejo extends Juego {
         } else {
             console.log("🤗¡Es un empate!");
         }
-        console.log(`Saldo final del jugador: ${this.jugador.obtenerSaldo()}.`);
+       
     }
 }
