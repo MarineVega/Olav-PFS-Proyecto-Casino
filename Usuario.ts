@@ -46,11 +46,11 @@ export  class Usuario {
         return this.aliasCuenta;
     }
 
-
+/*
     public getBilletera(): number {
         return this.billetera;
     }
-
+*/
     public setBilletera(billetera: number): void {
         this.billetera = billetera;
     }
@@ -62,4 +62,41 @@ export  class Usuario {
     public setJuegosGanados (juegosGanados: number): void {
         this.juegosGanados = juegosGanados;
     }
+
+
+
+    /***********************************************************************************************************************************/
+    // Tomada del archivo de José
+    //Este método nos permite agregar dinero a la billetera del usuario en caso de que gane por ejemplo en el Tragamonedas
+    public agregarDinero(monto: number): void {
+        this.billetera += monto;
+        console.log(`Has recibido ${monto} pesos 💵. Tu saldo actual es:💲${this.billetera} pesos 🥳`);
+    }
+
+    public obtenerSaldo(): number {
+        return this.billetera;
+    }
+
+    public RegistrarUsuario(): void {
+        console.log("Ingrese su nombre completo ");
+        const readlineSync = require('readline-sync');
+        const nombre: string = readlineSync.question("Ingrese aqui su nombre: ");
+        console.log("Escriba su Alias si lo tiene(opcional)");
+        let alias: string = readlineSync.question("Descripcion u alias: ");
+        console.log("Billetera para jugar "); 
+        let dineroInicio = readlineSync.questionInt('Ingrese dinero a jugar: ');
+        
+        if ((nombre != "") && (dineroInicio >= 0)) {
+            if (alias === "") {
+                               alias = "Jugador Anonimo"
+                              }
+            console.log("Cargando datos....");
+            console.log(` jugador : ${nombre} \n alias : ${alias} \n Billetera  : ${dineroInicio} \n`);
+            this.nombre=nombre;
+            this.alias=alias;
+            this.billetera=dineroInicio;
+        }
+    }
+
+    /***********************************************************************************************************************************/
 }

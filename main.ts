@@ -13,20 +13,28 @@ const partida1: Veintiuno = new Veintiuno ("Veintiuno Partida 1", "Reglamento", 
 
 let continuar: string = "S";
 let apuesta: number;
+let apuestaStr: string;
 let apuestaValida: boolean;
 
 console.log(" ")
-console.warn("Dinero disponible del usuario: " + usuario.getBilletera());
+console.warn("Dinero disponible del usuario: " + usuario.obtenerSaldo());
 console.log(" ")
 console.error(partida1.mostrarDatosVeintiuno());
 console.log(" ")
 
 do {
-    apuesta = rs.questionInt("Ingrese el dinero de la apuesta: ");
-    apuestaValida = partida1.apostar(apuesta);
+    apuestaStr = rs.question("Ingrese el dinero de la apuesta: ");    
+    apuesta = parseInt(apuestaStr);
+
+    if (apuesta) {
+        apuestaValida = partida1.apostar(apuesta);
+    } else {
+        console.error("ERROR!!! debe ingresar una apuesta válida.");
+    }
+    
 } while (!apuestaValida)
 
-console.warn("Dinero disponible del usuario: " + usuario.getBilletera());
+console.warn("Dinero disponible del usuario: " + usuario.obtenerSaldo());
 
 if (apuestaValida) {
     console.log("  ")
@@ -45,6 +53,7 @@ if (apuestaValida) {
                 // chequeo que ingrese una opción válida
             } while (!["s", "n"].includes(continuar.toLowerCase()))        
         }  
+
     } while ((continuar.toLowerCase() == "s") && !partida1.getFinalizoPartida())
         
         
@@ -53,6 +62,6 @@ if (apuestaValida) {
         partida1.detenerPartida(1);
     }
     
-    console.warn("Dinero disponible del usuario: " + usuario.getBilletera());
+    console.warn("Dinero disponible del usuario: " + usuario.obtenerSaldo());
     console.log(" ");
 }

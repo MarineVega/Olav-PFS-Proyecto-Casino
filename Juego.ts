@@ -103,7 +103,7 @@ export abstract class Juego implements Apuesta{
 
     // Chequeo que el dinero disponible del jugador le alcance para realizar la apuesta
     public verificarDinero (costo: number): boolean {
-        if (this.jugador.getBilletera() >= costo) {
+        if (this.jugador.obtenerSaldo() >= costo) {
             return true;
         } else {
             return false;
@@ -112,7 +112,7 @@ export abstract class Juego implements Apuesta{
 
     public gastarDinero(monto: number): boolean {
         let disponible: number;
-        disponible = this.jugador.getBilletera() - monto;   
+        disponible = this.jugador.obtenerSaldo() - monto;   
         if (disponible >= 0) {
             this.jugador.setBilletera(disponible);
             this.apuesta = monto;
@@ -127,7 +127,7 @@ export abstract class Juego implements Apuesta{
         juegosGanados += juegosGanados;
         this.jugador.setJuegosGanados(juegosGanados);
 
-        let disponible = this.jugador.getBilletera();
+        let disponible = this.jugador.obtenerSaldo();
         disponible += dinero;
         this.jugador.setBilletera(disponible);
         
@@ -135,7 +135,7 @@ export abstract class Juego implements Apuesta{
         console.log("💸💸💸💸💸💸");
         
         console.log(`Felicitaciones!!! ganó $ ${dinero} 💰`);
-        console.log(`Tiene $ ${this.jugador.getBilletera()} disponibles para seguir jugando!!!`);
+        console.log(`Tiene $ ${this.jugador.obtenerSaldo()} disponibles para seguir jugando!!!`);
     };
     
 
