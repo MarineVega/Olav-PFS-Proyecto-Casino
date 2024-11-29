@@ -3,48 +3,74 @@ import { Usuario } from "./Usuario";
 import { HorasEspejo } from "./HorasEspejo";
 import { HorasEspejoSolitario } from "./HorasEspejoSolitario";
 
-// Crear al usuario
-const jugador = new Usuario("Naty", "Natalia", 10000); // Jugador con saldo inicial fijo
+
 
 console.log(" ");
 console.log(" *****************12:21***************** HORAS 00:00 ESPEJO ****************15:51*************************");
 console.log(" ");
+// Crear al usuario
+const jugador = new Usuario("Naty", "Natalia", 10000); // Jugador con saldo inicial fijo
 
+// VALIDO LAS OPCIONES INGRESADAS
+function solicitarNumeroValido(mensaje: string, min: number, max: number): number {
+    let numero: number;
+    let entrada: string;
+    do {
+        entrada = readline.question(mensaje); // Leer entrada como texto
+        numero = Number(entrada); // Convertir a número
+
+        if (isNaN(numero) || !Number.isInteger(numero) || numero < min || numero > max) {
+            console.error(`Error: Debe ingresar un número válido entre ${min} y ${max}.`);15
+        }
+    } while (isNaN(numero) || !Number.isInteger(numero)|| numero < min || numero > max);
+
+    return numero;
+}
+
+// VERIFICAR APUESTA
+function solicitarApuestaValida(min: number, max: number, jugador: Usuario): number {
+    let apuesta: number;
+    let entrada: string;
+    let esValida: boolean;
+
+    do {
+        entrada = readline.question("Ingrese el dinero de la apuesta: "); // Leer como texto
+        apuesta = Number(entrada); // Convertir a número
+
+        if (isNaN(apuesta) || apuesta <= 0) {
+            console.error("Error: La apuesta debe ser un número positivo.");
+            esValida = false;
+        } else {
+            esValida = apuesta >= min && apuesta <= max && apuesta <= jugador.obtenerSaldo();
+            if (!esValida) {
+                console.error(`Error: La apuesta debe estar entre $${min} y $${max}, y no superar tu saldo disponible.`);
+            }
+        }
+    } while (!esValida);
+
+    return apuesta;
+}
+
+// EMPIEZA LA LOGICA DEL JUEGO
 let continuar: boolean = true;
 
 while (continuar) {
-    let opcion: number;
-    do {
-        console.log("Selecciona una opción:");
-        console.log("1. Horas Espejo ⚔️  (Jugador vs Máquina)");
-        console.log("2. Horas Espejo Solitario 🙃");
-        console.log("3. Salir");
-        opcion = readline.questionInt("Respuesta: ");
+    console.log("Selecciona una opción:");
+    console.log("1. Horas Espejo ⚔️  (Jugador vs Máquina)");
+    console.log("2. Horas Espejo Solitario 🙃");
+    console.log("3. Salir");
 
-        if (isNaN(opcion) || opcion < 1 || opcion > 3) {
-            console.error("Error: Debe ingresar un número válido entre 1 y 3.");
-        }
-    } while (isNaN(opcion) || opcion < 1 || opcion > 3);
-
-    let apuesta: number = 0;
-    let apuestaValida: boolean;
+    // Validar la opción seleccionada
+    const opcion = solicitarNumeroValido("Respuesta: ", 1, 3);
 
     console.log(" ");
 
     if (opcion === 1) {
-        const horasEspejo = new HorasEspejo("Horas Espejo","Apuesta mínima de $1000 y máxima $5000. ¡Gánale a la máquina! O con 00:00 multiplica tu apuesta por 10.", 1000,5000,jugador);
+        const horasEspejo = new HorasEspejo("Horas Espejo","Apuesta mínima de $1000 y máxima $5000. ¡Gánale a la máquina! O con 00:00 multiplica tu apuesta por 10.",1000, 5000, jugador);
         console.log(`Reglamento: ${horasEspejo.getReglamento()}`);
 
-        do {
-            const entrada = readline.question("Ingrese el dinero de la apuesta: ");
-            if (isNaN(Number(entrada)) || Number(entrada) <= 0) {
-                console.error("Error: La apuesta debe ser un número positivo.");
-                apuestaValida = false;
-            } else {
-                apuesta = Number(entrada);
-                apuestaValida = horasEspejo.apostar(apuesta);
-            }
-        } while (!apuestaValida);
+        const apuesta = solicitarApuestaValida(1000, 5000, jugador);
+        horasEspejo.apostar(apuesta);
 
         console.warn("Dinero disponible del usuario: " + jugador.obtenerSaldo());
         console.log(" ");
@@ -52,19 +78,12 @@ while (continuar) {
         readline.question();
         horasEspejo.iniciarPartida();
     } else if (opcion === 2) {
-        const horasEspejoSolitario = new HorasEspejoSolitario("Horas Espejo Solitario","Apuesta mínima $1500 y máxima $5000. ¿Qué te dirá el azar? Saca horas espejo, suma 30 o más y gana. O con 00:00 ganas tu apuesta por 10.", 1500,5000,jugador);
+        const horasEspejoSolitario = new HorasEspejoSolitario("Horas Espejo Solitario","Apuesta mínima $1500 y máxima $5000. ¿Qué te dirá el azar? Saca horas espejo, suma 30 o más y gana. O con 00:00 ganas tu apuesta por 10.", 1500, 5000, jugador
+        );
         console.log(`Reglamento: ${horasEspejoSolitario.getReglamento()}`);
 
-        do {
-            const entrada = readline.question("Ingrese el dinero de la apuesta: ");
-            if (isNaN(Number(entrada)) || Number(entrada) <= 0) {
-                console.error("Error: La apuesta debe ser un número positivo.");
-                apuestaValida = false;
-            } else {
-                apuesta = Number(entrada);
-                apuestaValida = horasEspejoSolitario.apostar(apuesta);
-            }
-        } while (!apuestaValida);
+        const apuesta = solicitarApuestaValida(1500, 5000, jugador);
+        horasEspejoSolitario.apostar(apuesta);
 
         console.warn("Dinero disponible del usuario: " + jugador.obtenerSaldo());
         console.log(" ");
@@ -79,13 +98,6 @@ while (continuar) {
     // Preguntar si desea jugar nuevamente
     if (continuar) {
         console.log("¿Desea jugar otra vez? (1: Sí, 2: No)");
-        let respuesta: number;
-        do {
-            respuesta = readline.questionInt("Respuesta: ");
-            if (isNaN(respuesta) || (respuesta !== 1 && respuesta !== 2)) {
-                console.error("Error: Debe ingresar 1 (Sí) o 2 (No).");
-            }
-        } while (isNaN(respuesta) || (respuesta !== 1 && respuesta !== 2));
-        continuar = respuesta === 1;
+        continuar = solicitarNumeroValido("Respuesta: ", 1, 2) === 1;
     }
 }

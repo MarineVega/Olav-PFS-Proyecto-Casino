@@ -5,6 +5,10 @@ import * as readline from "readline-sync";
 export class HorasEspejoSolitario extends Juego {
     private intentosJugador: number;
     private puntosAcumulados: number;
+    private puntosNumIguales: number;
+    private puntosMayor:number;
+    private puntosEspejo: number;
+    private puntosGanador:number;
     protected jugador: Usuario;
 
     constructor(nombre: string, reglamento: string, apuMin: number, apuMax: number, jugador: Usuario) {
@@ -12,6 +16,10 @@ export class HorasEspejoSolitario extends Juego {
         this.intentosJugador = 3;
         this.puntosAcumulados = 0;
         this.jugador = jugador;
+        this.puntosNumIguales= 20;
+        this.puntosMayor=50;
+        this.puntosEspejo=10;
+        this.puntosGanador=30;
     }
 
     private generarHoraAleatoria(): string {
@@ -45,12 +53,12 @@ export class HorasEspejoSolitario extends Juego {
         if (hora[0] === hora[4] && hora[1] === hora[3]) {
             switch (hora) {
                 case "00:00":
-                    return 50; // Puntaje máximo para "00:00"
+                    return this.puntosMayor; // Puntaje máximo para "00:00"
                 case "11:11":
                 case "22:22":
-                    return 20; // Puntaje especial para "11:11" y "22:22"
+                    return this.puntosNumIguales; // Puntaje especial para "11:11" y "22:22"
                 default:
-                    return 10; // PUNTAJE RESTO HORAS ESPEJO
+                    return this.puntosEspejo; // PUNTAJE RESTO HORAS ESPEJO
             }
         }
 
@@ -63,9 +71,9 @@ export class HorasEspejoSolitario extends Juego {
         const horaFormateada = this.generarHoraAleatoria();
         const puntos = this.determinarPuntaje(horaFormateada);
         //MAXIMO PUNTAJE     
-        if (puntos === 50) {
+        if (puntos === this.puntosMayor) {
             console.log(`🎉 ¡GANASTE con 🕛"00:00"! 🎉`);
-            this.puntosAcumulados = 50; // Puntos máximos al ganar con "00:00"
+            this.puntosAcumulados = this.puntosMayor; // Puntos máximos al ganar con "00:00"
             this.intentosJugador = 0;
             return true; // SI GANO CON 00:00 DEBE TERMINAR
         }
@@ -75,7 +83,7 @@ export class HorasEspejoSolitario extends Juego {
 
         console.log(`⏰ Hora: ${horaFormateada}, Puntos obtenidos: ${puntos}`);
         console.log(`Puntos acumulados: ${this.puntosAcumulados}`);
-        return this.puntosAcumulados >= 30; // ACA GANA POR PUNTOS ACUMULADOS
+        return this.puntosAcumulados >= this.puntosGanador; // ACA GANA POR PUNTOS ACUMULADOS
     }
 
     // Iniciar la partida
@@ -93,21 +101,24 @@ export class HorasEspejoSolitario extends Juego {
             const victoria = this.jugarTurno();
             if (victoria) {
                 console.log("🎉 ¡Ganaste al alcanzar 30 puntos o más! 🎉");
-                if ((this.puntosAcumulados >= 30) && (this.puntosAcumulados < 50)) {
+                if ((this.puntosAcumulados >= this.puntosGanador) && (this.puntosAcumulados < 50)) {
                     this.pagarApuesta(this.apuestaMinima * 2); // Premiar con el doble de la apuesta mínima
                     
                 }
-                else if (this.puntosAcumulados >= 50) {
+                else if (this.puntosAcumulados >= this.puntosMayor) {
                     this.pagarApuesta(this.apuestaMinima * 10); //el premio mayor
                     break;
                 }
             }
         }
 
-        if (this.intentosJugador === 0 && this.puntosAcumulados < 30) {
+        if (this.intentosJugador === 0 && this.puntosAcumulados < this.puntosGanador) {
+            console.log('____________________________________________________________')
             console.log("😞 No alcanzaste los puntos necesarios. ¡Suerte la próxima!");
+            console.log('____________________________________________________________')
         }
 
+       
         console.log(`Puntaje final: ${this.puntosAcumulados}`);
         console.log(`Saldo final del jugador💸: ${this.jugador.obtenerSaldo()}`);
     }
