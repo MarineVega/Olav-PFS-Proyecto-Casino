@@ -1,6 +1,6 @@
 import { Juego } from "../abstractas/Juego";
-import { Tragamoneda } from "../Tragamoneda";
-import { Usuario } from "../Usuario";
+import { Tragamoneda } from "../abstractas/Tragamoneda";
+import { Usuario } from "../clases/Usuario";
 
 export class TragamonedaPremium extends Tragamoneda {
     private comodin: string;

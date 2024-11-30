@@ -1,5 +1,5 @@
-import { Juego } from "./abstractas/Juego";
-import { Usuario } from "./Usuario";
+import { Juego } from "./Juego";
+import { Usuario } from "../clases/Usuario";
 import * as rs from "readline-sync";
 
 export abstract class Tragamoneda extends Juego {

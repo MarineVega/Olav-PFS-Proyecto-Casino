@@ -1,5 +1,5 @@
 import { Juego } from "../abstractas/Juego";
-import { Usuario } from "../Usuario";
+import { Usuario } from "../clases/Usuario";
 import * as readline from "readline-sync";
 
 export class HorasEspejoSolitario extends Juego {

@@ -1,5 +1,5 @@
 import { Juego } from "../abstractas/Juego";
-import { Usuario } from "../Usuario";
+import { Usuario } from "../clases/Usuario";
 
 //export class Veintiuno extends Juego {
 export class Veintiuno extends Juego {

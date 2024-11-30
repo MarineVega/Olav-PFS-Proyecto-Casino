@@ -1,4 +1,4 @@
-import { Juego } from "./abstractas/Juego"
+import { Juego } from "../abstractas/Juego"
 import { Usuario } from "./Usuario";     
 import * as fs from 'fs';        
 

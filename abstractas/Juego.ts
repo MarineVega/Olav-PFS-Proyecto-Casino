@@ -1,5 +1,5 @@
 import { Apuesta } from "../interfaz/Apuesta";
-import { Usuario } from "../Usuario";
+import { Usuario } from "../clases/Usuario";
 import * as rs from "readline-sync";
 
 export abstract class Juego implements Apuesta{

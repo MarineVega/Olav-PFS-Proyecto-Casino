@@ -1,8 +1,8 @@
 const readlineSync = require('readline-sync');
 
 //import { Apuesta } from "./juegos/Apuesta";
-import { Casino } from "./Casino";
-import { Usuario } from "./Usuario";
+import { Casino } from "./clases/Casino";
+import { Usuario } from "./clases/Usuario";
 
 //Juegos
 import { Veintiuno } from "./juegos/Veintiuno";
