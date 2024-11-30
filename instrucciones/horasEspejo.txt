@@ -1,0 +1,21 @@
+🕓 Bienvenido al Juego en que las Horas toman Protagonismo 🕓
+
+-----------------------------------------------------------
+
+💰  Este juego tiene una Apuesta mínima de $1000 y una Apuesta Máxima de $5000. 💰 
+
+-----------------------------------------------------------
+
+📄 INSTRUCCIONES HORAS ESPEJO 🪞
+
+✔︎  Consta de 3 rondas con un intento el 👨🏽‍💻 Jugador y otro para la Máquina 🤖 .
+
+✔︎  Se acumulan los puntos según el siguiente Criterio: con horas espejo de números iguales como 11:11 o 22:22 suman 25 puntos, si sacan cualquier otra hora espejo suman 10 puntos. Salvo la Condición Especial del 00:00 🕛.
+
+✔︎  Si el Jugador o la Máquina saca 00:00 🕛 ❕Gana la Partida❕🏆  y se le suman 50 puntos. Se le paga 10 veces más la Apuesta Inicial 💵.
+
+✔︎  Si no sacan 00:00 Gana el participante con más puntos 🔝.                                                                                                                                            
+
+✔︎  En este juego el participante puede: Ganar 👍, Perder 👎 o Empatar 🟰.
+
+-----------------------------------------------------------

@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "readline-sync": "^1.4.10",
     "typescript": "^5.7.2"
   },
   "name": "pruebareadfile",
@@ -13,6 +14,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@types/node": "^22.10.1"
+    "@types/node": "^22.10.1",
+    "@types/readline-sync": "^1.4.8"
   }
 }

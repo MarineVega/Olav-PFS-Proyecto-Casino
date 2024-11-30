@@ -1,54 +1,70 @@
-Reglamento para el juego "Veintiuno"
+📄 Reglamento para el Juego "Veintiuno" ♠️♦️
 
------------------------------------------
+----------------------------------------------
 
-Objetivo del juego
+🔵 Objetivo del Juego
 
-El objetivo es obtener una puntuación lo más cercana a 21 sin superarla. Si el jugador supera los 21 puntos, pierde automáticamente.
+✔︎ El objetivo es obtener una puntuación lo más cercana a 21 sin superarla. Si el jugador supera los 21 puntos, pierde automáticamente 🙇🏾.
 
-Valor de las cartas
-Las cartas utilizadas son del 1 al 12 y valen su número.
 
------------------------------------------
+🔵 Valor de las Cartas
 
-Inicio del juego
+✔︎ Las cartas utilizadas son del 1 al 12 y valen su número.
 
-Se utiliza una baraja estándar de 48 cartas, sin comodines.
-Al comienzo de la partida, el jugador y la máquina reciben una carta cada uno:
-La carta del jugador se muestra.
-La carta de la máquina queda oculta.
+----------------------------------------------
 
------------------------------------------
+🔵 Inicio del juego
 
-Turnos
+✔︎ Se utiliza una baraja estándar de 48 cartas, sin comodines.
 
-Turno del jugador:
+✔︎ Al comienzo de la partida, el Jugador 👨🏽‍💻 y la Máquina 🤖 reciben una carta cada uno:
+
+✔︎ La carta del jugador se muestra.
+
+✔︎ La carta de la máquina queda oculta.
+
+----------------------------------------------
+
+🔵 Turnos
+
+Turno del Jugador 👨🏽‍💻:
 
 El jugador tiene las siguientes opciones:
-- Puede continuar jugando, recibiendo, nuevamente una carta él y otra la máquina.
-- Puede decidir no jugar más.
+
+✔︎ Puede continuar jugando, recibiendo, nuevamente una carta él y otra la máquina.
+
+✔︎ Puede decidir no jugar más.
+
 Si la puntuación del jugador supera los 21 puntos, pierde automáticamente (se "pasa").
 
-Turno de la máquina:
+Turno de la Máquina 🤖:
 
-La máquina siempre juega inmediatamente después, que el jugador.
-Si la puntuación de la máquina supera los 21 puntos, y la puntuación del jugador es 21 o menor, la máquina pierde automáticamente.
+✔︎ La máquina siempre juega inmediatamente después que el jugador.
 
-Condiciones de victoria:
+✔︎ Si la puntuación de la máquina supera los 21 puntos, y la puntuación del jugador es 21 o menor, la máquina pierde automáticamente.
 
-Cuando el jugador no quiere continuar: 
-Si el jugador no se pasa y su puntuación es mayor que la de la máquina (o la máquina se pasa), el jugador gana.
-Si el jugador y la máquina tienen la misma puntuación, se considera un empate.
-Si la máquina tiene una puntuación más alta sin pasarse, la máquina gana.
+----------------------------------------------
 
------------------------------------------
+🔵 Condiciones de Victoria:
 
-Reglas adicionales
+Cuando el Jugador NO quiere continuar: 
 
-Dinámica del juego virtual
-Las cartas se seleccionan de manera aleatoria.
-La interfaz mostrará la puntuación actual del jugador después de cada turno.
+✔︎ Si el jugador no se pasa y su puntuación es mayor que la de la máquina (o la máquina se pasa), el jugador 🥇 Gana ‼️.
 
-Al final de la partida, se revelarán las cartas ocultas de la máquina y se declarará el ganador.
+✔︎ Si el jugador y la máquina tienen la misma puntuación, se considera un Empate 🟰.
 
------------------------------------------
+✔︎ Si la máquina tiene una puntuación más alta sin pasarse, la máquina 🤖 🥇 Gana ‼️.
+
+----------------------------------------------
+
+🔵 Reglas adicionales
+
+Dinámica del Juego Virtual 📱.
+
+✔︎ Las cartas ♣️ se seleccionan de manera aleatoria.
+
+✔︎ La interfaz mostrará la puntuación actual del jugador después de cada turno.
+
+Al final de la partida, se revelarán las cartas ocultas de la máquina y se declarará el Ganador 🥇.
+
+----------------------------------------------
