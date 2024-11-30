@@ -1,6 +1,3 @@
-const readlineSync = require('readline-sync');
-
-//import { Apuesta } from "./juegos/Apuesta";
 import { Casino } from "./clases/Casino";
 import { Usuario } from "./clases/Usuario";
 
@@ -15,7 +12,6 @@ import { TragamonedaPremium } from "./juegos/TragamonedaPremium";
 import * as rs from "readline-sync";
 import * as path from 'path';
 import * as fs from 'fs';
-import { Juego } from "./abstractas/Juego";
 
 //___________________ Rutas reglamentos Juegos ________________________________
 
@@ -47,6 +43,9 @@ let usuario: Usuario = casino1.registrarUsuario();
 
 casino1.listarUsuarios();
 
+console.log("Presiona Enter para Continuar...");
+rs.question();
+
 //casino1.darBienvenida(usuario.getAlias());
 
 //casino1.guardarEnJSON();
@@ -58,6 +57,7 @@ menuCasino();
 //____________________ Menu principal de juegos _____________________________
 
 function menuCasino(): void {
+    limpiarConsola();
 
     console.log(`${usuario.getAlias()} seleccione el juego que desee...! \n `);
     console.log("Opcion 1: Tragamonedas Sports 🎰");
@@ -87,14 +87,17 @@ function menuCasino(): void {
             juegoHorasEspejoSolitario();
             break;    
         case "6":
-           recargarDinero();
+            recargarDinero();
             break;
         case "7":
+            limpiarConsola();
             console.log("Saliendo del Casino. ¡Hasta pronto!👋");
             break;
 
         default:
-            console.log("Opción no válida❗. Intentalo de nuevo.\n");
+            limpiarConsola();
+            console.log("Opción no válida❗Intentalo de nuevo.\nPresione Enter para continuar...");
+            rs.question();
             menuCasino(); 
             break;
     }
@@ -103,6 +106,8 @@ function menuCasino(): void {
 //____________________ submenu Juego ____________________________
 
 function subMenuJuego(juego: any): void {
+    limpiarConsola();
+
     console.log(`${usuario.getAlias()} seleccione la opcion que desee. \n `);
     console.log("Opcion 1: Jugar");
     console.log("Opcion 2: Ver Reglamento");
@@ -112,10 +117,12 @@ function subMenuJuego(juego: any): void {
 
     switch (opcion) {
         case "1":
+            limpiarConsola();
             juego.jugar();
             break;
 
         case "2":
+            limpiarConsola();
             console.log(juego.getReglamento() + `\n`);
             console.log("Presiona Enter para Continuar...");
             rs.question(); 
@@ -123,12 +130,14 @@ function subMenuJuego(juego: any): void {
             break;
 
         case "3":
+            //limpiarConsola()
             menuCasino();
             break;
 
         default:
-            console.log("Opción no válida❗. Intentalo de nuevo.");
-            console.log(`\n`);
+            limpiarConsola();
+            console.log("Opción no válida❗Intentalo de nuevo.\nPresione Enter para continuar...");
+            rs.question();
             subMenuJuego(juego); 
             break;
     }
@@ -139,6 +148,8 @@ function subMenuJuego(juego: any): void {
 function returnToMenu(): void {
     console.log("\nPresiona Enter para regresar al Menú Principal...");
     rs.question(); 
+
+    limpiarConsola();
     menuCasino(); 
 }
 
@@ -245,13 +256,13 @@ function juegoVeintiuno(): void {
 
 function juegoHorasEspejo(): void {
     const apuMin=1000;
-    const apuMax=2500;
+    const apuMax=5000;
 
     console.log("**12:21***************** HORAS 00:00 ESPEJO ****************15:51** \n");
 
     let reglamento: string = leerIntruccionesArchivo(rutaHorasEspejo);
 
-    const horasEspejo = new HorasEspejo("Horas Espejo", reglamento, 1000, 5000, usuario);
+    const horasEspejo = new HorasEspejo("Horas Espejo", reglamento, apuMin, apuMax, usuario);
 
     subMenuJuego(horasEspejo);
     
@@ -268,7 +279,7 @@ function juegoHorasEspejoSolitario(): void{
 
     let reglamento: string = leerIntruccionesArchivo(rutaHorasEspejoSolitario);
 
-    const horasEspejoSolitario = new HorasEspejoSolitario("Horas Espejo", reglamento, 1000, 5000, usuario);
+    const horasEspejoSolitario = new HorasEspejoSolitario("Horas Espejo", reglamento, apuMin, apuMax, usuario);
 
     subMenuJuego(horasEspejoSolitario);
     
@@ -357,10 +368,12 @@ function solicitarApuestaValida(min: number, max: number, jugador: Usuario): num
 //_________________ Billetera Usuario _______________________________
 
 function recargarDinero(){
+    limpiarConsola();
 
     console.log(`Ingrese dinero para recargar Billetera...💸.Su saldo actual de $: ${usuario.obtenerSaldo()}`);
-    const readlineSync = require('readline-sync');
-    const dineroRecarga: number = readlineSync.questionInt("Ingrese una suma en $: ");
+    
+    const dineroRecarga: number = rs.questionInt("Ingrese una suma en $: ");
+
     usuario.agregarDinero(dineroRecarga);
     console.log(`Su saldo actual recargado es de $: ${usuario.obtenerSaldo()}`);
 
@@ -379,4 +392,10 @@ function leerIntruccionesArchivo(rutaArchivo: string): string {
           console.error('No se ha podido leer el archivo solicitado. Verifica la ruta.');
           return ''; 
     }
-  }
+}
+
+//_________________ Consola _______________________________
+
+function limpiarConsola(): void {
+    console.clear();
+}

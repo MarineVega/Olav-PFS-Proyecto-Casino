@@ -157,7 +157,9 @@ export class HorasEspejo extends Juego {
 
         } else {
             
-            this.jugar();
+            if(this.verifcarBilletera()){
+                this.jugar();
+            }
         }
     }
 

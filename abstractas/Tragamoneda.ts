@@ -102,8 +102,9 @@ export abstract class Tragamoneda extends Juego {
             console.log(`\nSaldo final en tu Billetera: $${this.jugador.obtenerSaldo()}`);
     
         } else {
-            
-            this.jugar();
+            if(this.verifcarBilletera()){
+                this.jugar();
+            }
         }
     }
 }

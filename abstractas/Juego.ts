@@ -91,10 +91,6 @@ export abstract class Juego implements Apuesta{
         let usuario: Usuario = new Usuario("", "", 0);
         this.jugador = usuario;
     }
-
-    public verifcarBilletera(): boolean {
-        return (this.jugador.obtenerSaldo() >= this.getApuestaMinima());
-    }
     
     public apostar(): boolean {
         if(this.verifcarBilletera()){
@@ -104,36 +100,45 @@ export abstract class Juego implements Apuesta{
             if (this.validarMinimosMaximos(costo)) {        
                 if (this.verificarDinero(costo)) {
                     if(this.gastarDinero(costo)) {
-                        console.log(`\nLa apuesta de ${costo} se realizó exitosamente ✔️`)
+                        console.log(`✔️  La apuesta de ${costo} se realizó exitosamente ✔️\n`)
                         return true;
                     } else {
-                        console.log("\nEl dinero disponible no es suficiente para realizar la apuesta ❌")
-                        return false;
+                        console.log("❌ El dinero disponible no es suficiente para realizar la apuesta ❌\n")
+                        //return false;
                     }
                 } else {
-                    console.log("\nEl dinero disponible no es suficiente para realizar la apuesta ❌")
-                    return false;
+                    console.log("❌ El dinero disponible no es suficiente para realizar la apuesta ❌\n")
+                    //return false;
                 }
             } else {
-                console.log(`\nEl dinero apostado $${costo} excede los rangos admitidos de apuesta mínima ($${this.apuestaMinima}) y/o apuesta máxima ($${this.apuestaMaxima}).\nVuelva a realizar la apuesta!`);
-                return false
+                console.log(`\n❌ $${costo} excede los rangos admitidos de apuesta mínima ($${this.apuestaMinima}) y/o apuesta máxima ($${this.apuestaMaxima})❌\nVuelva a realizar la apuesta!\n`);
+                //return false
             }
         } else {
-            console.log(`\nNo dispones de dinero para cumplir con la apuesta minima de $${this.apuestaMinima}.\nCarga dinero antes de continuar!`);
-            return false;
-
+            console.log(`\n❌ No dispones de dinero para cumplir con la apuesta minima de $${this.apuestaMinima}❌ \nCarga dinero antes de continuar!`);
+            
         }
+
+        return false;
         
     };
 
-    // Chequeo que el dinero disponible del jugador le alcance para realizar la apuesta
-    public verificarDinero (costo: number): boolean {
-        if (this.jugador.obtenerSaldo() >= costo) {
-            return true;
-        } else {
-            return false;
-        }
+    //Verificaciones
+
+    // Chequea que el dinero disponible del jugador le alcance para realizar la apuesta
+    public verificarDinero (apuesta: number): boolean {
+        return (this.jugador.obtenerSaldo() >= apuesta);  
     };
+
+    //Chequea si la apuesta esta entre los valores permitidos del juego
+    public validarMinimosMaximos(apuesta: number): boolean {
+        return (apuesta >= this.apuestaMinima && apuesta <= this.apuestaMaxima);
+    }  
+    
+    //Chequea si cumple al menos con la minima apuesta para poder jugar
+    public verifcarBilletera(): boolean {
+        return (this.jugador.obtenerSaldo() >= this.getApuestaMinima());
+    }
 
     public gastarDinero(monto: number): boolean {
         let disponible: number;
@@ -165,11 +170,5 @@ export abstract class Juego implements Apuesta{
     };
     
 
-    public validarMinimosMaximos(costo: number): boolean {
-        if (costo >= this.apuestaMinima && costo <= this.apuestaMaxima) {
-            return true;
-        } else {
-            return false;
-        }
-    }   
+    
 }
