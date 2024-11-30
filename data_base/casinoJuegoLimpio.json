@@ -1,0 +1,27 @@
+{
+  "nombre": "Juego Limpio 🎲🍀",
+  "usuarios": [
+    {
+      "aliasCuenta": "Nombre: agus. Alias: Jugador Anónimo",
+      "alias": "Jugador Anónimo",
+      "nombre": "agus",
+      "juegosGanados": 0,
+      "billetera": 12000
+    },
+    {
+      "aliasCuenta": "Nombre: Anónimo. Alias: Jugador Anónimo",
+      "alias": "Jugador Anónimo",
+      "nombre": "Anónimo",
+      "juegosGanados": 0,
+      "billetera": 18
+    },
+    {
+      "aliasCuenta": "Nombre: sarasa. Alias: Jugador Anónimo",
+      "alias": "Jugador Anónimo",
+      "nombre": "sarasa",
+      "juegosGanados": 0,
+      "billetera": 5600
+    }
+  ],
+  "juegos": []
+}

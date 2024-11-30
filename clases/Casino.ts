@@ -78,16 +78,16 @@ export class Casino {
 
     //Funciones para carga y guardado de datos en JSON
 
-    public guardarEnJSON(ruta: string): void {
+    public guardarEnJSON(): void {
         const data = {
             nombre: this.getNombre(),
             usuarios: this.getUsuarios(),
             juegos: this.getJuegos()
         };
 
-        fs.writeFileSync(ruta, JSON.stringify(data, null, 2), "utf-8");
+        fs.writeFileSync(this.RUTA_DATOS, JSON.stringify(data, null, 2), "utf-8");
         
-        console.log(`Datos guardados en ${ruta}`);
+        console.log(`Datos guardados en ${this.RUTA_DATOS}`);
     }
 
     public cargarDesdeJSON(): void {

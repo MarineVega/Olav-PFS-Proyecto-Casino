@@ -35,9 +35,21 @@ console.log("\nBienvenido al Casino Juego Limpio 🎲🍀. Por favor registrese 
 // Se crea un usuario (jugador) para probar los Tragamonedas Sports y Premium
 
 let usuario: Usuario = casino1.registrarUsuario();
-console.log(usuario)
-casino1.darBienvenida(usuario.getAlias());
-casino1.agregarUsuario(usuario);
+
+//let usuario2: Usuario = casino1.registrarUsuario();
+//let usuario3: Usuario = casino1.registrarUsuario();
+
+//casino1.cargarDesdeJSON()
+
+// casino1.agregarUsuario(usuario);
+// casino1.agregarUsuario(usuario2);
+// casino1.agregarUsuario(usuario3);
+
+casino1.listarUsuarios();
+
+//casino1.darBienvenida(usuario.getAlias());
+
+//casino1.guardarEnJSON();
 
 //Muestro el menu del casino
 menuCasino();
