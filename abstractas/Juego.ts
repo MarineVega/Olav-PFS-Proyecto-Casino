@@ -88,7 +88,7 @@ export abstract class Juego implements Apuesta{
     }
 
     public desloguearJugador(): void {
-        let usuario: Usuario = new Usuario("", "", 0);
+        let usuario: Usuario = new Usuario("", "", 0, 0);
         this.jugador = usuario;
     }
     

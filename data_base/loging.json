@@ -1,0 +1,16 @@
+{
+  "usuarios": [
+    {
+      "nombre": "Jugador Anonimo",
+      "alias": "anitsuga",
+      "contrasenia": "$2a$05$OjNee04c9ow2R9QGCLcuwedGwAVeitLChnlD1R7uHc.BF5sMqWf62",
+      "dni": 38529603
+    },
+    {
+      "nombre": "Jugador Anonimo",
+      "alias": "sancho pansa",
+      "contrasenia": "$2a$05$YE.jZc/nFoITtdWc8g6mbu4akAbrjppywtuRCTO8F0z0WWu5haRnK",
+      "dni": 258741
+    }
+  ]
+}

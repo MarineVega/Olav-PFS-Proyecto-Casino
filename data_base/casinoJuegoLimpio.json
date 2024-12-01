@@ -2,25 +2,20 @@
   "nombre": "Juego Limpio 🎲🍀",
   "usuarios": [
     {
-      "aliasCuenta": "Nombre: agus. Alias: Jugador Anónimo",
-      "alias": "Jugador Anónimo",
-      "nombre": "agus",
+      "aliasCuenta": "Jugador Anonimo (anitsuga)",
+      "alias": "anitsuga",
+      "nombre": "Jugador Anonimo",
       "juegosGanados": 0,
-      "billetera": 12000
+      "billetera": 2000,
+      "dni": 38529603
     },
     {
-      "aliasCuenta": "Nombre: Anónimo. Alias: Jugador Anónimo",
-      "alias": "Jugador Anónimo",
-      "nombre": "Anónimo",
+      "aliasCuenta": "Jugador Anonimo (sancho pansa)",
+      "alias": "sancho pansa",
+      "nombre": "Jugador Anonimo",
       "juegosGanados": 0,
-      "billetera": 18
-    },
-    {
-      "aliasCuenta": "Nombre: sarasa. Alias: Jugador Anónimo",
-      "alias": "Jugador Anónimo",
-      "nombre": "sarasa",
-      "juegosGanados": 0,
-      "billetera": 5600
+      "billetera": 17500,
+      "dni": 258741
     }
   ],
   "juegos": []

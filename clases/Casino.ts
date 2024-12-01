@@ -1,19 +1,29 @@
+import * as fs from 'fs'; 
+import * as rs from "readline-sync";
+
+//Hasheo
+import bcrypt from 'bcryptjs';
+
 import { Juego } from "../abstractas/Juego"
-import { Usuario } from "./Usuario";     
-import * as fs from 'fs';        
+import { CuentaUsuario } from "./CuentaUsuario";
+import { Login } from "./Login";
+import { Usuario } from "./Usuario"; 
+
 
 export class Casino {
     //Ruta donde se almacenan los datos de los usuarios y juegos cargados en el casino
     readonly RUTA_DATOS : string = "./data_base/casinoJuegoLimpio.json";
 
     private nombre: string;
-    private usuarios: Usuario[];
+    private usuarios: Usuario[] = [];
     private juegos: Juego[];
+    private login: Login;
 
     constructor(nombre: string) {
         this.nombre = nombre;
-        this.usuarios = [];
+        this.usuarios = this.cargarDesdeJSON();
         this.juegos = [];
+        this.login = new Login();  
     }
 
     public getNombre(): string {
@@ -32,7 +42,10 @@ export class Casino {
         this.nombre = nombre;
     }
 
-    public agregarUsuario(usuario: Usuario){
+    public agregarUsuario(usuario: Usuario): void{
+        console.log("Cargando datos....");
+        console.log(`Jugador: ${usuario.getNombre()} \nAlias: ${usuario.getAlias()} \nBilletera: ${usuario.obtenerSaldo()} \n`);
+        
         this.usuarios.push(usuario);
     }
 
@@ -47,7 +60,6 @@ export class Casino {
     public listarUsuarios(): void {
         this.usuarios.forEach(u => {
             u.mostrarUsuario();
-            console.log(`\n`);
         });
     }
 
@@ -58,12 +70,6 @@ export class Casino {
         });
     }
 
-    // public listarNombres(arreglo: Usuario[] | Juego[]): String {
-    //     let cadena: string = ' ';
-    //     arreglo.forEach(a => cadena += `\n ${a.getNombre()}`)
-    //     return cadena;
-    // }
-
     public darBienvenida(alias: string): void {
         console.log(`═══════════════════════════════════════════════════`);
         console.log(`   💰 💰 💰 💰 ...Bienvenidos... 💰 💰 💰 💰   `);
@@ -72,8 +78,8 @@ export class Casino {
         console.log(`═══════════════════════════════════════════════════\n`);
     }
 
-    public despedir(alias: string): string {
-        return `Gracias ${alias} por elegir ${this.getNombre()}. Volve pronto!!!`;
+    public despedir(alias: string): void {
+        console.log(`Gracias ${alias} por elegir ${this.getNombre()}. Volve pronto!!!`);
     }
 
     //Funciones para carga y guardado de datos en JSON
@@ -87,67 +93,98 @@ export class Casino {
 
         fs.writeFileSync(this.RUTA_DATOS, JSON.stringify(data, null, 2), "utf-8");
         
-        console.log(`Datos guardados en ${this.RUTA_DATOS}`);
+        console.log(`\nDatos guardados satisfactoriamente.`);
     }
 
-    public cargarDesdeJSON(): void {
+    private cargarDesdeJSON(): Usuario[] {
         if (fs.existsSync(this.RUTA_DATOS)){
             let data = JSON.parse(fs.readFileSync(this.RUTA_DATOS, "utf-8"));
     
             // Cargar Usuarios
-            this.usuarios = data.usuarios.map((usu: any) => {
+            let arreglo: Usuario [] = data.usuarios.map((usu: any) => {
                 return new Usuario(
                     usu.alias, 
                     usu.nombre,
-                    usu.billetera
+                    usu.billetera,
+                    usu.dni
                 );
             });
 
-            // this.juegos = data.juegos.map((jue: any) => {
-            //     return new Juego(
-            //         jue.nombre, 
-            //         jue.reglamento,
-            //         jue.apuestaMinima,
-            //         jue.apuestaMaxima,
-            //         jue.jugador
-            //     );
-            // });
+            console.log(`Usuarios cargados satisfactoriamente.`);
 
-            console.log(`Datos cargados desde ${this.RUTA_DATOS}`);
+            return arreglo;
         } else {
-            console.log(`Archivo no encontrado: ${this.RUTA_DATOS}`);
+            console.log(`Archivo no encontrado en la ruta solicitada.`);
         }
          
     }
 
-    public registrarUsuario(): Usuario {
-        //PUEDE que las lecturas por teclado se hagan desde afuera desde el main en un metodo, y que este los reciba por parametro
-        const readlineSync = require('readline-sync');
-        
-        console.log("Ingrese su nombre completo 🪪");
-        let nombre: string = readlineSync.question("Ingrese aqui su nombre: ");
+    public registrarNuevoUsuario(): Usuario {     
+        console.log("Cree su Alias (Obligatorio)👤"); 
+        let alias: string = rs.question("");
 
-        console.log("Escriba su Alias si lo tiene (opcional) 👤");
-        let alias: string = readlineSync.question("Descripcion o alias: ");
-        
-        console.log("Billetera para jugar 💵"); 
-        
-        let dineroInicio = readlineSync.questionInt('Ingrese dinero a jugar: ');
-        
-        if (nombre === "") {
-            nombre = "Anónimo"
+        while(alias == ''){
+            console.log("Ingrese un valor valido para su Alias 👤"); 
+            alias = rs.question("");    
         }
         
-        if (alias === "") {
-            alias = "Jugador Anónimo"
-        }    
+        console.log("\n🪪  Ingrese su nombre si lo desea (Opcional)🪪"); 
+        let nombre: string = rs.question("");   
+        
+        if (nombre === "") {
+            console.log("Ha decidido mantenerse en el anonimato\n"); 
+            nombre = "Jugador Anonimo"
+        } 
 
-        console.log("Cargando datos....");
-        console.log(`Jugador: ${nombre} \n Alias: ${alias} \n Billetera: ${dineroInicio} \n`);
-    
-        return new Usuario(alias, nombre, dineroInicio);
+        let existe: boolean = this.login.verificarSiExiste(nombre, alias);
+        
+        if(!existe){
+            console.log("\nEscriba su DNI 👤"); 
+            let dni: number = rs.questionInt("");
 
+            console.log("\nEscriba contrasenia para su cuenta👤"); 
+            let pass: string = rs.question('', { hideEchoBack: true });
+            
+            let hasheo = bcrypt.hashSync(pass, 5); //contrasenia, intensidad del hasheo
+            pass = ''; //piso la contrasenia en texto plano
+        
+            this.crearCuentaUsuario(nombre, alias, hasheo, dni); //creo la cuenta del respectivo usuario
+
+            console.log("\n💵 Billetera para jugar 💵"); 
+            let dineroInicio = rs.questionInt('Ingrese el dinero a ingresar: $');
+        
+            let usuarioNue: Usuario = new Usuario(alias, nombre, dineroInicio, dni);
+
+            this.agregarUsuario(usuarioNue); //agrego usuario al casino si no existe
+
+            this.guardarEnJSON();
+
+            return usuarioNue;
+        } else {
+            console.log("Intente ingresar sus datos con un Alias distinto.\n"); 
+
+            return undefined;
+        }
     }
-    
+
+    public crearCuentaUsuario(nombre: string, alias: string, hasheo: string, dni: number): void{  
+        let nuevaCuenta = new CuentaUsuario(nombre, alias, hasheo, dni);
+        this.login.registrarCuenta(nuevaCuenta);
+    }
+
+    public iniciarSesion(): Usuario{
+        let dni: number = this.login.iniciarSesion();
+        
+        return dni != -1 ? this.buscarUsuarioPorDni(dni) : undefined; //retorna el usuario o undefined si no lo encuentra  
+    }
+
+    public buscarUsuarioPorDni(dni: number): Usuario{
+       return this.usuarios.find((usuario) => usuario.getDni() === dni); 
+    }
+
+    public cerrarSesionUsuario(): void{
+        this.login.cerrarSesion();
+    }
+
 
 }
