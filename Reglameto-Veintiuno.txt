@@ -1,0 +1,70 @@
+📄 Reglamento para el Juego "Veintiuno" ♠️♦️
+
+----------------------------------------------
+
+🔵 Objetivo del Juego
+
+✔︎ El objetivo es obtener una puntuación lo más cercana a 21 sin superarla. Si el jugador supera los 21 puntos, pierde automáticamente 🙇🏾.
+
+
+🔵Valor de las Cartas
+
+✔︎ Las cartas utilizadas son del 1 al 12 y valen su número.
+
+--------------------------------------------------------------------------------------------------------------------------------------
+
+🔵 Inicio del juego
+
+✔︎ Se utiliza una baraja estándar de 48 cartas, sin comodines.
+
+✔︎ Al comienzo de la partida, el Jugador 👨🏽‍💻 y la Máquina 🤖 reciben una carta cada uno:
+
+✔︎ La carta del jugador se muestra.
+
+✔︎ La carta de la máquina queda oculta.
+
+--------------------------------------------------------------------------------------------------------------------------------------
+
+🔵 Turnos
+
+Turno del Jugador 👨🏽‍💻:
+
+El jugador tiene las siguientes opciones:
+
+✔︎ Puede continuar jugando, recibiendo, nuevamente una carta él y otra la máquina.
+
+✔︎ Puede decidir no jugar más.
+
+Si la puntuación del jugador supera los 21 puntos, pierde automáticamente (se "pasa").
+
+Turno de la Máquina 🤖:
+
+✔︎ La máquina siempre juega inmediatamente después que el jugador.
+
+✔︎ Si la puntuación de la máquina supera los 21 puntos, y la puntuación del jugador es 21 o menor, la máquina pierde automáticamente.
+
+--------------------------------------------------------------------------------------------------------------------------------------
+
+🔵 Condiciones de Victoria:
+
+Cuando el Jugador NO quiere continuar: 
+
+✔︎ Si el jugador no se pasa y su puntuación es mayor que la de la máquina (o la máquina se pasa), el jugador 🥇 Gana ‼️.
+
+✔︎ Si el jugador y la máquina tienen la misma puntuación, se considera un Empate 🟰.
+
+✔︎ Si la máquina tiene una puntuación más alta sin pasarse, la máquina 🤖 🥇 Gana ‼️.
+
+--------------------------------------------------------------------------------------------------------------------------------------
+
+🔵 Reglas adicionales
+
+Dinámica del Juego Virtual 📱.
+
+✔︎ Las cartas ♣️ se seleccionan de manera aleatoria.
+
+✔︎ La interfaz mostrará la puntuación actual del jugador después de cada turno.
+
+Al final de la partida, se revelarán las cartas ocultas de la máquina y se declarará el Ganador 🥇.
+
+--------------------------------------------------------------------------------------------------------------------------------------
