@@ -22,7 +22,7 @@ export class TragamonedaSports extends Tragamoneda {
             this.pagarApuesta(bonificacionFinal);
         }
         else if (resultado[0] === resultado[1] || resultado[1] === resultado[2] || resultado[0] === resultado[2]) {
-            console.log(`\n¡Bonificación! 🎉 Has sacado dos frutas iguales 🎉 Sumas dinero a tu billetera💲💰`);
+            console.log(`\n¡Bonificación! 🎉 Has sacado dos deportes iguales 🎉 Sumas dinero a tu billetera💲💰`);
             console.log(`Obtuviste 💲2500 adicionales`)
 
             bonificacionFinal += 2500;

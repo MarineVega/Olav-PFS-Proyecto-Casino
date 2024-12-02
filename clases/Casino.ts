@@ -79,7 +79,7 @@ export class Casino {
     }
 
     public despedir(alias: string): void {
-        console.log(`Gracias ${alias} por elegir ${this.getNombre()}. Volve pronto!!!`);
+        console.log(`\nGracias ${alias} por elegir ${this.getNombre()}. Volve pronto!!!`);
     }
 
     //Funciones para carga y guardado de datos en JSON
@@ -93,7 +93,7 @@ export class Casino {
 
         fs.writeFileSync(this.RUTA_DATOS, JSON.stringify(data, null, 2), "utf-8");
         
-        console.log(`Datos guardados satisfactoriamente.\n`);
+        console.log(`\nDatos guardados satisfactoriamente.\n`);
     }
 
     private cargarDesdeJSON(): Usuario[] {
@@ -110,11 +110,11 @@ export class Casino {
                 );
             });
 
-            console.log(`Usuarios cargados satisfactoriamente.\n`);
+            console.log(`\nUsuarios cargados satisfactoriamente.\n`);
 
             return arreglo;
         } else {
-            console.log(`Archivo no encontrado en la ruta solicitada.\n`);
+            console.log(`\nArchivo no encontrado en la ruta solicitada.\n`);
         }
          
     }
@@ -139,10 +139,10 @@ export class Casino {
         let existe: boolean = this.login.verificarSiExiste(nombre, alias);
         
         if(!existe){
-            console.log("\n🪪  Escriba su DNI 🪪"); 
+            console.log("\nEscriba su DNI 🪪"); 
             let dni: number = rs.questionInt("");
 
-            console.log("\n🔐 Escriba contrasenia para su cuenta 🔐"); 
+            console.log("\nEscriba contrasenia para su cuenta 🔐"); 
             let pass: string = rs.question('', { hideEchoBack: true });
             
             let hasheo = bcrypt.hashSync(pass, 5); //contrasenia, intensidad del hasheo
@@ -152,8 +152,8 @@ export class Casino {
 
             //this.crearCuentaUsuario(nombre, alias, pass, dni); comentado, por si no anda el bcrypt, comentar tambien lineas 151, 149 y 148 si se usa esto
 
-            console.log("\n💵 Billetera para jugar 💵"); 
-            let dineroInicio = rs.questionInt('Ingrese el dinero a ingresar: $');
+            console.log("\nBilletera para jugar 💵"); 
+            let dineroInicio = rs.questionInt('Ingrese el dinero: $');
         
             let usuarioNue: Usuario = new Usuario(alias, nombre, dineroInicio, dni);
 
@@ -163,7 +163,7 @@ export class Casino {
 
             return usuarioNue;
         } else {
-            console.log("Intente ingresar sus datos con un Alias distinto.\n"); 
+            console.log("\nIntente ingresar sus datos con un Alias distinto.\n"); 
 
             return undefined;
         }

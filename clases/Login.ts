@@ -17,10 +17,10 @@ export class Login {
     }
 
     public iniciarSesion(): number {
-        console.log("\n👤 Escriba su Alias 👤"); 
+        console.log("\nEscriba su Alias 👤"); 
         let alias: string = rs.question("");
 
-        console.log("\n🔐 Escriba su contrasenia 🔐"); 
+        console.log("\nEscriba su contrasenia 🔐"); 
         let pass: string = rs.question("", { hideEchoBack: true });
 
         console.clear();
@@ -90,7 +90,7 @@ export class Login {
 
         fs.writeFileSync(this.RUTA_DATOS, JSON.stringify(data, null, 2), "utf-8");
         
-        console.log(`Datos guardados satisfactoriamente.\n`);
+        console.log(`\nDatos guardados satisfactoriamente.\n`);
     }
 
     private cargarDesdeJSON(): CuentaUsuario[] {
@@ -106,12 +106,12 @@ export class Login {
                 );
             });
 
-            console.log(`Cuentas cargadas satisfactoriamente.\n`);
+            console.log(`\nCuentas cargadas satisfactoriamente.\n`);
 
             return arreglo;
         } else {
 
-            console.log(`Archivo cuentas no encontrado en la ruta solicitada.\n`);
+            console.log(`\nArchivo cuentas no encontrado en la ruta solicitada.\n`);
         }  
     }
 }
