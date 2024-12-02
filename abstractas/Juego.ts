@@ -25,9 +25,67 @@ export abstract class Juego implements Apuesta{
 
     //Interface Apuesta
 
-    protected iniciarJuego(dinero: number): void{
-        this.cargarDinero(dinero);
-    }
+    public apostar(): boolean {
+        if(this.verifcarBilletera()){
+
+            let costo: number = rs.questionInt('Ingrese su apuesta: ');
+
+            console.clear();
+
+            if (this.validarMinimosMaximos(costo)) {        
+                if (this.verificarDinero(costo)) {
+                    if(this.gastarDinero(costo)) {
+                        console.log(`\n✔️  La apuesta de💲${costo} se realizó exitosamente ✔️`)
+                        return true;
+                    } 
+                }
+                console.log("❌ El dinero disponible no es suficiente para realizar la apuesta ❌\n")
+                    
+            } else {
+                console.log(`\n❌💲${costo} excede los rangos admitidos de apuesta mínima (💲${this.apuestaMinima}) y/o apuesta máxima (💲${this.apuestaMaxima})❌\nVuelva a realizar la apuesta!\n`);
+            }
+        } else {
+            console.log(`\n❌ No dispones de dinero para cumplir con la apuesta minima de💲${this.apuestaMinima}❌ \nCarga dinero antes de continuar!`);
+            
+        }
+
+        return false;
+        
+    };
+
+    // Chequea que el dinero disponible del jugador le alcance para realizar la apuesta
+    public verificarDinero (apuesta: number): boolean {
+        return (this.jugador.obtenerSaldo() >= apuesta);  
+    };
+
+    public gastarDinero(monto: number): boolean {
+        let disponible: number;
+        disponible = this.jugador.obtenerSaldo() - monto; 
+          
+        if (disponible >= 0) {
+            this.jugador.setBilletera(disponible);
+            this.apuesta = monto;
+
+            return true;
+        } else {
+            return false;            
+        }
+    };  
+
+    //Paga la apuesta al finalizar el juego
+    public pagarApuesta(dinero: number): void {
+        this.jugador.sumarJuegoGanado();
+
+        let disponible = this.jugador.obtenerSaldo();
+        disponible += dinero;
+        this.jugador.setBilletera(disponible);
+        
+        console.log("\n💸💸💸💸💸💸");
+        console.log(`Felicitaciones ${this.jugador.getAlias()}!!! 🎉 Ganó 💲${dinero} 💰\n`);
+        console.log(`🎉🥂 Tienes💲${this.jugador.obtenerSaldo()} disponibles para seguir jugando!!! 🥂🎉\n`);
+    };
+
+    //Metodos de Juego
     
     public mostrarJuego(): string {
         return `Juego: ${this.getNombre()}`
@@ -39,6 +97,58 @@ export abstract class Juego implements Apuesta{
 
     protected usarDinero(cantDinero: number): void {
         this.dinero =- cantDinero;
+    }
+
+    protected iniciarJuego(dinero: number): void{
+        this.cargarDinero(dinero);
+    }
+
+    //Muestra info como apuesta minima y maxima al comenzar el juego y saldo disponible del jugaodr
+    protected mostrarInfoComienzoJuego(): void {
+        console.log(`💸 Apuesta Minima de💲${this.getApuestaMinima()} Hasta💲${this.getApuestaMaxima()} 💸\n`);
+        console.log(`Saldo disponible en su Billetera:💲${this.jugador.obtenerSaldo()}\n`);
+    }
+
+    //Cobro por empezar a jugar el juego
+    protected mostrarInfoCobroEntrada(): void {
+        this.gastarDinero(this.getApuestaMinima()); 
+        console.log(`Se le ha cobrado ademas,💲${this.getApuestaMinima()} de costo del juego!\n`);
+    }
+
+    protected preguntarSiContinua(): boolean {
+        let sigueJugando: string;
+
+        do {
+            sigueJugando = rs.question("\nDesea seguir jugando? S/N: ");
+        } while (!["s", "n"].includes(sigueJugando.toLowerCase()))
+            
+        console.clear();
+
+        return sigueJugando === 's' ? true : false;
+    }
+
+    //Verificaciones
+
+    //Chequea si la apuesta esta entre los valores permitidos del juego
+    public validarMinimosMaximos(apuesta: number): boolean {
+        return (apuesta >= this.apuestaMinima && apuesta <= this.apuestaMaxima);
+    }  
+    
+    //Chequea si cumple al menos con la minima apuesta para poder jugar
+    public verifcarBilletera(): boolean {
+        return (this.jugador.obtenerSaldo() >= this.getApuestaMinima());
+    }
+
+    //Logueo
+
+    //Si se cambia de usuario, actualizo el jugador en el juego
+    public cambiarJugador(nuevoJugador: Usuario): void{
+        this.jugador = nuevoJugador;
+    }
+
+    public desloguearJugador(): void {
+        let usuario: Usuario = new Usuario("", "", 0, 0);
+        this.jugador = usuario;
     }
 
     //Getter and setters
@@ -87,111 +197,9 @@ export abstract class Juego implements Apuesta{
         this.dinero = creditos;
     }
 
-    //Si se cambia de usuario, actualizo el jugador en el juego
-    public cambiarJugador(nuevoJugador: Usuario): void{
-        this.jugador = nuevoJugador;
-    }
-
-    public desloguearJugador(): void {
-        let usuario: Usuario = new Usuario("", "", 0, 0);
-        this.jugador = usuario;
-    }
     
-    public apostar(): boolean {
-        if(this.verifcarBilletera()){
 
-            let costo: number = rs.questionInt('Ingrese su apuesta: ');
-
-            console.clear();
-
-            if (this.validarMinimosMaximos(costo)) {        
-                if (this.verificarDinero(costo)) {
-                    if(this.gastarDinero(costo)) {
-                        console.log(`\n✔️  La apuesta de💲${costo} se realizó exitosamente ✔️`)
-                        return true;
-                    } 
-                }
-                console.log("❌ El dinero disponible no es suficiente para realizar la apuesta ❌\n")
-                    
-            } else {
-                console.log(`\n❌💲${costo} excede los rangos admitidos de apuesta mínima (💲${this.apuestaMinima}) y/o apuesta máxima (💲${this.apuestaMaxima})❌\nVuelva a realizar la apuesta!\n`);
-            }
-        } else {
-            console.log(`\n❌ No dispones de dinero para cumplir con la apuesta minima de💲${this.apuestaMinima}❌ \nCarga dinero antes de continuar!`);
-            
-        }
-
-        return false;
-        
-    };
-
-    //Muestra info como apuesta minima y maxima al comenzar el juego y saldo disponible del jugaodr
-    protected mostrarInfoComienzoJuego(): void {
-        console.log(`💸 Apuesta Minima de💲${this.getApuestaMinima()} Hasta💲${this.getApuestaMaxima()} 💸\n`);
-        console.log(`Saldo disponible en su Billetera:💲${this.jugador.obtenerSaldo()}\n`);
-    }
-
-    //Cobro por empezar a jugar el juego
-    protected mostrarInfoCobroEntrada(): void {
-        this.gastarDinero(this.getApuestaMinima()); 
-        console.log(`Se le ha cobrado ademas,💲${this.getApuestaMinima()} de costo del juego!\n`);
-    }
-
-    protected preguntarSiContinua(): boolean {
-        let sigueJugando: string;
-
-        do {
-            sigueJugando = rs.question("\nDesea seguir jugando? S/N: ");
-        } while (!["s", "n"].includes(sigueJugando.toLowerCase()))
-            
-        console.clear();
-
-        return sigueJugando === 's' ? true : false;
-    }
-
-
-    //Verificaciones
-
-    // Chequea que el dinero disponible del jugador le alcance para realizar la apuesta
-    public verificarDinero (apuesta: number): boolean {
-        return (this.jugador.obtenerSaldo() >= apuesta);  
-    };
-
-    //Chequea si la apuesta esta entre los valores permitidos del juego
-    public validarMinimosMaximos(apuesta: number): boolean {
-        return (apuesta >= this.apuestaMinima && apuesta <= this.apuestaMaxima);
-    }  
     
-    //Chequea si cumple al menos con la minima apuesta para poder jugar
-    public verifcarBilletera(): boolean {
-        return (this.jugador.obtenerSaldo() >= this.getApuestaMinima());
-    }
-
-    public gastarDinero(monto: number): boolean {
-        let disponible: number;
-        disponible = this.jugador.obtenerSaldo() - monto;   
-        if (disponible >= 0) {
-            //this.jugador.setBilletera(disponible);
-            this.usarDinero(monto);
-            this.apuesta = monto;
-            return true;
-        } else {
-            return false;            
-        }
-    };  
-
-    //Paga la apuesta al finalizar el juego
-    public pagarApuesta(dinero: number): void {
-        this.jugador.sumarJuegoGanado();
-
-        let disponible = this.jugador.obtenerSaldo();
-        disponible += dinero;
-        this.jugador.setBilletera(disponible);
-        
-        console.log("\n💸💸💸💸💸💸");
-        console.log(`Felicitaciones ${this.jugador.getAlias()}!!! 🎉 Ganó 💲${dinero} 💰\n`);
-        console.log(`🎉🥂 Tienes💲${this.jugador.obtenerSaldo()} disponibles para seguir jugando!!! 🥂🎉\n`);
-    };
     
 
     
