@@ -251,22 +251,23 @@ function juegoTragamonedaPremiun(): void {
 
 // ___________________ Jugar Veintiuno _______________________________________
 
-/* PLANTILLA. VER METODOS mostrarInfoComienzoJuego Y mostrarInfoCobroEntrada EN CLASE JUEGO
-como se usan en horas espejo o en tragamonedas
+// PLANTILLA. VER METODOS mostrarInfoComienzoJuego Y mostrarInfoCobroEntrada EN CLASE JUEGO
+//como se usan en horas espejo o en tragamonedas
+
 function juegoVeintiuno(): void {
-    const apuMin=2500;
-    const apuMax=25000
+    const apuMin=1000;
+    const apuMax=5000;
 
     let reglamento: string = leerIntruccionesArchivo(rutaVeintiuno);
 
-    const veintiuno: Veintiuno = new Veintiuno("Juego Veintiuno", reglamento, 1000, 5000, usuarioActual);
+    const veintiuno: Veintiuno = new Veintiuno("Juego Veintiuno", reglamento, apuMin, apuMax, usuarioActual);
 
-    subMenuJuego(tragamonedaPremium);
+    subMenuJuego(veintiuno);
     
     returnToMainMenu();
 } 
-*/
 
+/* funcion original
 function juegoVeintiuno(): void {
     let continuar: string = "S";
     let apuesta: number;
@@ -326,7 +327,7 @@ function juegoVeintiuno(): void {
     }
     
     returnToMainMenu();
-}
+}*/
 
 
 //_________________ Jugar HorasEspejo Vs Maquina _______________________________________

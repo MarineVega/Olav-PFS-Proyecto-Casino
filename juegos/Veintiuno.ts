@@ -1,5 +1,6 @@
 import { Juego } from "../abstractas/Juego";
 import { Usuario } from "../clases/Usuario";
+import * as rs from "readline-sync";
 
 //export class Veintiuno extends Juego {
 export class Veintiuno extends Juego {
@@ -40,7 +41,7 @@ export class Veintiuno extends Juego {
         return this.ultimaCarta;
     }
 
-    public jugar(): void {
+    public jugarRonda(): void {
         
         this.setManoJugador();
 
@@ -163,5 +164,75 @@ export class Veintiuno extends Juego {
         }
 
 
+    }
+
+    public jugar(): void {
+        let continuar: boolean; 
+        //let continuar: string = "S";
+        //let apuesta: number;
+        let apuestaValida: boolean;
+
+        console.log(" ")
+        console.warn("Dinero disponible del usuario: " + this.jugador.obtenerSaldo());
+        console.log(" ")
+        console.error(this.mostrarDatosVeintiuno());
+        console.log(" ")
+        
+        //movido a Apostar. Usa la logica de aca. Apostar devuelve boolean
+        //do { 
+            // apuesta = rs.questionInt("Ingrese el dinero de la apuesta: ");
+            // apuestaValida = this.apostar();
+            
+            //if(!apuestaValida && this.jugador.obtenerSaldo() < apuesta && this.validarMinimosMaximos(apuesta)){
+                //returnToMainMenu();
+            //}
+            
+        //} while (!apuestaValida);
+
+        apuestaValida = this.apostar();
+
+        console.warn("💸 Dinero disponible del usuario: " + this.jugador.obtenerSaldo());
+
+        if (apuestaValida) {
+            console.log("  ")
+            console.error("Presione cualquier tecla para comenzar: ");
+            rs.question();            
+            
+            do {    
+                this.jugarRonda(); //Originalmente se llamaba jugar, cambio de nombre para distinguir el llamado desde el submenu (Jugar)
+                if (!this.getFinalizoPartida()) {
+                    console.warn(this.mostrarPartida());
+                }
+            
+                if (!this.getFinalizoPartida()) {
+                    continuar = this.preguntarSiContinua();
+
+                    // PreguntarSiContinua lo tome de aca, es lo mismo q abajo
+                    // do { 
+                    //     continuar = rs.question("Desea tirar nuevamente: S/N? ");
+                    //     // chequeo que ingrese una opción válida
+                    // } while (!["s", "n"].includes(continuar.toLowerCase()))        
+                }       
+            } while ((continuar) && !this.getFinalizoPartida());   
+            
+            //misma logica original pero con un boolean
+            //} while ((continuar.toLowerCase() == "s") && !this.getFinalizoPartida())
+                
+            // chequeo si salió porque el usuario no quiso continuar
+            
+            if (!continuar) { 
+                this.detenerPartida(1);
+            }
+
+            //misma logica original pero con un boolean
+            // if (continuar.toLowerCase() == "n") {    
+            //     this.detenerPartida(1);
+            // }
+            
+            console.warn("Dinero final del usuario: " + this.jugador.obtenerSaldo());
+            console.log(" ");
+            console.error("🎮 Presione cualquier tecla para continuar: ");
+            rs.question();
+        }
     }
 }
