@@ -150,6 +150,8 @@ export class Casino {
         
             this.crearCuentaUsuario(nombre, alias, hasheo, dni); //creo la cuenta del respectivo usuario
 
+            //this.crearCuentaUsuario(nombre, alias, pass, dni); comentado, por si no anda el bcrypt, comentar tambien lineas 151, 149 y 148 si se usa esto
+
             console.log("\n💵 Billetera para jugar 💵"); 
             let dineroInicio = rs.questionInt('Ingrese el dinero a ingresar: $');
         

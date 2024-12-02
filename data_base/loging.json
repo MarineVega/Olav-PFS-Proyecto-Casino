@@ -15,8 +15,14 @@
     {
       "nombre": "Jugador Anonimo",
       "alias": "aaa",
-      "contrasenia": "$2a$05$eS7VOiNhQ4NNWN2Dno0CBexFtx6QCyVRRWS0LxZFfzr3BY/5jQH/W", 
+      "contrasenia": "$2a$05$eS7VOiNhQ4NNWN2Dno0CBexFtx6QCyVRRWS0LxZFfzr3BY/5jQH/W",
       "dni": 123
+    },
+    {
+      "nombre": "Jugador Anonimo",
+      "alias": "agusa",
+      "contrasenia": "123",
+      "dni": 111
     }
   ]
 }

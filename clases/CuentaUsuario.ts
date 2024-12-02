@@ -41,6 +41,7 @@ export class CuentaUsuario {
     public verificarContrasenia(passIngresada: string): boolean {
         try {
             return bcrypt.compareSync(passIngresada, this.getContrasenia());
+            //return passIngresada == this.getContrasenia(); sin encriptado, x si no anda
             
         } catch (err) {
             console.error('Error al verificar la contraseña:', err);
