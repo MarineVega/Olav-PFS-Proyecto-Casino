@@ -42,8 +42,6 @@ export class TragamonedaPremium extends Tragamoneda {
             bonificacionFinal += 2500;
             this.pagarApuesta(bonificacionFinal);
         }
-
-        
     }
 
     public mostrarResultado(): void {
@@ -62,7 +60,6 @@ export class TragamonedaPremium extends Tragamoneda {
                 this.bonificacionDeTirada(resultado);
             }
 
-            //console.log("Intentos Restantes:", this.intentosMaximos);
         } 
     }
 

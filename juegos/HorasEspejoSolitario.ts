@@ -88,13 +88,16 @@ export class HorasEspejoSolitario extends Juego {
 
     // Iniciar la partida
     public jugar(): void {
+        this.mostrarInfoComienzoJuego();
 
         this.gastarDinero(this.apuestaMinima);
 
-        if(this.apostar()){
-            //DECREMENTA EL DINERO DEL JUGADOR
-            console.log("\n--- 🍀 INICIA LA PARTIDA 🍀 ---");
+        let sigueJugando: string;
 
+        if(this.apostar()){
+            this.mostrarInfoCobroEntrada();
+            
+            console.log("\n--- 🍀 INICIA LA PARTIDA 🍀 ---");
 
             while (this.intentosJugador > 0) {
                 console.log(`Intentos restantes: ${this.intentosJugador}`);
@@ -124,6 +127,28 @@ export class HorasEspejoSolitario extends Juego {
         
             console.log(`Puntaje final: ${this.puntosAcumulados}`);
             console.log(`Saldo final del jugador💸: ${this.jugador.obtenerSaldo()}`);
+            
+            // Preguntar si desea jugar nuevamente
+            sigueJugando = readline.question("Desea jugar otra vez? S/N: ");
+
+            if (sigueJugando.toLocaleLowerCase() === 'n'){
+                console.log(`\nHas elegido salir del juego`); 
+
+            } else {
+                console.log(`\nJugaras otra ronda.`);
+                this.restablecerJuego();
+                this.jugar();
+            }
+        } else {
+            
+            if(this.verifcarBilletera()){
+                this.jugar();
+            }
         }
+    }
+
+    public restablecerJuego(): void {
+        this.intentosJugador = 3;
+        this.puntosAcumulados = 0;
     }
 }

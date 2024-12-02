@@ -30,7 +30,7 @@ export abstract class Juego implements Apuesta{
     }
     
     public mostrarJuego(): string {
-        return `Juego: ${this.getNombre()}}`
+        return `Juego: ${this.getNombre()}`
     }
 
     protected cargarDinero(cantDinero: number): void {
@@ -124,6 +124,31 @@ export abstract class Juego implements Apuesta{
         return false;
         
     };
+
+    //Muestra info como apuesta minima y maxima al comenzar el juego y saldo disponible del jugaodr
+    protected mostrarInfoComienzoJuego(): void {
+        console.log(`💸 Apuesta Minima de💲${this.getApuestaMinima()} Hasta💲${this.getApuestaMaxima()} 💸\n`);
+        console.log(`Saldo disponible en su Billetera:💲${this.jugador.obtenerSaldo()}\n`);
+    }
+
+    //Cobro por empezar a jugar el juego
+    protected mostrarInfoCobroEntrada(): void {
+        this.gastarDinero(this.getApuestaMinima()); 
+        console.log(`Se le ha cobrado ademas,💲${this.getApuestaMinima()} de costo del juego!\n`);
+    }
+
+    protected preguntarSiContinua(): boolean {
+        let sigueJugando: string;
+
+        do {
+            sigueJugando = rs.question("\nDesea seguir jugando? S/N: ");
+        } while (!["s", "n"].includes(sigueJugando.toLowerCase()))
+            
+        console.clear();
+
+        return sigueJugando === 's' ? true : false;
+    }
+
 
     //Verificaciones
 

@@ -72,51 +72,41 @@ export abstract class Tragamoneda extends Juego {
     protected abstract mostrarResultado(): void;
 
     public jugar(): void{
-        console.log(`💸 Apuesta Minima de💲${this.getApuestaMinima()} Hasta💲${this.getApuestaMaxima()} 💸\n`);
-        console.log(`Saldo disponible en su Billetera:💲${this.jugador.obtenerSaldo()}\n`);
+        this.mostrarInfoComienzoJuego();
     
         let continua: boolean = true;
-        let sigueJugando: string;
     
         if (this.apostar()) {
-            this.gastarDinero(this.getApuestaMinima()); //Cobro por empezar a jugar el juego
-            console.log(`Se le ha cobrado💲${this.getApuestaMinima()} de costo del juego!\n`);
+            this.mostrarInfoCobroEntrada(); 
             
             let intentos: number = this.getIntentosMaximos();
     
             while (intentos > 0 && continua) {
                 console.error("Presione Enter para tirar 🤞");
                 rs.question();
+
+                intentos = this.getIntentosMaximos();
+
                 console.clear();
 
                 this.mostrarResultado();
                 
-                if(intentos >= 1){
-                    sigueJugando = rs.question("\nDesea seguir jugando? S/N: ");
+                if(intentos > 0){
+                    continua = this.preguntarSiContinua();
                     
-                    console.clear();
-
-                    if(sigueJugando.toLocaleLowerCase() === 'n'){
-                        console.log(`\nHas elegido salir del juego`);
-                        continua = false; 
-                    } else {
+                    if(continua){
                         console.log(`Continuas Jugando!\n`);
+                        
+                    } else {
+                        console.log(`Has elegido salir del juego\n`);
                     }
                     
                 } else {
                     console.log("Upss❗ No quedan más intentos 🥺.\n");
                 }
                 
-                //console.clear();
-                intentos = this.getIntentosMaximos();
-    
-                
             }
 
-            //this.pagarApuesta(this.apuesta);
-            console.clear();
-
-            console.log(`Se han terminado tus intentos! Juego Finalizado 🥺\n`);
             console.log(`Saldo final en tu Billetera:💲${this.jugador.obtenerSaldo()}`);
     
         } else {

@@ -103,9 +103,12 @@ export class HorasEspejo extends Juego {
     
     //INICIA LA PARTIDA CONTROLANDO LAS RONDAS
     public jugar(): void {
-        let sigueJugando: string;
+        this.mostrarInfoComienzoJuego();
+
+        let continua: boolean = true;
 
         if(this.apostar()){
+            this.mostrarInfoCobroEntrada();
 
             console.log("\n--- 🍀 INICIA LA PARTIDA 🍀---");
     
@@ -144,15 +147,16 @@ export class HorasEspejo extends Juego {
             this.mostrarPuntajeTotal();
 
             // Preguntar si desea jugar nuevamente
-            sigueJugando = readline.question("Desea jugar otra ronda? S/N: ");
-
-            if (sigueJugando.toLocaleLowerCase() === 'n'){
-                console.log(`\nHas elegido salir del juego`); 
-
-            } else {
-                console.log(`\nJugaras otra ronda.`);
-                this.restablecerIntentos();
+            continua = this.preguntarSiContinua();
+                    
+            if(continua){
+                console.log(`\nJugaras otra ronda.\n`);
+                this.restablecerJuego();
                 this.jugar();
+                
+            } else {
+                console.log(`Has elegido salir del juego\n`);
+                console.log(`Saldo final en tu Billetera:💲${this.jugador.obtenerSaldo()}`);
             }
 
         } else {
@@ -185,8 +189,10 @@ export class HorasEspejo extends Juego {
 
     }
 
-    public restablecerIntentos(): void {
+    public restablecerJuego(): void {
         this.intentosJugador = 3;
         this.intentosMaquina = 3;
+        this.puntosAcumulados = 0;
+        this.puntosAcumuladosMaquina = 0;
     }
 }

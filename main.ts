@@ -103,6 +103,21 @@ function desloguearse(): void {
     menuLogueo();
 }
 
+function mostrarCabezalJuego(nombreJ: string): void {
+    console.log(`═══════════════════════════════════════════════════`);
+    console.log(` 💰 💰 💰 Casino ${casino1.getNombre()}💰 💰 💰 `);
+    console.log(`    💰 💰 💰  ${nombreJ}  💰 💰 💰              `);
+    console.log(`           Usuario: ${usuarioActual.getAlias()}    `);
+    console.log(`═══════════════════════════════════════════════════\n`);
+}
+
+function mostrarReglamento(reglamento: string): void { 
+    limpiarConsola();
+    console.log(reglamento + `\n`);
+    console.log("Presiona Enter para Continuar...");
+    rs.question(); 
+}
+
 //____________________ Menu principal de juegos _____________________________
 
 function menuCasino(): void {
@@ -156,12 +171,14 @@ function menuCasino(): void {
 function subMenuJuego(juego: any): void {
     limpiarConsola();
 
-    console.log(`${usuarioActual.getAlias()} seleccione la opcion que desee. \n `);
+    mostrarCabezalJuego(juego.mostrarJuego());
+
+    console.log(`Seleccione la opcion que desee.\n `);
     console.log("Opcion 1: Jugar");
     console.log("Opcion 2: Ver Reglamento");
     console.log("Opcion 3: Volver");
 
-    const opcion = rs.question("\nSelecciona una opcion: \n");
+    const opcion = rs.question("\nSelecciona una opcion: ");
 
     switch (opcion) {
         case "1":
@@ -170,15 +187,11 @@ function subMenuJuego(juego: any): void {
             break;
 
         case "2":
-            limpiarConsola();
-            console.log(juego.getReglamento() + `\n`);
-            console.log("Presiona Enter para Continuar...");
-            rs.question(); 
+            mostrarReglamento(juego.getReglamento());
             subMenuJuego(juego);
             break;
 
         case "3":
-            //limpiarConsola()
             menuCasino();
             break;
 
@@ -193,7 +206,7 @@ function subMenuJuego(juego: any): void {
 
 //____________________ Volver al Menu Principal _______________________________________
 
-function returnToMenu(): void {
+function returnToMainMenu(): void {
     console.log("\nPresiona Enter para regresar al Menú Principal...");
     rs.question(); 
 
@@ -208,7 +221,7 @@ function juegoTragamonedaSport() {
     const apuMin=1000;
     const apuMax=15000;
 
-    console.log("\nEstás jugando la versión Sports de Tragamonedas 🎰 \n");
+    //console.log("\nEstás jugando la versión Sports de Tragamonedas 🎰 \n");
 
     let reglamento: string = leerIntruccionesArchivo(rutaTragamonedasSport);
 
@@ -216,7 +229,7 @@ function juegoTragamonedaSport() {
 
     subMenuJuego(tragamonedaSports);
     
-    returnToMenu();
+    returnToMainMenu();
 }
 
 //__________________ jugar Tragamonedas Premiun _______________________________________
@@ -225,7 +238,7 @@ function juegoTragamonedaPremiun(): void {
     const apuMin=2500;
     const apuMax=25000
 
-    console.log("Estas jugando la version Premium de Tragamonedas 🎰 \n");
+    //console.log("Estas jugando la version Premium de Tragamonedas 🎰 \n");
 
     let reglamento: string = leerIntruccionesArchivo(rutaTragamonedasPremium);
 
@@ -233,10 +246,26 @@ function juegoTragamonedaPremiun(): void {
 
     subMenuJuego(tragamonedaPremium);
     
-    returnToMenu();
+    returnToMainMenu();
 }
 
 // ___________________ Jugar Veintiuno _______________________________________
+
+/* PLANTILLA. VER METODOS mostrarInfoComienzoJuego Y mostrarInfoCobroEntrada EN CLASE JUEGO
+como se usan en horas espejo o en tragamonedas
+function juegoVeintiuno(): void {
+    const apuMin=2500;
+    const apuMax=25000
+
+    let reglamento: string = leerIntruccionesArchivo(rutaVeintiuno);
+
+    const veintiuno: Veintiuno = new Veintiuno("Juego Veintiuno", reglamento, 1000, 5000, usuarioActual);
+
+    subMenuJuego(tragamonedaPremium);
+    
+    returnToMainMenu();
+} 
+*/
 
 function juegoVeintiuno(): void {
     let continuar: string = "S";
@@ -258,7 +287,7 @@ function juegoVeintiuno(): void {
         apuestaValida = partida1.apostar();
         
         if(!apuestaValida && usuarioActual.obtenerSaldo() < apuesta && partida1.validarMinimosMaximos(apuesta)){
-            returnToMenu();
+            returnToMainMenu();
         }
         
     } while (!apuestaValida);
@@ -277,7 +306,7 @@ function juegoVeintiuno(): void {
             }
         
             if (!partida1.getFinalizoPartida()) {
-                do {
+                do { //COPIADO A JUEGO, (preguntarSiContinua()) GRACIAS MARI :D
                     continuar = rs.question("Desea tirar nuevamente: S/N? ");
                     // chequeo que ingrese una opción válida
                 } while (!["s", "n"].includes(continuar.toLowerCase()))        
@@ -296,7 +325,7 @@ function juegoVeintiuno(): void {
         rs.question();
     }
     
-    returnToMenu();
+    returnToMainMenu();
 }
 
 
@@ -306,7 +335,7 @@ function juegoHorasEspejo(): void {
     const apuMin=1000;
     const apuMax=5000;
 
-    console.log("**12:21***************** HORAS 00:00 ESPEJO ****************15:51** \n");
+    //console.log("**12:21***************** HORAS 00:00 ESPEJO ****************15:51** \n");
 
     let reglamento: string = leerIntruccionesArchivo(rutaHorasEspejo);
 
@@ -314,7 +343,7 @@ function juegoHorasEspejo(): void {
 
     subMenuJuego(horasEspejo);
     
-    returnToMenu();
+    returnToMainMenu();
 }
 
 //_________________ Jugar HorasEspejo Solitario _______________________________________
@@ -323,7 +352,7 @@ function juegoHorasEspejoSolitario(): void{
     const apuMin=1500;
     const apuMax=5000;
 
-    console.log("**12:21***************** HORAS 00:00 ESPEJO SOLITARIO****************15:51** \n");
+    //console.log("**12:21***************** HORAS 00:00 ESPEJO SOLITARIO****************15:51** \n");
 
     let reglamento: string = leerIntruccionesArchivo(rutaHorasEspejoSolitario);
 
@@ -331,86 +360,8 @@ function juegoHorasEspejoSolitario(): void{
 
     subMenuJuego(horasEspejoSolitario);
     
-    returnToMenu();
+    returnToMainMenu();
 }
-/*
-        } else if (opcion === 2) {
-
-            let reglamento: string = leerIntruccionesArchivo(rutaHorasEspejoSolitario);
-
-            const horasEspejoSolitario = new HorasEspejoSolitario("Horas Espejo Solitario", reglamento, 1500, 5000, usuario);
-
-            console.log(`Reglamento: ${horasEspejoSolitario.getReglamento()}`);
-
-            const apuesta = solicitarApuestaValida(1500, 5000, usuario);
-            horasEspejoSolitario.apostar();
-
-            console.warn("Dinero disponible del usuario: " + usuario.obtenerSaldo());
-            console.log(" ");
-            console.error("🎮 Presione cualquier tecla para comenzar: ");
-            rs.question();
-            horasEspejoSolitario.iniciarPartida();
-
-        } else if (opcion === 3) {
-            console.log("Gracias por jugar. ¡Hasta la próxima!");
-            continuar = false;
-        }
-
-        // Preguntar si desea jugar nuevamente
-        if (continuar) {
-            console.log("¿Desea jugar otra vez? (1: Sí, 2: No)");
-            continuar = solicitarNumeroValido("Respuesta: ", 1, 2) === 1;
-        }
-    }
-        
-    returnToMenu();
-
-}*/
-
-// VALIDO LAS OPCIONES INGRESADAS
-function solicitarNumeroValido(mensaje: string, min: number, max: number): number {
-    let numero: number;
-    let entrada: string;
-    do {
-        entrada = rs.question(mensaje); // Leer entrada como texto
-        numero = Number(entrada); // Convertir a número
-
-        if (isNaN(numero) || !Number.isInteger(numero) || numero < min || numero > max) {
-            console.error(`Error: Debe ingresar un número válido entre ${min} y ${max}.`);
-        }
-    } while (isNaN(numero) || !Number.isInteger(numero)|| numero < min || numero > max);
-
-    return numero;
-}
-
-// VERIFICAR APUESTA
-function solicitarApuestaValida(min: number, max: number, jugador: Usuario): number {
-    let apuesta: number;
-    let entrada: string;
-    let esValida: boolean;
-
-    // entrada = rs.question("Ingrese el dinero de la apuesta: "); // Leer como texto
-    // apuesta = Number(entrada); // Convertir a número
-
-    do {
-        entrada = rs.question("Ingrese el dinero de la apuesta: "); // Leer como texto
-        apuesta = Number(entrada); // Convertir a número
-
-        if (isNaN(apuesta) || apuesta <= 0) {
-            console.error("Error: La apuesta debe ser un número positivo.");
-            esValida = false;
-        } else {
-            esValida = apuesta >= min && apuesta <= max && apuesta <= jugador.obtenerSaldo();
-            if (!esValida) {
-                console.error(`Error: La apuesta debe estar entre $${min} y $${max}, y no superar tu saldo disponible.`);
-            }
-        }
-    } while (!esValida);
-
-    return apuesta;
-}
-
-
 
 
 //_________________ Billetera Usuario _______________________________________
@@ -425,7 +376,7 @@ function recargarDinero(){
     usuarioActual.agregarDinero(dineroRecarga);
     console.log(`Su saldo actual recargado es de $: ${usuarioActual.obtenerSaldo()}`);
 
-    returnToMenu();
+    returnToMainMenu();
 }
 
 //_________________ Lectura instrucciones por .txt _______________________________________

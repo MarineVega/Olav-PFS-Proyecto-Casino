@@ -28,8 +28,6 @@ export class TragamonedaSports extends Tragamoneda {
             bonificacionFinal += 2500;
             this.pagarApuesta(bonificacionFinal);
         }
-
-        
     }
 
     public mostrarResultado(): void {
