@@ -107,17 +107,17 @@ export abstract class Juego implements Apuesta{
             if (this.validarMinimosMaximos(costo)) {        
                 if (this.verificarDinero(costo)) {
                     if(this.gastarDinero(costo)) {
-                        console.log(`\n✔️  La apuesta de💲${costo} se realizó exitosamente ✔️`)
+                        console.log(`\n✔️  La apuesta de💲${costo} se realizó exitosamente ✔️\n`)
                         return true;
                     } 
                 }
-                console.log("❌ El dinero disponible no es suficiente para realizar la apuesta ❌\n")
+                console.log("\n❌ El dinero disponible no es suficiente para realizar la apuesta ❌\n")
                     
             } else {
                 console.log(`\n❌💲${costo} excede los rangos admitidos de apuesta mínima (💲${this.apuestaMinima}) y/o apuesta máxima (💲${this.apuestaMaxima})❌\nVuelva a realizar la apuesta!\n`);
             }
         } else {
-            console.log(`\n❌ No dispones de dinero para cumplir con la apuesta minima de💲${this.apuestaMinima}❌ \nCarga dinero antes de continuar!`);
+            console.log(`\n❌ No dispones de dinero para cumplir con la apuesta minima de💲${this.apuestaMinima}❌ \nCarga dinero antes de continuar!\n`);
             
         }
 
@@ -134,7 +134,7 @@ export abstract class Juego implements Apuesta{
     //Cobro por empezar a jugar el juego
     protected mostrarInfoCobroEntrada(): void {
         this.gastarDinero(this.getApuestaMinima()); 
-        console.log(`\nSe le ha cobrado ademas,💲${this.getApuestaMinima()} de costo del juego!\n`);
+        console.log(`\nSe le ha cobrado además💲${this.getApuestaMinima()} de costo del juego!\n`);
     }
 
     protected preguntarSiContinua(): boolean {
