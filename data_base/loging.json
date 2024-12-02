@@ -23,6 +23,12 @@
       "alias": "agusa",
       "contrasenia": "123",
       "dni": 111
+    },
+    {
+      "nombre": "Antonela Di Pinto",
+      "alias": "Antito",
+      "contrasenia": "$2a$05$qpZ6FrP/qU1OCrSJ8U1eIOrhAtmuPrSSSGzZesCFoT9hrSHo4UvF.",
+      "dni": 33681920
     }
   ]
 }
