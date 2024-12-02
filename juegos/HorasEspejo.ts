@@ -136,11 +136,6 @@ export class HorasEspejo extends Juego {
                     readline.question();
                 }
 
-                // Terminar anticipadamente si ambos se quedaron sin intentos
-                // if (this.intentosJugador === 0 && this.intentosMaquina === 0) {
-                //     break;
-                // }
-
                 ronda++;
             }
     
@@ -183,7 +178,8 @@ export class HorasEspejo extends Juego {
             console.log("🤖 ¡La máquina gana!");
 
         } else {
-            console.log("🤗¡Es un empate!")
+            console.log("🤗¡Es un empate!, recuperaste tu apuesta");
+            this.pagarApuesta(this.apuesta)
 
         }
 
