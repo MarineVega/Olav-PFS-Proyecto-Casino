@@ -64,7 +64,7 @@ export class HorasEspejo extends Juego {
 
         // Condición de victoria especial
         if (horaFormateada === "00:00") {
-            dinero = this.apuesta * 10;
+            dinero = this.getApuesta() * 10;
             console.log(`🎉 ¡${quienJuega === 'jugador' ? 'El jugador' : 'La máquina'} GANA con 🕛"00:00"🎉!`);
 
             if (quienJuega === 'jugador') {
@@ -73,7 +73,7 @@ export class HorasEspejo extends Juego {
                 this.intentosJugador = 0;
                 this.intentosMaquina = 0;
             } else {
-                this.puntosAcumuladosMaquina += puntos;
+                this.puntosAcumuladosMaquina += this.puntosMayor;
                 this.intentosJugador = 0;
                 this.intentosMaquina = 0;
             }
@@ -172,17 +172,20 @@ export class HorasEspejo extends Juego {
 
         if (this.puntosAcumulados > this.puntosAcumuladosMaquina) {
             console.log("🎉🥂 ¡¡¡GANASTE!!! 🥂🎉");
-            this.pagarApuesta(this.apuestaMinima * 2);
+            this.pagarApuesta(this.getApuesta() * 2);
 
         } else if (this.puntosAcumulados < this.puntosAcumuladosMaquina) {
             console.log("🤖 ¡La máquina gana!");
+            console.log(`Saldo final en tu Billetera:💲${this.jugador.obtenerSaldo()}`);
+            
+                       
 
         } else {
             console.log("🤗¡Es un empate!, recuperaste tu apuesta");
-            this.pagarApuesta(this.apuesta)
+            this.pagarApuesta(this.getApuesta())
 
         }
-
+        
     }
 
     public restablecerJuego(): void {
