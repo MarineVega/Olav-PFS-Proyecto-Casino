@@ -29,6 +29,18 @@
       "alias": "Antito",
       "contrasenia": "$2a$05$qpZ6FrP/qU1OCrSJ8U1eIOrhAtmuPrSSSGzZesCFoT9hrSHo4UvF.",
       "dni": 33681920
+    },
+    {
+      "nombre": "Jugador Anonimo",
+      "alias": "naty",
+      "contrasenia": "$2a$05$Zu3b7el/r6EThbTJFUkOyuo0cVDveJiGqg9ySERsHJ1j7diQNEZjq",
+      "dni": 27815818
+    },
+    {
+      "nombre": "123",
+      "alias": "naru",
+      "contrasenia": "$2a$05$oqco1rUtcHu89k7BlF5S8Ou/IjUh3vy7gm6Xqi4.QroX0vkfM1vMO",
+      "dni": 444
     }
   ]
 }

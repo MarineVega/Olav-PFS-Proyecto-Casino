@@ -29,9 +29,25 @@
       "aliasCuenta": "Antonela Di Pinto (Antito)",
       "alias": "Antito",
       "nombre": "Antonela Di Pinto",
-      "juegosGanados": 9,
+      "juegosGanados": 0,
       "billetera": 62000,
       "dni": 33681920
+    },
+    {
+      "aliasCuenta": "Jugador Anonimo (naty)",
+      "alias": "naty",
+      "nombre": "Jugador Anonimo",
+      "juegosGanados": 0,
+      "billetera": 2000,
+      "dni": 27815818
+    },
+    {
+      "aliasCuenta": "123 (naru)",
+      "alias": "naru",
+      "nombre": "123",
+      "juegosGanados": 0,
+      "billetera": 15,
+      "dni": 444
     }
   ],
   "juegos": []
