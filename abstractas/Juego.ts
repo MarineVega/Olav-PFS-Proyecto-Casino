@@ -134,7 +134,7 @@ export abstract class Juego implements Apuesta{
     //Cobro por empezar a jugar el juego
     protected mostrarInfoCobroEntrada(): void {
         this.gastarDinero(this.getApuestaMinima()); 
-        console.log(`Se le ha cobrado ademas,💲${this.getApuestaMinima()} de costo del juego!\n`);
+        console.log(`\nSe le ha cobrado ademas,💲${this.getApuestaMinima()} de costo del juego!\n`);
     }
 
     protected preguntarSiContinua(): boolean {
@@ -188,7 +188,7 @@ export abstract class Juego implements Apuesta{
         disponible += dinero;
         this.jugador.setBilletera(disponible);
         
-        console.log("\n💸💸💸💸💸💸");
+        console.log("\n💸💸💸💸💸💸\n");
         console.log(`Felicitaciones ${this.jugador.getAlias()}!!! 🎉 Ganó 💲${dinero} 💰\n`);
         console.log(`🎉🥂 Tienes💲${this.jugador.obtenerSaldo()} disponibles para seguir jugando!!! 🥂🎉\n`);
     };
