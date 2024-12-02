@@ -33,6 +33,8 @@ let usuarioActual: Usuario;
 //Muestro el menu de logueo
 menuLogueo();
 
+//menuCasino();
+
 
 //____________________ Menu de Logueo _______________________________________
 
@@ -79,7 +81,7 @@ function gestionarUsuario(accion: string): void {
     }
 
     if (usuarioActual) {
-        console.log('Inicio de sesion exitoso!');
+        console.log('Inicio de sesion exitoso! 👤🔐');
         console.log('Presione una tecla para volver al menu de logueo...');
         rs.question();
         menuCasino();    
@@ -105,7 +107,6 @@ function desloguearse(): void {
 
 function menuCasino(): void {
     limpiarConsola();
-    console.log(usuarioActual)
     //console.log(`Hola ${usuarioActual.getAliasCuenta()}! Seleccione el juego que desee...! \n `);
     casino1.darBienvenida(usuarioActual.getAlias());
     console.log("Opcion 1: Tragamonedas Sports 🎰");

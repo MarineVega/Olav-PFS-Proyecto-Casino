@@ -42,6 +42,11 @@ export abstract class Juego implements Apuesta{
     }
 
     //Getter and setters
+
+    protected getApuesta(): number {
+        return this.apuesta;
+    }
+
     public getNombre(): string {
         return this.nombre;
     }
@@ -95,27 +100,24 @@ export abstract class Juego implements Apuesta{
     public apostar(): boolean {
         if(this.verifcarBilletera()){
 
-            let costo: number = rs.questionInt("Ingrese su apuesta: $");
+            let costo: number = rs.questionInt('Ingrese su apuesta: ');
+
+            console.clear();
 
             if (this.validarMinimosMaximos(costo)) {        
                 if (this.verificarDinero(costo)) {
                     if(this.gastarDinero(costo)) {
-                        console.log(`✔️  La apuesta de ${costo} se realizó exitosamente ✔️\n`)
+                        console.log(`\n✔️  La apuesta de💲${costo} se realizó exitosamente ✔️`)
                         return true;
-                    } else {
-                        console.log("❌ El dinero disponible no es suficiente para realizar la apuesta ❌\n")
-                        //return false;
-                    }
-                } else {
-                    console.log("❌ El dinero disponible no es suficiente para realizar la apuesta ❌\n")
-                    //return false;
+                    } 
                 }
+                console.log("❌ El dinero disponible no es suficiente para realizar la apuesta ❌\n")
+                    
             } else {
-                console.log(`\n❌ $${costo} excede los rangos admitidos de apuesta mínima ($${this.apuestaMinima}) y/o apuesta máxima ($${this.apuestaMaxima})❌\nVuelva a realizar la apuesta!\n`);
-                //return false
+                console.log(`\n❌💲${costo} excede los rangos admitidos de apuesta mínima (💲${this.apuestaMinima}) y/o apuesta máxima (💲${this.apuestaMaxima})❌\nVuelva a realizar la apuesta!\n`);
             }
         } else {
-            console.log(`\n❌ No dispones de dinero para cumplir con la apuesta minima de $${this.apuestaMinima}❌ \nCarga dinero antes de continuar!`);
+            console.log(`\n❌ No dispones de dinero para cumplir con la apuesta minima de💲${this.apuestaMinima}❌ \nCarga dinero antes de continuar!`);
             
         }
 
@@ -144,7 +146,8 @@ export abstract class Juego implements Apuesta{
         let disponible: number;
         disponible = this.jugador.obtenerSaldo() - monto;   
         if (disponible >= 0) {
-            this.jugador.setBilletera(disponible);
+            //this.jugador.setBilletera(disponible);
+            this.usarDinero(monto);
             this.apuesta = monto;
             return true;
         } else {
@@ -154,19 +157,15 @@ export abstract class Juego implements Apuesta{
 
     //Paga la apuesta al finalizar el juego
     public pagarApuesta(dinero: number): void {
-        let juegosGanados = this.jugador.getJuegosGanados();
-        juegosGanados++;
-        this.jugador.setJuegosGanados(juegosGanados);
+        this.jugador.sumarJuegoGanado();
 
         let disponible = this.jugador.obtenerSaldo();
         disponible += dinero;
         this.jugador.setBilletera(disponible);
         
-        console.log("");
-        console.log("💸💸💸💸💸💸");
-        
-        console.log(`Felicitaciones ${this.jugador.getAlias()}!!!🎉 Ganó $${dinero} 💰`);
-        console.log(`🎉🥂 Tienes $${this.jugador.obtenerSaldo()} disponibles para seguir jugando!!! 🥂🎉`);
+        console.log("\n💸💸💸💸💸💸");
+        console.log(`Felicitaciones ${this.jugador.getAlias()}!!! 🎉 Ganó 💲${dinero} 💰\n`);
+        console.log(`🎉🥂 Tienes💲${this.jugador.obtenerSaldo()} disponibles para seguir jugando!!! 🥂🎉\n`);
     };
     
 

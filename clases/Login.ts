@@ -17,11 +17,13 @@ export class Login {
     }
 
     public iniciarSesion(): number {
-        console.log("\nEscriba su Alias 👤"); 
+        console.log("\n👤 Escriba su Alias 👤"); 
         let alias: string = rs.question("");
 
-        console.log("\nEscriba su contrasenia 👤"); 
+        console.log("\n🔐 Escriba su contrasenia 🔐"); 
         let pass: string = rs.question("", { hideEchoBack: true });
+
+        console.clear();
 
         let usuario = this.buscarUsuarioPorAlias(alias);
         
@@ -104,12 +106,12 @@ export class Login {
                 );
             });
 
-            console.log(`Cuentas cargadas satisfactoriamente.`);
+            console.log(`Cuentas cargadas satisfactoriamente.\n`);
 
             return arreglo;
         } else {
 
-            console.log(`Archivo cuentas no encontrado en la ruta solicitada.`);
+            console.log(`Archivo cuentas no encontrado en la ruta solicitada.\n`);
         }  
     }
 }

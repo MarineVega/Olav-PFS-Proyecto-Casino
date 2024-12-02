@@ -12,19 +12,28 @@ export class TragamonedaSports extends Tragamoneda {
 
     //Paga la apuesta en cada ronda
     public bonificacionDeTirada(resultado: string[]): void {
-        if (resultado[0] === resultado[1] && resultado[1] === resultado[2]) {
-            console.log(`Ganaste🏆‼️ 🎉 Sacaste tres ${resultado[0]} iguales 🎉 Se suma dinero a tu billetera💲💰`);
+        let bonificacionFinal: number = this.getApuesta();
 
-            this.jugador.agregarDinero(3000); 
+        if (resultado[0] === resultado[1] && resultado[1] === resultado[2]) {
+            console.log(`Ganaste el Juego🏆‼️ 🎉 Sacaste tres ${resultado[0]} iguales 🎉 Sumas dinero a tu billetera💲💰`);
+            console.log(`Obtuviste una bonificacion de 💲5000`)
+
+            bonificacionFinal += 5000;
+            this.pagarApuesta(bonificacionFinal);
         }
         else if (resultado[0] === resultado[1] || resultado[1] === resultado[2] || resultado[0] === resultado[2]) {
-            console.log(`¡Bonificación! 🎉 Has sacado dos deportes iguales 🎉 Se suma dinero a tu billetera💲💰`);
-            this.jugador.agregarDinero(1500);
+            console.log(`\n¡Bonificación! 🎉 Has sacado dos frutas iguales 🎉 Sumas dinero a tu billetera💲💰`);
+            console.log(`Obtuviste 💲2500 adicionales`)
+
+            bonificacionFinal += 2500;
+            this.pagarApuesta(bonificacionFinal);
         }
+
+        
     }
 
     public mostrarResultado(): void {
-        if (this.getIntentosMaximos() >= 0){
+        if (this.getIntentosMaximos() > 0){
             const resultado = this.tirar();
             if (resultado.length > 0) {
     

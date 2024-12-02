@@ -54,7 +54,7 @@ export class Casino {
     }
 
     public mostrarCasino(): string {
-        return `Casino: ${this.getNombre()} \n Usuarios del Casino: ${this.listarUsuarios()} \n Juegos del Casino: ${this.listarJuegos()}`;
+        return `Casino: ${this.getNombre()} \nUsuarios del Casino: ${this.listarUsuarios()} \nJuegos del Casino: ${this.listarJuegos()}`;
     }
 
     public listarUsuarios(): void {
@@ -93,7 +93,7 @@ export class Casino {
 
         fs.writeFileSync(this.RUTA_DATOS, JSON.stringify(data, null, 2), "utf-8");
         
-        console.log(`\nDatos guardados satisfactoriamente.`);
+        console.log(`Datos guardados satisfactoriamente.\n`);
     }
 
     private cargarDesdeJSON(): Usuario[] {
@@ -110,11 +110,11 @@ export class Casino {
                 );
             });
 
-            console.log(`Usuarios cargados satisfactoriamente.`);
+            console.log(`Usuarios cargados satisfactoriamente.\n`);
 
             return arreglo;
         } else {
-            console.log(`Archivo no encontrado en la ruta solicitada.`);
+            console.log(`Archivo no encontrado en la ruta solicitada.\n`);
         }
          
     }
@@ -124,11 +124,11 @@ export class Casino {
         let alias: string = rs.question("");
 
         while(alias == ''){
-            console.log("Ingrese un valor valido para su Alias 👤"); 
+            console.log("👤 Ingrese un valor valido para su Alias 👤"); 
             alias = rs.question("");    
         }
         
-        console.log("\n🪪  Ingrese su nombre si lo desea (Opcional)🪪"); 
+        console.log("\n👤  Ingrese su nombre si lo desea (Opcional)👤"); 
         let nombre: string = rs.question("");   
         
         if (nombre === "") {
@@ -139,10 +139,10 @@ export class Casino {
         let existe: boolean = this.login.verificarSiExiste(nombre, alias);
         
         if(!existe){
-            console.log("\nEscriba su DNI 👤"); 
+            console.log("\n🪪  Escriba su DNI 🪪"); 
             let dni: number = rs.questionInt("");
 
-            console.log("\nEscriba contrasenia para su cuenta👤"); 
+            console.log("\n🔐 Escriba contrasenia para su cuenta 🔐"); 
             let pass: string = rs.question('', { hideEchoBack: true });
             
             let hasheo = bcrypt.hashSync(pass, 5); //contrasenia, intensidad del hasheo

@@ -29,12 +29,16 @@ export class Usuario {
     //Este método nos permite agregar dinero a la billetera del usuario en caso de que gane por ejemplo en el Tragamonedas
     public agregarDinero(monto: number): void {
         this.billetera += monto;
-        console.log(`Has recibido💲${monto} pesos 💵. Tu saldo actual es:💲${this.billetera} pesos 🥳`);
+        console.log(`\nHas cargado💲${monto} pesos 💵. Tu saldo actual es de💲${this.billetera} Pesos 🥳`);
     }
 
     public obtenerSaldo(): number {
         return this.billetera;
     }
+
+    public sumarJuegoGanado(): void {
+        this.juegosGanados++;
+    } 
 
     //Getters and setters
 

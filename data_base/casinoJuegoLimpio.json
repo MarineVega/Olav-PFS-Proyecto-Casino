@@ -6,7 +6,7 @@
       "alias": "anitsuga",
       "nombre": "Jugador Anonimo",
       "juegosGanados": 0,
-      "billetera": 2000,
+      "billetera": 999,
       "dni": 38529603
     },
     {
@@ -16,6 +16,14 @@
       "juegosGanados": 0,
       "billetera": 17500,
       "dni": 258741
+    },
+    {
+      "aliasCuenta": "Jugador Anonimo (aaa)",
+      "alias": "aaa",
+      "nombre": "Jugador Anonimo",
+      "juegosGanados": 1,
+      "billetera": 56500,
+      "dni": 123
     }
   ],
   "juegos": []

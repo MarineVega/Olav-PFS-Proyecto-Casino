@@ -11,6 +11,12 @@
       "alias": "sancho pansa",
       "contrasenia": "$2a$05$YE.jZc/nFoITtdWc8g6mbu4akAbrjppywtuRCTO8F0z0WWu5haRnK",
       "dni": 258741
+    },
+    {
+      "nombre": "Jugador Anonimo",
+      "alias": "aaa",
+      "contrasenia": "$2a$05$eS7VOiNhQ4NNWN2Dno0CBexFtx6QCyVRRWS0LxZFfzr3BY/5jQH/W", 
+      "dni": 123
     }
   ]
 }

@@ -26,22 +26,31 @@ export class TragamonedaPremium extends Tragamoneda {
     }
 
     public bonificacionDeTirada(resultado: string[]): void {
-        if (resultado[0] === resultado[1] && resultado[1] === resultado[2]) {
-            console.log(`Ganaste🏆‼️ 🎉 Sacaste tres ${resultado[0]} iguales 🎉 Se suma dinero a tu billetera💲💰`);
+        let bonificacionFinal: number = this.getApuesta();
 
-            this.jugador.agregarDinero(5000);
+        if (resultado[0] === resultado[1] && resultado[1] === resultado[2]) {
+            console.log(`Ganaste el Juego🏆‼️ 🎉 Sacaste tres ${resultado[0]} iguales 🎉 Sumas dinero a tu billetera💲💰`);
+            console.log(`Obtuviste una bonificacion de 💲5000`)
+
+            bonificacionFinal += 5000;  
+            this.pagarApuesta(bonificacionFinal);
         }
         else if (resultado[0] === resultado[1] || resultado[1] === resultado[2] || resultado[0] === resultado[2]) {
-            console.log(`¡Bonificación! 🎉 Has sacado dos frutas iguales 🎉 Se suma dinero a tu billetera💲💰`);
-            this.jugador.agregarDinero(2500);
+            console.log(`\n¡Bonificación! 🎉 Has sacado dos frutas iguales 🎉 Sumas dinero a tu billetera💲💰`);
+            console.log(`Obtuviste 💲2500 adicionales`)
+
+            bonificacionFinal += 2500;
+            this.pagarApuesta(bonificacionFinal);
         }
+
+        
     }
 
     public mostrarResultado(): void {
-        if (this.getIntentosMaximos() >= 0){
+        if (this.getIntentosMaximos() > 0){
             const resultado = this.tirar(); 
 
-            if (resultado.length > 0) {
+            if (resultado.length >= 0) {
                 console.log("Resultado de la tirada:", resultado.join(" | "));
             }
 
@@ -60,9 +69,10 @@ export class TragamonedaPremium extends Tragamoneda {
     public duplicarIntentos(): void {
         if(this.getIntentosMaximos() > 0){ //Si tiene 0 intentos, no duplica
             let intentosAntes: number = this.getIntentosMaximos();
-            this.intentosMaximos *= 2;
-    
-            console.log("🎊 Has obtenido el comodin 🎊 ¡Duplicaste tus intentos! 🎁 Ahora tienes", this.intentosMaximos, "intentos! Antes tenias", intentosAntes,"👍");
+            
+            this.intentosMaximos += 2;
+            
+            console.log("🎊 Has obtenido el comodin 🎊 ¡Sumaste Intentos! 🎁 Ahora tienes", this.intentosMaximos, "intentos! Antes tenias", intentosAntes,"👍");
         } else {
             console.log("Mala Suerte!🥺 Has obtenido el comodin 🎊 Pero no tenias intentos restantes 😭");
         }
