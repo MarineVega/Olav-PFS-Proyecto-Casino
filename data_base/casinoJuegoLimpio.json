@@ -32,6 +32,14 @@
       "juegosGanados": 0,
       "billetera": 667,
       "dni": 38529603
+    },
+    {
+      "aliasCuenta": "123 (naty)",
+      "alias": "naty",
+      "nombre": "123",
+      "juegosGanados": 1,
+      "billetera": 7500,
+      "dni": 27815818
     }
   ],
   "juegos": []
