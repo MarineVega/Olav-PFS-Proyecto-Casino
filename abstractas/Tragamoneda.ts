@@ -109,8 +109,8 @@ export abstract class Tragamoneda extends Juego {
 
             console.log(`Saldo final en tu Billetera:💲${this.jugador.obtenerSaldo()}`);
     
-        } else {
-            if(this.verifcarBilletera()){
+        } else { 
+            if(this.verifcarBilletera()){ //Si dispone de saldo para el minimo, pero ingresa un valor fuera del rango de min/ max, entra aca
                 this.jugar();
             }
         }
