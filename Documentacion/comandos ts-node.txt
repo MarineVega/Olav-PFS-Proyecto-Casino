@@ -1,0 +1,5 @@
+npx tsc --init  --> para poder usar ts-node main     
+
+npm i --> instalar dependencias necesarias
+
+npm install bcryptjs --> instalar para el hasheo de las cuentas si es q no lo baja
