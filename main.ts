@@ -28,7 +28,7 @@ const rutaHorasEspejoSolitario = path.join(__dirname, 'instrucciones/horasEspejo
 
 let casino1: Casino = new Casino("Juego Limpio 🎲🍀");
 
-let usuarioActual: Usuario;
+let usuarioActual: Usuario | undefined;
 
 //Muestro el menu de logueo
 menuLogueo();
@@ -82,13 +82,13 @@ function gestionarUsuario(accion: string): void {
 
     if (usuarioActual) {
         console.log('Inicio de sesion exitoso! 👤🔐');
-        console.log('Presione una tecla para volver al menu de logueo...');
+        console.log('Presione una tecla para ingresar al Menu Principal');
         rs.question();
         menuCasino();    
 
     } else {
-        console.log('\nAlias o Contrasenia Invalida.');
-        console.log('Presione una tecla para volver al menu de logueo...');
+        console.log('\nSesion fallida. Intente nuevamente...');
+        console.log('Presione enter para volver al menu de Logueo... ');
         rs.question();
         menuLogueo();
     }   
@@ -96,9 +96,7 @@ function gestionarUsuario(accion: string): void {
 
 function desloguearse(): void {
     limpiarConsola();
-    casino1.guardarEnJSON();
-    casino1.despedir(usuarioActual.getAlias());
-    casino1.cerrarSesionUsuario();
+    casino1.cerrarSesionUsuario(usuarioActual.getAlias());
     rs.question('Presione cualquier tecla para continuar...');
     menuLogueo();
 }
@@ -309,7 +307,6 @@ function recargarDinero(){
     const dineroRecarga: number = rs.questionInt("Ingrese una suma en $: ");
 
     usuarioActual.agregarDinero(dineroRecarga);
-    console.log(`Su saldo actual recargado es de $: ${usuarioActual.obtenerSaldo()}`);
 
     returnToMainMenu();
 }

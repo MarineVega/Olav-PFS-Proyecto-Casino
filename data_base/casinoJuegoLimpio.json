@@ -2,14 +2,6 @@
   "nombre": "Juego Limpio 🎲🍀",
   "usuarios": [
     {
-      "aliasCuenta": "Jugador Anonimo (anitsuga)",
-      "alias": "anitsuga",
-      "nombre": "Jugador Anonimo",
-      "juegosGanados": 0,
-      "billetera": 999,
-      "dni": 38529603
-    },
-    {
       "aliasCuenta": "Jugador Anonimo (sancho pansa)",
       "alias": "sancho pansa",
       "nombre": "Jugador Anonimo",
@@ -29,9 +21,17 @@
       "aliasCuenta": "Antonela Di Pinto (Antito)",
       "alias": "Antito",
       "nombre": "Antonela Di Pinto",
-      "juegosGanados": 9,
+      "juegosGanados": 0,
       "billetera": 62000,
       "dni": 33681920
+    },
+    {
+      "aliasCuenta": "Jugador Anonimo (nitsuga)",
+      "alias": "nitsuga",
+      "nombre": "Jugador Anonimo",
+      "juegosGanados": 0,
+      "billetera": 667,
+      "dni": 38529603
     }
   ],
   "juegos": []

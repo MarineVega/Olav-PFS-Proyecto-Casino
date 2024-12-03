@@ -82,6 +82,7 @@ export class Casino {
         console.log(`\nGracias ${alias} por elegir ${this.getNombre()}. Volve pronto!!!`);
     }
 
+    
     //Funciones para carga y guardado de datos en JSON
 
     public guardarEnJSON(): void {
@@ -93,14 +94,13 @@ export class Casino {
 
         fs.writeFileSync(this.RUTA_DATOS, JSON.stringify(data, null, 2), "utf-8");
         
-        console.log(`\nDatos guardados satisfactoriamente.\n`);
+        console.log(`\nSe han guardado tus datos satisfactoriamente.`);
     }
 
     private cargarDesdeJSON(): Usuario[] {
         if (fs.existsSync(this.RUTA_DATOS)){
             let data = JSON.parse(fs.readFileSync(this.RUTA_DATOS, "utf-8"));
     
-            // Cargar Usuarios
             let arreglo: Usuario [] = data.usuarios.map((usu: any) => {
                 return new Usuario(
                     usu.alias, 
@@ -119,6 +119,9 @@ export class Casino {
          
     }
 
+
+    // Funciones Autentificacion
+
     public registrarNuevoUsuario(): Usuario {     
         console.log("Cree su Alias (Obligatorio)👤"); 
         let alias: string = rs.question("");
@@ -128,17 +131,17 @@ export class Casino {
             alias = rs.question("");    
         }
         
-        console.log("\n👤  Ingrese su nombre si lo desea (Opcional)👤"); 
-        let nombre: string = rs.question("");   
-        
-        if (nombre === "") {
-            console.log("Ha decidido mantenerse en el anonimato\n"); 
-            nombre = "Jugador Anonimo"
-        } 
-
-        let existe: boolean = this.login.verificarSiExiste(nombre, alias);
+        let existe: boolean = this.login.verificarAlias(alias);
         
         if(!existe){
+            console.log("\n👤  Ingrese su nombre si lo desea (Opcional)👤"); 
+            let nombre: string = rs.question("");   
+            
+            if (nombre === "") {
+                console.log("Ha decidido mantenerse en el anonimato\n"); 
+                nombre = "Jugador Anonimo"
+            } 
+
             console.log("\nEscriba su DNI 🪪"); 
             let dni: number = rs.questionInt("");
 
@@ -146,47 +149,47 @@ export class Casino {
             let pass: string = rs.question('', { hideEchoBack: true });
             
             let hasheo = bcrypt.hashSync(pass, 5); //contrasenia, intensidad del hasheo
-            pass = ''; //piso la contrasenia en texto plano
+            pass = ''; //pisa la contrasenia en texto plano
         
-            this.crearCuentaUsuario(nombre, alias, hasheo, dni); //creo la cuenta del respectivo usuario
+            this.crearCuentaUsuario(nombre, alias, hasheo); //crea la cuenta del respectivo usuario
 
-            //this.crearCuentaUsuario(nombre, alias, pass, dni); comentado, por si no anda el bcrypt, comentar tambien lineas 151, 149 y 148 si se usa esto
+            //this.crearCuentaUsuario(nombre, alias, pass); comentado, por si no anda el bcrypt, comentar las 3 lineas de arriba si se usa esto
 
             console.log("\nBilletera para jugar 💵"); 
             let dineroInicio = rs.questionInt('Ingrese el dinero: $');
         
             let usuarioNue: Usuario = new Usuario(alias, nombre, dineroInicio, dni);
 
-            this.agregarUsuario(usuarioNue); //agrego usuario al casino si no existe
+            this.agregarUsuario(usuarioNue); // Agrega usuario al casino si no existe
 
-            this.guardarEnJSON();
+            this.guardarEnJSON(); // Guarda al usuario nuevo
 
             return usuarioNue;
         } else {
-            console.log("\nIntente ingresar sus datos con un Alias distinto.\n"); 
+            console.log("\nAlias ya en uso. Pruebe un alias distinto."); 
 
             return undefined;
         }
     }
 
-    public crearCuentaUsuario(nombre: string, alias: string, hasheo: string, dni: number): void{  
-        let nuevaCuenta = new CuentaUsuario(nombre, alias, hasheo, dni);
+    public crearCuentaUsuario(nombre: string, alias: string, hasheo: string): void{  
+        let nuevaCuenta: CuentaUsuario = new CuentaUsuario(nombre, alias, hasheo);
         this.login.registrarCuenta(nuevaCuenta);
     }
 
     public iniciarSesion(): Usuario{
-        let dni: number = this.login.iniciarSesion();
+        let alias: string | null = this.login.iniciarSesion();
         
-        return dni != -1 ? this.buscarUsuarioPorDni(dni) : undefined; //retorna el usuario o undefined si no lo encuentra  
+        return alias != null ? this.retornaUsuarioPorAlias(alias) : undefined; // Retorna el usuario o undefined si no lo encuentra  
     }
 
-    public buscarUsuarioPorDni(dni: number): Usuario{
-       return this.usuarios.find((usuario) => usuario.getDni() === dni); 
+    public retornaUsuarioPorAlias(alias: string): Usuario{
+       return this.usuarios.find((usuario) => usuario.getAlias() === alias); 
     }
 
-    public cerrarSesionUsuario(): void{
+    public cerrarSesionUsuario(alias: string): void{
+        this.guardarEnJSON();
+        this.despedir(alias);
         this.login.cerrarSesion();
     }
-
-
 }

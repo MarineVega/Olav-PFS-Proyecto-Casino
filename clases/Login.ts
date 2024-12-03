@@ -1,7 +1,6 @@
 import * as rs from "readline-sync";
 import * as fs from 'fs'; 
 
-import { Usuario } from "./Usuario";
 import { CuentaUsuario } from "./CuentaUsuario";
 
 export class Login {
@@ -16,7 +15,7 @@ export class Login {
         this.sesionActual = undefined;
     }
 
-    public iniciarSesion(): number {
+    public iniciarSesion(): string | null{
         console.log("\nEscriba su Alias 👤"); 
         let alias: string = rs.question("");
 
@@ -25,48 +24,36 @@ export class Login {
 
         console.clear();
 
-        let usuario = this.buscarUsuarioPorAlias(alias);
+        let usuario: CuentaUsuario | null = this.buscarUsuarioPorAlias(alias);
         
         if (usuario && usuario.verificarContrasenia(pass)) { //si lo encuentra y si coincide su contrasenia, se loguea
 
             this.loguearse(usuario);
 
-            return usuario.getDni(); // Sesión exitosa, devuelve el dni del usuario
+            return usuario.getAlias(); // Sesión exitosa, devuelve el alias del usuario
         }
 
-        return -1; // Sesión fallida
+        return null; // Sesión fallida por contrasenia invalida o no se encontro usuario
     }
 
-    // Buscar usuario por Alias
+    // Buscar usuario por Alias, para Iniciar sesion
     public buscarUsuarioPorAlias(alias: string): CuentaUsuario | null {
         let usuario = this.cuentas.find(user => user.getAlias() === alias);
         return usuario ? usuario : null;
     }
 
-    // Verifica contraseña si coincide, para el inicio de sesion
-    public verificarContrasenia(alias: string, contrasenia: string): boolean {
-        let usuario = this.buscarUsuarioPorAlias(alias);
-        return usuario ? usuario.getContrasenia() === contrasenia : false;
-    }
-
     // Registra un nuevo usuario si no existe
-    public registrarCuenta(nueU: CuentaUsuario): boolean {
-        if (!this.verificarSiExiste(nueU.getNombre(), nueU.getAlias())) {
+    public registrarCuenta(nueU: CuentaUsuario): void { 
             this.cuentas.push(nueU);
 
             this.loguearse(nueU); //Al registrar nuevo usuario, lo dejo logueado
 
             this.guardarEnJSON(); //guardo los nuevos datos
-
-            return true;
-        } 
-
-        return false;
     }
 
-    // Verifica si el usuario ya existe. Some busca hasta encontrarlo o terminarse el array
-    public verificarSiExiste(nombre: string, alias: string): boolean {
-        return this.cuentas.some(c => c.getNombre() === nombre && c.getAlias() === alias);
+    //Verifica si ya existe el alias, para crear cuenta nueva. Some busca hasta encontrarlo o terminarse el array y devuelve un boolean
+    public verificarAlias(alias: string): boolean {
+        return this.cuentas.some(c => c.getAlias() === alias);
     }
 
     public loguearse(usuario: CuentaUsuario): void {
@@ -81,6 +68,7 @@ export class Login {
         return this.cuentas;
     }
 
+    
     //Funciones para carga y guardado de datos en JSON
 
     public guardarEnJSON(): void {
@@ -101,8 +89,7 @@ export class Login {
                 return new CuentaUsuario(
                     cuenta.nombre,
                     cuenta.alias,
-                    cuenta.contrasenia,
-                    cuenta.dni     
+                    cuenta.contrasenia     
                 );
             });
 

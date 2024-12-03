@@ -2,15 +2,13 @@ import bcrypt from 'bcryptjs';
 
 export class CuentaUsuario {
     private nombre: string;
-    private alias: string;
+    private alias: string; //cada alias es unico
     private contrasenia: string;
-    private dni: number;
 
-    constructor(nombre: string, alias: string, contrasenia: string, dni: number) {
+    constructor(nombre: string, alias: string, contrasenia: string) {
         this.nombre = nombre;
         this.alias = alias;
         this.contrasenia = contrasenia;
-        this.dni = dni;
     }
 
     public getContrasenia(): string {
@@ -21,20 +19,8 @@ export class CuentaUsuario {
         return this.nombre;
     }
 
-    public setNombre(nombre: string): void {
-        this.nombre = nombre;
-    }
-
     public getAlias(): string {
         return this.alias;
-    }
-
-    public setAlias(alias: string): void {
-        this.alias = alias;
-    }
-
-    public getDni(): number {
-        return this.dni;
     }
 
     //Compara la contrasenia guardada con la ingresada usando compareSync, version sincrona
