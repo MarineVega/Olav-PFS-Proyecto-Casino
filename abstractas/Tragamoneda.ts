@@ -61,14 +61,6 @@ export abstract class Tragamoneda extends Juego {
 
     protected abstract bonificacionDeTirada(resultado: string[]): void;
 
-    // public mostrarResultado(): void {
-    //     const resultado = this.tirar();
-    //     if (resultado.length >= 0) {
-    //         console.log("Resultado de la tirada:", resultado.join(" | "));
-    //         console.log('aca no paso nunca noi');
-    //     }
-    // }
-
     protected abstract mostrarResultado(): void;
 
     public jugar(): void{
@@ -77,7 +69,6 @@ export abstract class Tragamoneda extends Juego {
         let continua: boolean = true;
     
         if (this.apostar()) {
-            this.mostrarInfoCobroEntrada(); 
             
             let intentos: number = this.getIntentosMaximos();
     

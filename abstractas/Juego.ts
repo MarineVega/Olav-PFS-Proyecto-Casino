@@ -21,7 +21,7 @@ export abstract class Juego implements Apuesta{
         this.apuestaMaxima = apuMax;
     }
 
-    //public abstract jugar(): void;
+    protected abstract jugar(): void;
 
     //Interface Apuesta
 
@@ -96,10 +96,6 @@ export abstract class Juego implements Apuesta{
         this.dinero += cantDinero;
     }
 
-    protected usarDinero(cantDinero: number): void {
-        this.dinero =- cantDinero;
-    }
-
     protected iniciarJuego(dinero: number): void{
         this.cargarDinero(dinero);
     }
@@ -108,12 +104,6 @@ export abstract class Juego implements Apuesta{
     protected mostrarInfoComienzoJuego(): void {
         console.log(`💸 Apuesta Minima de💲${this.getApuestaMinima()} Hasta💲${this.getApuestaMaxima()} 💸\n`);
         console.log(`Saldo disponible en su Billetera:💲${this.jugador.obtenerSaldo()}\n`);
-    }
-
-    //Cobro por empezar a jugar el juego
-    protected mostrarInfoCobroEntrada(): void {
-        this.gastarDinero(this.getApuestaMinima()); 
-        console.log(`Se le ha cobrado ademas,💲${this.getApuestaMinima()} de costo del juego!\n`);
     }
 
     protected preguntarSiContinua(): boolean {

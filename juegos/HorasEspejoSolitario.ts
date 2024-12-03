@@ -46,7 +46,7 @@ export class HorasEspejoSolitario extends HorasEspejoBase {
         this.mostrarInfoComienzoJuego();
 
         if (this.apostar()) {
-            this.mostrarInfoCobroEntrada();
+
             console.log("\n--- 🍀 INICIA LA PARTIDA 🍀 ---");
 
             while (this.intentosJugador > 0) {

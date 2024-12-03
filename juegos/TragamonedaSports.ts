@@ -14,20 +14,28 @@ export class TragamonedaSports extends Tragamoneda {
 
     //Paga la apuesta en cada ronda
     public bonificacionDeTirada(resultado: string[]): void {
+        console.log(this.getApuesta());
         let bonificacionFinal: number = this.getApuesta();
 
         if (resultado[0] === resultado[1] && resultado[1] === resultado[2]) {
             console.log(`Ganaste el Juego🏆‼️ 🎉 Sacaste tres ${resultado[0]} iguales 🎉 Sumas dinero a tu billetera💲💰`);
             console.log(`Obtuviste una bonificacion de 💲${this.BONIF_3}`)
 
+            console.log(this.BONIF_3);
+
+
             bonificacionFinal += this.BONIF_3;
+            console.log(bonificacionFinal);
+
             this.pagarApuesta(bonificacionFinal);
         }
         else if (resultado[0] === resultado[1] || resultado[1] === resultado[2] || resultado[0] === resultado[2]) {
             console.log(`\n¡Bonificación! 🎉 Has sacado dos Deportes iguales 🎉 Sumas dinero a tu billetera💲💰`);
-            console.log(`Obtuviste 💲${this.BONIF_3} adicionales`)
+            console.log(`Obtuviste 💲${this.BONIF_2} adicionales`)
 
             bonificacionFinal += this.BONIF_2;
+
+            console.log(bonificacionFinal);
             this.pagarApuesta(bonificacionFinal);
         }
     }
