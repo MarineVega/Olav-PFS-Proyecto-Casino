@@ -16,14 +16,14 @@ export class TragamonedaSports extends Tragamoneda {
 
         if (resultado[0] === resultado[1] && resultado[1] === resultado[2]) {
             console.log(`Ganaste el Juego🏆‼️ 🎉 Sacaste tres ${resultado[0]} iguales 🎉 Sumas dinero a tu billetera💲💰`);
-            console.log(`Obtuviste una bonificacion de 💲5000`)
+            console.log(`Obtuviste una bonificacion de 💲3000`)
 
             bonificacionFinal += 5000;
             this.pagarApuesta(bonificacionFinal);
         }
         else if (resultado[0] === resultado[1] || resultado[1] === resultado[2] || resultado[0] === resultado[2]) {
             console.log(`\n¡Bonificación! 🎉 Has sacado dos deportes iguales 🎉 Sumas dinero a tu billetera💲💰`);
-            console.log(`Obtuviste 💲2500 adicionales`)
+            console.log(`Obtuviste 💲1500 adicionales`)
 
             bonificacionFinal += 2500;
             this.pagarApuesta(bonificacionFinal);

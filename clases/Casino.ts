@@ -79,7 +79,7 @@ export class Casino {
     }
 
     public despedir(alias: string): void {
-        console.log(`\nGracias ${alias} por elegir ${this.getNombre()}. Volve pronto!!!`);
+        console.log(`\nGracias ${alias} por elegir ${this.getNombre()}. Volve pronto!!!\n`);
     }
 
     //Funciones para carga y guardado de datos en JSON
@@ -124,11 +124,11 @@ export class Casino {
         let alias: string = rs.question("");
 
         while(alias == ''){
-            console.log("👤 Ingrese un valor valido para su Alias 👤"); 
+            console.log("Ingrese un valor valido para su Alias 👤"); 
             alias = rs.question("");    
         }
         
-        console.log("\n👤  Ingrese su nombre si lo desea (Opcional)👤"); 
+        console.log("\nIngrese su nombre si lo desea (Opcional)👤"); 
         let nombre: string = rs.question("");   
         
         if (nombre === "") {
@@ -153,7 +153,7 @@ export class Casino {
             //this.crearCuentaUsuario(nombre, alias, pass, dni); comentado, por si no anda el bcrypt, comentar tambien lineas 151, 149 y 148 si se usa esto
 
             console.log("\nBilletera para jugar 💵"); 
-            let dineroInicio = rs.questionInt('Ingrese el dinero: $');
+            let dineroInicio = rs.questionInt('Ingrese el dinero para iniciar: $');
         
             let usuarioNue: Usuario = new Usuario(alias, nombre, dineroInicio, dni);
 
@@ -187,6 +187,4 @@ export class Casino {
     public cerrarSesionUsuario(): void{
         this.login.cerrarSesion();
     }
-
-
 }
