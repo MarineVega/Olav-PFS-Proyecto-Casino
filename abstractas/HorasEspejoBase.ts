@@ -77,7 +77,9 @@ export abstract class HorasEspejoBase extends Juego {
         }
     }
     
-    // Método abstracto 
+    // Métodos abstracto 
     protected abstract restablecerJuego(): void;
+
+    protected abstract jugar(): void;
 }
 

@@ -9,7 +9,7 @@ export class HorasEspejoSolitario extends HorasEspejoBase {
         this.puntosGanador = 30;
     }
 
-    private jugarTurno(): boolean {
+    protected jugarTurno(): boolean {
         const horaFormateada = this.generarHoraAleatoria();
 
         // Si la hora es "00:00" gana la partida y el premio  mayor
