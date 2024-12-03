@@ -1,0 +1,20 @@
+🕓 Bienvenido al Juego en que las Horas toman Protagonismo 🕓
+
+-----------------------------------------------------------
+
+💰  Este juego tiene una Apuesta mínima de $1000 y una Apuesta Máxima de $5000. 💰 
+
+-----------------------------------------------------------
+
+📄 INSTRUCCIONES HORAS ESPEJO SOLITARIO 🪞
+
+✔︎  Consta de 3 intentos, en cada uno de ellos se genera una horas aleatoria para el jugador se acumulan los puntos según el siguiente Criterio: con horas espejo de números iguales como 11:11 o 22:22 suman 20 puntos, si sacan cualquier otra hora espejo suman 10 puntos. 
+Salvo la Condición Especial del 00:00 🕛.
+
+✔︎  Si el Jugador 👨🏽‍💻 saca 00:00 🕛 ❕Gana la Partida❕🏆 y se le suman 50 puntos. Se le paga 10 veces más la Apuesta Inicial 💵.
+
+✔︎  Si no saca el 00:00 después de los 3 intentos se suman los puntos, si logra 30 o más, también ❕Gana la Partida❕🏆. El Jugador recibe el doble de lo que apostó.
+
+✔︎ En este juego se puede: Ganar 👍, Perder 👎.
+
+-----------------------------------------------------------

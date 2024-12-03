@@ -1,0 +1,34 @@
+{
+  "usuarios": [
+    {
+      "nombre": "Jugador Anonimo",
+      "alias": "anitsuga",
+      "contrasenia": "$2a$05$OjNee04c9ow2R9QGCLcuwedGwAVeitLChnlD1R7uHc.BF5sMqWf62",
+      "dni": 38529603
+    },
+    {
+      "nombre": "Jugador Anonimo",
+      "alias": "sancho pansa",
+      "contrasenia": "$2a$05$YE.jZc/nFoITtdWc8g6mbu4akAbrjppywtuRCTO8F0z0WWu5haRnK",
+      "dni": 258741
+    },
+    {
+      "nombre": "Jugador Anonimo",
+      "alias": "aaa",
+      "contrasenia": "$2a$05$eS7VOiNhQ4NNWN2Dno0CBexFtx6QCyVRRWS0LxZFfzr3BY/5jQH/W",
+      "dni": 123
+    },
+    {
+      "nombre": "Jugador Anonimo",
+      "alias": "agusa",
+      "contrasenia": "123",
+      "dni": 111
+    },
+    {
+      "nombre": "Antonela Di Pinto",
+      "alias": "Antito",
+      "contrasenia": "$2a$05$qpZ6FrP/qU1OCrSJ8U1eIOrhAtmuPrSSSGzZesCFoT9hrSHo4UvF.",
+      "dni": 33681920
+    }
+  ]
+}
