@@ -5,6 +5,8 @@ import { Usuario } from "../clases/Usuario";
 export class TragamonedaPremium extends Tragamoneda {
     private comodin: string;
     readonly FACTOR_SUERTE: number = 2; 
+    readonly BONIF_3: number = 5000; 
+    readonly BONIF_2: number = 2500; 
 
     constructor(nombre: string, reglamento: string, apuMin: number, apuMax: number, jugador: Usuario, intentosMaximos: number) {
         super(nombre, reglamento, apuMin, apuMax, jugador, intentosMaximos);
@@ -30,16 +32,16 @@ export class TragamonedaPremium extends Tragamoneda {
 
         if (resultado[0] === resultado[1] && resultado[1] === resultado[2]) {
             console.log(`Ganaste el Juego🏆‼️ 🎉 Sacaste tres ${resultado[0]} iguales 🎉 Sumas dinero a tu billetera💲💰`);
-            console.log(`Obtuviste una bonificacion de 💲5000`)
+            console.log(`Obtuviste una bonificacion de 💲${this.BONIF_3}`)
 
-            bonificacionFinal += 5000;  
+            bonificacionFinal += this.BONIF_3;  
             this.pagarApuesta(bonificacionFinal);
         }
         else if (resultado[0] === resultado[1] || resultado[1] === resultado[2] || resultado[0] === resultado[2]) {
             console.log(`\n¡Bonificación! 🎉 Has sacado dos frutas iguales 🎉 Sumas dinero a tu billetera💲💰`);
-            console.log(`Obtuviste 💲2500 adicionales`)
+            console.log(`Obtuviste 💲${this.BONIF_2} adicionales`)
 
-            bonificacionFinal += 2500;
+            bonificacionFinal += this.BONIF_2;
             this.pagarApuesta(bonificacionFinal);
         }
     }

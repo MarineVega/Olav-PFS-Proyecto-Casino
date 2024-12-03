@@ -44,6 +44,7 @@ export class HorasEspejoSolitario extends Juego {
         const minutos = Math.floor(Math.random() * 60); // Minutos entre 0 y 59
         const horaFormateada = hora < 10 ? `0${hora}` : `${hora}`;
         const minutosFormateados = minutos < 10 ? `0${minutos}` : `${minutos}`;
+        
         return `${horaFormateada}:${minutosFormateados}`;
     }
     
@@ -73,7 +74,7 @@ export class HorasEspejoSolitario extends Juego {
         //MAXIMO PUNTAJE     
         if (puntos === this.puntosMayor) {
             console.log(`🎉 ¡GANASTE con 🕛"00:00"! 🎉`);
-            this.puntosAcumulados = this.puntosMayor; // Puntos máximos al ganar con "00:00"
+            this.puntosAcumulados += this.puntosMayor; // Puntos máximos al ganar con "00:00"
             this.intentosJugador = 0;
             return true; // SI GANO CON 00:00 DEBE TERMINAR
         }
@@ -89,8 +90,6 @@ export class HorasEspejoSolitario extends Juego {
     // Iniciar la partida
     public jugar(): void {
         this.mostrarInfoComienzoJuego();
-
-        this.gastarDinero(this.apuestaMinima);
 
         let sigueJugando: string;
 
@@ -108,11 +107,11 @@ export class HorasEspejoSolitario extends Juego {
                 if (victoria) {
                     console.log("🎉 ¡Ganaste al alcanzar 30 puntos o más! 🎉");
                     if ((this.puntosAcumulados >= this.puntosGanador) && (this.puntosAcumulados < 50)) {
-                        this.pagarApuesta(this.apuestaMinima * 2); // Premiar con el doble de la apuesta mínima
+                        this.pagarApuesta(this.getApuesta() * 2); // Premiar con el doble de la apuesta mínima
                         
                     }
                     else if (this.puntosAcumulados >= this.puntosMayor) {
-                        this.pagarApuesta(this.apuestaMinima * 10); //el premio mayor
+                        this.pagarApuesta(this.getApuesta() * 10); //el premio mayor
                         break;
                     }
                 }

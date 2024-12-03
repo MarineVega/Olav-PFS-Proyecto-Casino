@@ -2,23 +2,20 @@ import { Juego } from "../abstractas/Juego";
 import { Usuario } from "../clases/Usuario";
 import * as rs from "readline-sync";
 
-//export class Veintiuno extends Juego {
 export class Veintiuno extends Juego {
-    private sumatoriaValoresJugador: number;
-    private sumatoriaValoresMaquina: number;
-    private cantidadCartas: number;
-    private ultimaCarta: number;
-    private mano: boolean;
-    private finalizoPartida: boolean;
+    
+    private sumatoriaValoresJugador: number = 0;
+    private sumatoriaValoresMaquina: number = 0;
+    private cantidadCartas: number = 0;
+    private cartaMinima: number = 1;
+    private cartaMaxima: number = 12;
+    private ultimaCarta: number = 0;
+    private valorObjetivo: number = 21;
+    private mano: boolean = true;
+    private finalizoPartida: boolean = false;
     
     constructor (nombre: string, reglamento: string, apuestaMinima: number, apuestaMaxima: number, jugador: Usuario) {
         super (nombre, reglamento, apuestaMinima, apuestaMaxima, jugador);
-        this.sumatoriaValoresJugador = 0;       
-        this.sumatoriaValoresMaquina = 0;
-        this.cantidadCartas = 0;
-        this.ultimaCarta = 0;
-        this.mano = true;
-        this.finalizoPartida = false;
     }
 
     public mostrarDatosVeintiuno(): string {
@@ -48,6 +45,7 @@ export class Veintiuno extends Juego {
         // Tiro carta del jugador        
         this.tirarCarta();
         this.cambiarMano();
+
         // Tiro carta de la máquina
         this.tirarCarta();
         this.verificarJugada();        
@@ -56,20 +54,17 @@ export class Veintiuno extends Juego {
     // Cuando inicia el juego, la mano siempre la tiene el jugador, por lo tanto es el que comienza.
     // Las cartas utilizadas son las españolas, del 1 al 12, sin uso de comodines
     private tirarCarta (): void {
-        const cartaMaxima = 12;    
-        const cartaMinima = 1;
-
-        this.ultimaCarta = Math.floor(Math.random() * (cartaMaxima - cartaMinima + 1) + cartaMinima);
+        this.ultimaCarta = Math.floor(Math.random() * (this.cartaMaxima - this.cartaMinima + 1) + this.cartaMinima);
         this.sumatoriaValores();
     }
     
     public verificarJugada (): void {   
              
-        if (this.sumatoriaValoresJugador > 21) {
+        if (this.sumatoriaValoresJugador > this.valorObjetivo) { 
             this.detenerPartida(2);
-        } else if (this.sumatoriaValoresMaquina == 21) {
+        } else if (this.sumatoriaValoresMaquina == this.valorObjetivo) {
             this.detenerPartida(3);
-        } else if (this.sumatoriaValoresMaquina > 21) {
+        } else if (this.sumatoriaValoresMaquina > this.valorObjetivo) { 
             this.detenerPartida(4);
         }
     }
@@ -80,7 +75,7 @@ export class Veintiuno extends Juego {
             4: máquina se pasó de 21
     */
 
-    public detenerPartida( motivo: number): void {
+    public detenerPartida(motivo: number): void {
         let ganador: string;
 
         this.setFinalizarPartida();
@@ -122,11 +117,6 @@ export class Veintiuno extends Juego {
 
         if (ganador === "Jugador") {
             this.pagarApuesta(this.apuesta * 2);
-           /*
-            let juegosGanados: number;
-            juegosGanados += this.jugador.getJuegosGanados();
-            this.jugador.setJuegosGanados (juegosGanados);
-            */
         }
 
         return ganador;
@@ -142,7 +132,7 @@ export class Veintiuno extends Juego {
     }
 
     private sumatoriaValores (): void {
-        if (this.mano === true) {               // si la mano la tiene el jugador, sumo la última carga que salió a la sumatoria de sus cartas, incremento en 1 la cantidad de cartas utilizadas por el jugador            
+        if (this.mano === true) { // si la mano la tiene el jugador, sumo la última carga que salió a la sumatoria de sus cartas, incremento en 1 la cantidad de cartas utilizadas por el jugador            
             this.sumatoriaValoresJugador += this.ultimaCarta;
             this.cantidadCartas += 1;
         } else {            
@@ -162,77 +152,55 @@ export class Veintiuno extends Juego {
         } else {
             return `🤷 Hubo un empate entre el jugador y la máquina, ambos obtuvieron un total de ${this.sumatoriaValoresJugador}, en ${this.cantidadCartas} tiradas.`
         }
-
-
     }
 
     public jugar(): void {
-        let continuar: boolean; 
-        //let continuar: string = "S";
-        //let apuesta: number;
-        let apuestaValida: boolean;
-
-        console.log(" ")
-        console.warn("Dinero disponible del usuario: " + this.jugador.obtenerSaldo());
-        console.log(" ")
-        console.error(this.mostrarDatosVeintiuno());
-        console.log(" ")
+        let continuar: boolean = true; 
+        this.mostrarInfoComienzoJuego();
         
-        //movido a Apostar. Usa la logica de aca. Apostar devuelve boolean
-        //do { 
-            // apuesta = rs.questionInt("Ingrese el dinero de la apuesta: ");
-            // apuestaValida = this.apostar();
-            
-            //if(!apuestaValida && this.jugador.obtenerSaldo() < apuesta && this.validarMinimosMaximos(apuesta)){
-                //returnToMainMenu();
-            //}
-            
-        //} while (!apuestaValida);
-
-        apuestaValida = this.apostar();
-
-        console.warn("💸 Dinero disponible del usuario: " + this.jugador.obtenerSaldo());
-
-        if (apuestaValida) {
+        if (this.apostar()) {
             console.log("  ")
             console.error("Presione cualquier tecla para comenzar: ");
             rs.question();            
             
             do {    
-                this.jugarRonda(); //Originalmente se llamaba jugar, cambio de nombre para distinguir el llamado desde el submenu (Jugar)
+                this.jugarRonda(); 
                 if (!this.getFinalizoPartida()) {
                     console.warn(this.mostrarPartida());
                 }
             
                 if (!this.getFinalizoPartida()) {
-                    continuar = this.preguntarSiContinua();
-
-                    // PreguntarSiContinua lo tome de aca, es lo mismo q abajo
-                    // do { 
-                    //     continuar = rs.question("Desea tirar nuevamente: S/N? ");
-                    //     // chequeo que ingrese una opción válida
-                    // } while (!["s", "n"].includes(continuar.toLowerCase()))        
+                    continuar = this.preguntarSiContinua();                 
                 }       
+
             } while ((continuar) && !this.getFinalizoPartida());   
             
-            //misma logica original pero con un boolean
-            //} while ((continuar.toLowerCase() == "s") && !this.getFinalizoPartida())
                 
             // chequeo si salió porque el usuario no quiso continuar
-            
             if (!continuar) { 
                 this.detenerPartida(1);
             }
 
-            //misma logica original pero con un boolean
-            // if (continuar.toLowerCase() == "n") {    
-            //     this.detenerPartida(1);
-            // }
+            if(this.preguntarSiContinua()){
+                this.restablecerJuego();
+                this.jugar();    
+            } else {
+                console.log("🎮 Ha Finalizado tu partida 🎮 ");
+            } 
             
-            console.warn("Dinero final del usuario: " + this.jugador.obtenerSaldo());
-            console.log(" ");
-            console.error("🎮 Presione cualquier tecla para continuar: ");
-            rs.question();
+        } else {
+            if(this.verifcarBilletera()){
+                this.jugar();
+            }
         }
+    } 
+
+    private restablecerJuego(): void{
+        this.sumatoriaValoresJugador = 0;
+        this.sumatoriaValoresMaquina = 0;
+        this.cantidadCartas = 0;
+        this.ultimaCarta = 0;
+        this.mano = true;
+        this.finalizoPartida = false;
     }
 }
