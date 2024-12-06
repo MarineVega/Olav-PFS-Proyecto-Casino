@@ -1,0 +1,5 @@
+DIAGRAMA DE CLASES UML
+https://lucid.app/lucidchart/a592d125-2ba8-4e8b-9923-1f44731cbbae/edit?viewport_loc=-3021%2C-2069%2C3107%2C1352%2C0_0&invitationId=inv_e8776004-27b0-4cea-a0aa-16b416479b5c
+
+PRUEBAS DE ESCRITORIO
+https://docs.google.com/spreadsheets/d/1Fp7mrN3XtQEhARMjN5X6PnN1ztCcIxAp/edit?gid=2084465545#gid=2084465545
