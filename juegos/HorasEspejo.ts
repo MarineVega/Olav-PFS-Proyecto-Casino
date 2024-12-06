@@ -54,6 +54,7 @@ export class HorasEspejo extends Juego {
         minutos = Math.floor(Math.random() * 60); // Minutos entre 0 y 59
         const horaFormateada = hora < 10 ? `0${hora}` : `${hora}`;
         const minutosFormateados = minutos < 10 ? `0${minutos}` : `${minutos}`;
+        
         return `${horaFormateada}:${minutosFormateados}`;
     }
     //JUEGA EL TURNO
@@ -64,7 +65,7 @@ export class HorasEspejo extends Juego {
 
         // Condición de victoria especial
         if (horaFormateada === "00:00") {
-            dinero = this.apuesta * 10;
+            dinero = this.getApuesta() * 10;
             console.log(`🎉 ¡${quienJuega === 'jugador' ? 'El jugador' : 'La máquina'} GANA con 🕛"00:00"🎉!`);
 
             if (quienJuega === 'jugador') {
@@ -73,7 +74,7 @@ export class HorasEspejo extends Juego {
                 this.intentosJugador = 0;
                 this.intentosMaquina = 0;
             } else {
-                this.puntosAcumuladosMaquina += puntos;
+                this.puntosAcumuladosMaquina += this.puntosMayor;
                 this.intentosJugador = 0;
                 this.intentosMaquina = 0;
             }
@@ -128,11 +129,11 @@ export class HorasEspejo extends Juego {
                 if (this.intentosMaquina > 0) {
                     this.jugarTurno('maquina');
                 } else {
-                    console.log("La máquina ya no tiene intentos restantes.");
+                    //console.log("La máquina ya no tiene intentos restantes.");
                 }
     
                 if (this.intentosJugador > 0){
-                    console.log("Presione una tecla para continuar..., 🍀suerte!!");
+                    console.log("Presione una tecla para continuar..., 🍀Suerte!!");
                     readline.question();
                 }
 
@@ -172,17 +173,20 @@ export class HorasEspejo extends Juego {
 
         if (this.puntosAcumulados > this.puntosAcumuladosMaquina) {
             console.log("🎉🥂 ¡¡¡GANASTE!!! 🥂🎉");
-            this.pagarApuesta(this.apuestaMinima * 2);
+            this.pagarApuesta(this.getApuesta() * 2);
 
         } else if (this.puntosAcumulados < this.puntosAcumuladosMaquina) {
             console.log("🤖 ¡La máquina gana!");
+            console.log(`Saldo final en tu Billetera:💲${this.jugador.obtenerSaldo()}`);
+            
+                       
 
         } else {
             console.log("🤗¡Es un empate!, recuperaste tu apuesta");
-            this.pagarApuesta(this.apuesta)
+            this.pagarApuesta(this.getApuesta())
 
         }
-
+        
     }
 
     public restablecerJuego(): void {

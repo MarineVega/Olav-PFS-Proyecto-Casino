@@ -125,7 +125,7 @@ export abstract class Juego implements Apuesta{
             
         console.clear();
 
-        return sigueJugando === 's' ? true : false;
+        return sigueJugando.toLowerCase() === 's' ? true : false;
     }
 
     //Verificaciones

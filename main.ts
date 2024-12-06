@@ -251,83 +251,18 @@ function juegoTragamonedaPremiun(): void {
 
 // ___________________ Jugar Veintiuno _______________________________________
 
-/* PLANTILLA. VER METODOS mostrarInfoComienzoJuego Y mostrarInfoCobroEntrada EN CLASE JUEGO
-como se usan en horas espejo o en tragamonedas
 function juegoVeintiuno(): void {
-    const apuMin=2500;
-    const apuMax=25000
+    const apuMin=1000;
+    const apuMax=5000;
 
     let reglamento: string = leerIntruccionesArchivo(rutaVeintiuno);
 
-    const veintiuno: Veintiuno = new Veintiuno("Juego Veintiuno", reglamento, 1000, 5000, usuarioActual);
+    const veintiuno: Veintiuno = new Veintiuno("Juego Veintiuno", reglamento, apuMin, apuMax, usuarioActual);
 
-    subMenuJuego(tragamonedaPremium);
+    subMenuJuego(veintiuno);
     
     returnToMainMenu();
 } 
-*/
-
-function juegoVeintiuno(): void {
-    let continuar: string = "S";
-    let apuesta: number;
-    let apuestaValida: boolean;
-
-    let reglamento: string = leerIntruccionesArchivo(rutaVeintiuno);
-
-    const partida1: Veintiuno = new Veintiuno("Juego Veintiuno", reglamento, 1000, 5000, usuarioActual);
-
-    console.log(" ")
-    console.warn("Dinero disponible del usuario: " + usuarioActual.obtenerSaldo());
-    console.log(" ")
-    console.error(partida1.mostrarDatosVeintiuno());
-    console.log(" ")
-    
-    do {
-        apuesta = rs.questionInt("Ingrese el dinero de la apuesta: ");
-        apuestaValida = partida1.apostar();
-        
-        if(!apuestaValida && usuarioActual.obtenerSaldo() < apuesta && partida1.validarMinimosMaximos(apuesta)){
-            returnToMainMenu();
-        }
-        
-    } while (!apuestaValida);
-
-    console.warn("💸 Dinero disponible del usuario: " + usuarioActual.obtenerSaldo());
-
-    if (apuestaValida) {
-        console.log("  ")
-        console.error("Presione cualquier tecla para comenzar: ");
-        rs.question();            
-        
-        do {    
-            partida1.jugar();
-            if (!partida1.getFinalizoPartida()) {
-                console.warn(partida1.mostrarPartida());
-            }
-        
-            if (!partida1.getFinalizoPartida()) {
-                do { //COPIADO A JUEGO, (preguntarSiContinua()) GRACIAS MARI :D
-                    continuar = rs.question("Desea tirar nuevamente: S/N? ");
-                    // chequeo que ingrese una opción válida
-                } while (!["s", "n"].includes(continuar.toLowerCase()))        
-            }  
-        } while ((continuar.toLowerCase() == "s") && !partida1.getFinalizoPartida())
-            
-            
-        // chequeo si salió porque el usuario no quiso continuar
-        if (continuar.toLowerCase() == "n") {    
-            partida1.detenerPartida(1);
-        }
-        
-        console.warn("Dinero disponible del usuario: " + usuarioActual.obtenerSaldo());
-        console.log(" ");
-        console.error("🎮 Presione cualquier tecla para comenzar: ");
-        rs.question();
-    }
-    
-    returnToMainMenu();
-}
-
 
 //_________________ Jugar HorasEspejo Vs Maquina _______________________________________
 
